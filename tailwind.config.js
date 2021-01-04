@@ -1,10 +1,11 @@
 module.exports = {
-    corePlugins: {
-        container: false
-    },
+    corePlugins: {},
     purge: ['./pages/**/*.tsx', './components/**/*.tsx'],
     darkMode: false, // or 'media' or 'class'
     theme: {
+        container: {
+            center: true
+        },
         fontFamily: {
             display: [
                 '-apple-system',
@@ -61,23 +62,5 @@ module.exports = {
     variants: {
         extend: {}
     },
-    plugins: [
-        function ({ addComponents }) {
-            addComponents({
-                '.container': {
-                    maxWidth: '100%',
-                    '@screen sm': {
-                        maxWidth: '37.5rem',
-                        margin: '0 auto'
-                    },
-                    '@screen md': {
-                        maxWidth: '43,75rem'
-                    },
-                    '@screen lg': {
-                        maxWidth: '50rem'
-                    }
-                }
-            });
-        }
-    ]
+    plugins: []
 };

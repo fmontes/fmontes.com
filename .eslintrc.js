@@ -35,6 +35,7 @@ module.exports = {
                 argsIgnorePattern: '^_$'
             }
         ],
+        'react/react-in-jsx-scope': 'off',
         'react/self-closing-comp': 'warn',
         'react-hooks/rules-of-hooks': 'warn',
         'react-hooks/exhaustive-deps': 'warn',

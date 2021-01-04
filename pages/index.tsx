@@ -9,7 +9,7 @@ export default function Home(): JSX.Element {
                 <link href="/favicon.ico" rel="icon" />
             </Head>
 
-            <main className="container p-5">
+            <main className="sm:col-span-2">
                 <h1>How to manage Angular state in your components</h1>
                 <p>
                     <time>July 21, 2020</time>
