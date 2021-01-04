@@ -7,6 +7,10 @@
             sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     }
 
+    h1, h2, h3, h4 {
+        @apply text-gray-800;
+    }
+
     h1 {
         @apply text-2xl font-bold sm:text-4xl;
     }
@@ -26,7 +30,7 @@
     p,
     ul,
     ol {
-        @apply my-5;
+        @apply my-5 text-gray-700;
     }
 
     li {
