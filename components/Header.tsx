@@ -15,8 +15,8 @@ function Header(): JSX.Element {
                     />
                 </div>
                 <div>
-                    <h3 className="font-bold tracking-tight m-0 leading-snug">Freddy Montes</h3>
-                    <p className="mt-0 mb-2">
+                    <h3 className="font-bold tracking-tight m-0 text-xl">Freddy Montes</h3>
+                    <p className="mt-0 mb-3">
                         Frontend Developer with a graphic design degree. UX/UI and Javascript
                         crafter. <a href="/about-me">More</a>
                     </p>

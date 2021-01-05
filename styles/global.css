@@ -29,8 +29,15 @@
 
     p,
     ul,
+    ol,
+    time {
+        @apply text-gray-700;
+    }
+
+    p,
+    ul,
     ol {
-        @apply my-5 text-gray-700;
+        @apply my-5;
     }
 
     li {
