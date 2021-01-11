@@ -18,9 +18,10 @@
             "@components/*": ["components/*"],
             "@models/*": ["models"],
             "@services/*": ["services/*"],
-            "@styles/*": ["styles/*"]
+            "@styles/*": ["styles/*"],
+            "@utils/*": ["utils/*"]
         }
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/Date.js"],
     "exclude": ["node_modules"]
 }

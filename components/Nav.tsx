@@ -1,20 +1,24 @@
+import useTranslation from '@utils/i18n';
+
 function Nav(): JSX.Element {
+    const t = useTranslation();
+
     return (
         <nav className="flex flex-wrap mt-4 lg:flex-col">
             <a className="nav__link" href="#">
-                Blog
+                {t('home')}
             </a>
             <a className="nav__link" href="#">
-                Uses
+                {t('uses')}
             </a>
             <a className="nav__link" href="#">
-                Portfolio
+                {t('portfolio')}
             </a>
             <a className="nav__link" href="#">
-                Talks
+                {t('talks')}
             </a>
             <a className="nav__link" href="#">
-                Contact
+                {t('contact')}
             </a>
         </nav>
     );

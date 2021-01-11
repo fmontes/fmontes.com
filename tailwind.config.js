@@ -3,9 +3,7 @@ module.exports = {
     purge: ['./pages/**/*.tsx', './components/**/*.tsx'],
     darkMode: false, // or 'media' or 'class'
     theme: {
-        container: {
-            center: true
-        },
+        container: false,
         fontFamily: {
             display: [
                 '-apple-system',
@@ -62,5 +60,20 @@ module.exports = {
     variants: {
         extend: {}
     },
-    plugins: []
+    plugins: [
+        function ({ addComponents }) {
+            addComponents({
+                '.container': {
+                    margin: '0 auto',
+                    maxWidth: '100%',
+                    '@screen sm': {
+                        maxWidth: '768px'
+                    },
+                    '@screen md': {
+                        maxWidth: '1024px'
+                    }
+                }
+            });
+        }
+    ]
 };

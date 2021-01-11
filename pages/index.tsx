@@ -10,7 +10,7 @@ export default function Home(): JSX.Element {
                 <link href="/favicon.ico" rel="icon" />
             </Head>
 
-            <main className="grid gap-6 sm:grid-cols-2 2xl:grid-cols-3">
+            <main className="grid gap-6 sm:grid-cols-2">
                 <BlogItem />
                 <BlogItem />
                 <BlogItem />

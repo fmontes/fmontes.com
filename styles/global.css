@@ -7,24 +7,30 @@
             sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     }
 
-    h1, h2, h3, h4 {
-        @apply text-gray-800;
+    h1 {
+        @apply text-xl font-bold sm:text-2xl tracking-tight text-gray-600;
     }
 
-    h1 {
-        @apply text-2xl font-bold sm:text-4xl;
+    h1:first-child {
+        @apply mt-0;
     }
 
     h2 {
-        @apply text-xl sm:text-3xl;
+        @apply text-lg sm:text-xl text-gray-600 ;
     }
 
     h3 {
-        @apply text-lg sm:text-2xl;
+        @apply text-base sm:text-lg font-bold;
     }
 
     h4 {
-        @apply font-bold;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        @apply text-gray-800 mb-2 mt-10 leading-tight;
     }
 
     p,
@@ -38,6 +44,21 @@
     ul,
     ol {
         @apply my-5;
+    }
+
+    h1 + p,
+    h1 + ul,
+    h1 + ol,
+    h2 + p,
+    h2 + ul,
+    h2 + ol,
+    h3 + p,
+    h3 + ul,
+    h3 + ol,
+    h4 + p,
+    h4 + ul,
+    h4 + ol {
+        @apply mt-0;
     }
 
     li {
@@ -55,6 +76,91 @@
     .nav__link {
         @apply p-2;
     }
+}
+
+.main pre {
+    @apply bg-gray-100 border border-gray-300 p-2 overflow-auto rounded-md;
+}
+
+.main code {
+    @apply text-gray-800;
+}
+
+.main img {
+    /* Don't apply styles to next/image */
+    @apply m-0;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    /* @apply text-gray-700 dark:text-gray-300; */
+    @apply text-gray-700;
+}
+
+.token.punctuation {
+    @apply text-gray-700;
+    /* @apply text-gray-700 dark:text-gray-300; */
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+    @apply text-green-500;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+    @apply text-purple-500;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+    @apply text-yellow-500;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+    @apply text-blue-500;
+}
+
+.token.function,
+.token.class-name {
+    @apply text-pink-500;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+    @apply text-yellow-500;
+}
+
+code[class*='language-'],
+pre[class*='language-'] {
+    /* @apply text-gray-800 dark:text-gray-50; */
+    @apply text-gray-800;
+}
+
+pre::-webkit-scrollbar {
+    display: none;
+}
+
+pre {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
 }
 
 @tailwind components;
