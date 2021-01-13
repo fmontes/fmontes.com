@@ -1,0 +1,58 @@
+---
+title: Dealing with dynamic images in Gatsby
+date: '2020-05-04T22:22:31.284Z'
+description: 'When you need to show images from the file system dynamically you need to be clever and sometimes system files is not enough.'
+---
+
+Showing images from Gatsby file system is very easy with a combination of GraphQL and [gatsby-image](https://www.gatsbyjs.org/packages/gatsby-image/), but... there is a catch.
+
+The problem is when you get the image names dynamically from a data source or CMS and you can't know in advance (build time) the name to do the queries in GraphQL because you can't use interpolate variables in GraphQL queries in Gatsby [right now](https://github.com/gatsbyjs/gatsby/issues/5069).
+
+I've [seen](https://noahgilmore.com/blog/easy-gatsby-image-components/) [some](https://stackoverflow.com/a/56508865) [solutions](https://codebushi.com/using-gatsby-image/) which basically consist in query ALL the files and then inside the component match the name of the one you want to show.
+
+This approach works like a charm when you don’t have many images but, in my case, there was ~800. Since Gatsby save the all the GraphQL queries result in a `page-data.json` file which can get really big really fast. For example, here is a comparison of a file with ~800 images and no images:
+
+### Gatsby JSON file with ~800 images
+<Image src="/images/dynamic-gatsby-images-an-anternative/page-data-compare-01.jpg" alt="page-data-compare-01" width="904" height="106" />
+
+### No Images
+<Image src="/images/dynamic-gatsby-images-an-anternative/page-data-compare-02.jpg" alt="page-data-compare-02" width="904" height="106" />
+
+### My solution
+Even though I tried anything I can think of using local images on Gatsby I wasn't able to get an acceptable solution for my case so I decided to go another route, an image hosting service and I picked Cloudinary.
+
+Cloudinary is a service to host media but you can't apply transformations like resize, crop and even change the format when you serve them, all this by building a URL with parameters.
+
+I uploaded all the images to Cloudinary using their Web UI, just drag and drop and I was up and running with my custom folder structure.
+
+After that I created a simple React component which takes: name, category and image size and it built Cloudinary URL and the last touch: LazyLoad, never forget to LazyLoad your images, for this I just used [react-lazy-load-image-component](https://www.npmjs.com/package/react-lazy-load-image-component), the final code:
+
+```javascript
+import React from 'react'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+
+const getCloudinaryImageUrl = ({ category, name, size }) =>
+    `https://res.cloudinary.com/CLOUDINARY_CLOUD/image/upload/f_auto,q_auto,c_pad,w_${size},h_${size}/lapulpe/${category}/${name}`
+
+const CloudinaryImage = ({ category, name, size }) => {
+    const url = getCloudinaryImageUrl({ category, name, size })
+    return (
+        <LazyLoadImage
+            style={{ marginBottom: '0' }}
+            alt={name}
+            height={size}
+            src={url}
+            width={size}
+        />
+    )
+}
+
+export default CloudinaryImage
+```
+
+### The result
+
+1. Less build time since Gatsby doesn't have to process the images
+2. Much smaller JSON bundle
+3. No extra GraphQL queries
+4. Being able to publish new images without having to rebuild

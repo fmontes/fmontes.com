@@ -61,9 +61,25 @@
         @apply mt-0;
     }
 
-    li {
-        @apply list-disc list-inside;
+    ol, ul {
+        @apply ml-5;
     }
+
+    li {
+        @apply list-outside my-2;
+    }
+
+    ol li {
+        @apply list-decimal;
+    }
+
+    ul li {
+        @apply list-disc;
+    }
+
+    li ul, li ol {
+        @apply my-0;
+    } 
 
     a {
         @apply text-blue-600 underline;
