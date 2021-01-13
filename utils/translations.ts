@@ -10,7 +10,7 @@ export default {
     },
     es: {
         bio:
-            'Soy un desarrollador y diseñador de Javascript de Costa Rica. Aprendo y enseño todo sobre Tecnologías y Diseño Web.',
+            'Soy un Javascript Developer y diseñador de Costa Rica. Aprendo y enseño todo sobre Tecnologías y Diseño Web.',
         home: 'Inicio',
         uses: 'Usa',
         portfolio: 'Portafolio',
