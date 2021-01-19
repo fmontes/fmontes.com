@@ -26,6 +26,7 @@ export type MatterContent = {
     title: string;
     date: string;
     description: string;
+    slug: string;
     category?: string;
 };
 
@@ -57,10 +58,11 @@ export const getPostsSortedByDate = (locale: string): MatterContent[] => {
     if (!fs.existsSync(fullPath)) {
         return [];
     }
-    const allPosts = fs.readdirSync(fullPath).map((p) => {
-        const content = fs.readFileSync(path.join(fullPath, p), 'utf8');
+    const allPosts = fs.readdirSync(fullPath).map((itemPath) => {
+        const content = fs.readFileSync(path.join(fullPath, itemPath), 'utf8');
         const frontMatter = matter(content).data;
-        return frontMatter;
+        const slug = itemPath.replace(/\.mdx/, '');
+        return { ...frontMatter, slug };
     });
 
     return (allPosts as MatterContent[]).sort((postA, postB) => (postA.date < postB.date ? 1 : -1));
@@ -93,5 +95,5 @@ export const getContent = async (slug: string, locale: string): Promise<PageCont
         }
     });
 
-    return { mdxSource, frontMatter: data };
+    return { mdxSource, frontMatter: { ...data, slug } };
 };
