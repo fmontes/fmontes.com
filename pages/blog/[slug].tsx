@@ -57,5 +57,7 @@ export const getStaticProps: GetStaticProps = async ({
 }: GetStaticPropsContext<ParsedUrlQuery>) => {
     const content = await getContent(params.slug as string, locale);
 
-    return content;
+    return {
+        props: { content }
+    };
 };

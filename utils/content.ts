@@ -16,12 +16,16 @@ interface Slugs {
 }
 
 type PageContent = {
-    props: {
-        mdxSource: MdxRemote.Source;
-        frontMatter: {
-            [key: string]: string;
-        };
+    mdxSource: MdxRemote.Source;
+    frontMatter: {
+        [key: string]: string;
     };
+};
+
+export type MatterContent = {
+    title: string;
+    date: string;
+    description: string;
 };
 
 const getAllFileNames = (folder: string, filesList = []): string[] => {
@@ -44,6 +48,21 @@ const getAllFileNames = (folder: string, filesList = []): string[] => {
     const filteredList = filesList.filter((file) => file.includes('.mdx'));
 
     return filteredList;
+};
+
+export const getPostsSortedByDate = (locale: string): MatterContent[] => {
+    const fullPath = path.join(FOLDER_POST, `${locale}/`);
+
+    if (!fs.existsSync(fullPath)) {
+        return [];
+    }
+    const allPosts = fs.readdirSync(fullPath).map((p) => {
+        const content = fs.readFileSync(path.join(fullPath, p), 'utf8');
+        const frontMatter = matter(content).data;
+        return frontMatter;
+    });
+
+    return (allPosts as MatterContent[]).sort((postA, postB) => (postA.date < postB.date ? 1 : -1));
 };
 
 export const getPostsSlugs = (): Slugs[] => {
@@ -73,5 +92,5 @@ export const getContent = async (slug: string, locale: string): Promise<PageCont
         }
     });
 
-    return { props: { mdxSource, frontMatter: data } };
+    return { mdxSource, frontMatter: data };
 };
