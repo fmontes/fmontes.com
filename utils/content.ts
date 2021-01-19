@@ -26,6 +26,7 @@ export type MatterContent = {
     title: string;
     date: string;
     description: string;
+    category?: string;
 };
 
 const getAllFileNames = (folder: string, filesList = []): string[] => {
