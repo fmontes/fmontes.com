@@ -6,13 +6,13 @@ tags: nextjs, instagram, react
 category: 'nextjs'
 ---
 
-Showing your Instagram Photos in your website (or your client's) allows your to funnel some traffic from your webapp to your Instagram Account and visa versa. Instagram is a great way to connect with your audience and build up your online brand.
+Showing your Instagram Photos on your website (or your client's) allows you to funnel some traffic from your web app to your Instagram account and vice versa. Instagram is a great way to connect with your audience and build up your online brand.
 
-In this post I will show you an example on how to show your last Instagram Posts in your NextJS webapp.
+This post will show you an example of how to show your last Instagram Posts in your NextJS web app.
 
 ### Start a Next.JS project
 
-Let's start code, first let's initialize a NextJS project. Using `create-next-app`, which sets up everything automatically for you. **Open your Terminal** and run:
+Let's start code. First, let's initialize a NextJS project. Using `create-next-app`, which sets up everything automatically for you. **Open your Terminal** and run
 
 ```shell
 npx create-next-app
@@ -32,7 +32,7 @@ This will start your development server in `http://localhost:3000`, open the bro
 
 ### Add Instagram Web API Package
 
-To fetch the Instagram Post we are going to use the an npm package named: `instagram-web-api`. We need to install the package:
+To fetch the Instagram Post, we will use an npm package named: `instagram-web-api`. We need to install the package:
 
 ```shell
 npm install instagram-web-api --save
@@ -70,9 +70,9 @@ Now your page should look like this:
 
 ### Fetching and rendering Instagram Posts
 
-To obtain better performance and SEO we are going to use Static Generated Pages: The HTML is generated at build time and will be reused on each request.
+To obtain better performance and SEO, we will use Static Generated Pages: The HTML is generated at build time and reused on each request.
 
-To fetch data at build time we need to export a function `getStaticProps` in our `pages/index.js`
+To fetch data at build time, we need to export a function `getStaticProps` in our `pages/index.js`
 
 ```diff
  import Head from 'next/head';
@@ -118,13 +118,13 @@ To fetch data at build time we need to export a function `getStaticProps` in our
 +}
 ```
 
-To fetch the post from Instagram we have need 3 steps:
+To fetch the post from Instagram, we have needed three steps:
 
 1. Create the Instagram client
 2. Login to Instagram
 3. Fetch the data by username.
 
-After we just need to return the posts as props and we receive them in the `Home` React component and we jusr render it.
+After we need to return the posts as props and receive them in the `Home` React component, we render it.
 
 ### Add Styles
 
