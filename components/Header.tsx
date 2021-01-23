@@ -1,5 +1,6 @@
 import useTranslation from '@utils/i18n';
 import Image from 'next/image';
+import Link from 'next/link';
 import Nav from './Nav';
 import Translate from './Translate';
 
@@ -11,17 +12,19 @@ function Header(): JSX.Element {
     return (
         <>
             <header>
-                <div className="flex items-center mb-2">
-                    <div className="flex-shrink-0 mr-4">
-                        <Image
-                            className="rounded-full"
-                            height={60}
-                            src="/images/avatar.jpg"
-                            width={60}
-                        />
-                    </div>
-                    <h3 className="font-bold tracking-tight m-0 text-xl">Freddy Montes</h3>
-                </div>
+                <Link href="/">
+                    <a className="flex items-center mb-2 no-underline">
+                        <div className="flex-shrink-0 mr-4">
+                            <Image
+                                className="rounded-full"
+                                height={60}
+                                src="/images/avatar.jpg"
+                                width={60}
+                            />
+                        </div>
+                        <h3 className="font-bold tracking-tight m-0 text-xl">Freddy Montes</h3>
+                    </a>
+                </Link>
                 <div>
                     <p className="mt-0 mb-6">
                         {t('bio')} <a href="/about-me">{t('more')}</a>
