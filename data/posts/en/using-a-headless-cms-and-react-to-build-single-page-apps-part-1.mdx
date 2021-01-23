@@ -9,13 +9,13 @@ category: 'react'
 
 ## Headless What?
 
-A headless CMS system allows users to control all the content, with strict separation from the display or front-end layers. This allows content creators to focus on what they do best: create high-quality content. A headless CMS architecture empowers marketers and developers to work together to deliver engaging customers experiences. One notable use case for headless CMSs today is creating [Single Page Applications](https://www.google.com/url?q=https://dotcms.com/blog/post/what-is-a-single-page-application-and-should-you-use-one-&sa=D&ust=1551819373872000) (SPA). SPAs deliver more dynamic user experiences, similar to what you might expect from a native mobile application or desktop application, making them very popular with today's customers.
+A headless CMS system allows users to control all the content, with strict separation from the display or front-end layers. Allows content creators to focus on what they do best: create high-quality content. A headless CMS architecture empowers marketers and developers to work together to deliver engaging customer experiences. One notable use case for headless CMSs today is creating [Single Page Applications](https://www.google.com/url?q=https://dotcms.com/blog/post/what-is-a-single-page-application-and-should-you-use-one-&sa=D&ust=1551819373872000) (SPA). SPAs deliver more dynamic user experiences, similar to what you might expect from a native mobile application or desktop application, making them very popular with today's customers.
 
-In this piece, I'll walk you through how to use a headless CMS and React to build a SPA, using the headless capabilities of [dotCMS](https://www.google.com/url?q=https://dotcms.com/product/features/headless-cms&sa=D&ust=1551819373872000), an enterprise, open source Java CMS. If you want to jump right into the code, here is the repo: [https://github.com/fmontes/dotcms-page](https://www.google.com/url?q=https://github.com/fmontes/dotcms-page&sa=D&ust=1551819373873000)
+In this piece, I'll walk you through how to use a headless CMS and React to build a SPA, using the headless capabilities of [dotCMS](https://www.google.com/url?q=https://dotcms.com/product/features/headless-cms&sa=D&ust=1551819373872000), an enterprise, open-source Java CMS. If you want to jump right into the code, here is the repo: [https://github.com/fmontes/dotcms-page](https://www.google.com/url?q=https://github.com/fmontes/dotcms-page&sa=D&ust=1551819373873000)
 
 ## Creating Pages and Layouts From dotCMS's APIs
 
-Almost all headless CMSs on the market have APIs that can be used to distribute various content types to any device or touchpoint; however, what I really like about dotCMS is that you can create pages templates and layouts via its API. This is dotCMS's Layout-as-a-Service, which opens the door for:
+Almost all headless CMSs on the market have APIs that can be used to distribute various content types to any device or touchpoint; however, what I like about dotCMS is that you can create pages templates and layouts via its API. This is dotCMS's Layout-as-a-Service, which opens the door for:
 
 - Designers and content editors to update not only the content in a page, but the layout of the page itself, including the sidebar, header, footer, columns, and rows of any individual page.
 
@@ -67,13 +67,13 @@ The response for the [Page API](https://www.google.com/url?q=https://dotcms.com/
 - Site
 - Template
 
-To build a page with React, we'll take into account the layout, containers, and the page contentlets.
+To build a page with React, we'll consider the layout, containers, and the page contentlets.
 
 ### Layout
 
 This object tells us how to render the page, how many rows and columns, what size, offset, etc. Once we have all the information of the rows, columns, containers, and sidebar, we'll use that information to create React components and build our page.
 
-Please note that this object doesn't contain the content of the page, we'll add that in another section of the page object.
+Please note that this object doesn't contain the content of the page. We'll add that in another section of the page object.
 
 Let's take a look at this example of a Layout object:
 
@@ -127,12 +127,12 @@ interface Layout {
 Now, let's go over the properties we'll be using to create our page using React components:
 
 - `header` and `footer`: used to show or hide the header or footer.
-- `body.rows`: this property has all the rows, columns and containers, we will iterate over and render. This object is the representation of the layout of our page.
+- `body.rows`: this property has all the rows, columns, and containers, we will iterate over and render. This object is the representation of the layout of our page.
 - `body.rows.columns`: each column contains all the grid information, like the width and the offset of the column as well as the containers inside it. With this information, we'll be able to add any CSS class based on the column width or offset. Since dotCMS is framework agnostic, you can use any CSS Framework, CSS grids or Flexbox.
 - `body.rows.columns.containers`: with the container identifier and uuid we can get all the page content.
-- `sidebar.location`: values can be left, right or empty, which represents NO sidebar.
+- `sidebar.location`: values can be left, right or empty, representing NO sidebar.
 - `sidebar.width`: values can be small, medium or large. Based on this value, we can set CSS class and style the size of the sidebar accordingly.
-- `sidebar.containers`: is the same as in columns, we'll use identifier and uuid to get the content.
+- `sidebar.containers`: is the same as in columns, and we'll use identifier and uuid to get the content.
 
 ### Containers
 
