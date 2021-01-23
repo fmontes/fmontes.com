@@ -19,15 +19,17 @@ This article will walk you through the process of using Gatsby alongside dotCMS,
 
 ## What is Gatsby?
 
-Gatsby defines themselves as "a blazing fast modern site generator for React" and yes, the generated sites are fast out of the box.
+Gatsby defines themselves as "a blazing fast, modern site generator for React" and yes, the generated sites are fast out of the box.
 
-Gatsby's rich data plugin ecosystem lets you build sites with the data you want from one or many sources: Pull data from headless CMSs (like [dotCMS](https://dotcms.com)), SaaS services, APIs (like the [dotCMS content API](https://dotcms.com/docs/latest/content-api)) and the allows you to bring the data into your page using [GraphQL](https://graphql.org/).
+Gatsby's rich data plugin ecosystem lets you build sites with the data you want from one or many sources:
+
+Pull data from headless CMSs (like [dotCMS](https://dotcms.com)), SaaS services, APIs (like the [dotCMS content API](https://dotcms.com/docs/latest/content-api)) and the allows you to bring the data into your page using [GraphQL](https://graphql.org/).
 
 ## Static-Site Generator Benefits
 
 ### Security
 
-No databases and the code injection threat is close to none.
+No databases, and the code injection threat is close to none.
 
 ### Reliability
 
@@ -35,11 +37,11 @@ You can serve HTML files everywhere.
 
 ### Speed
 
-Regular static sites are fast (again no database or backend) and with Gatsby + React they are even faster.
+Regular static sites are fast (again, no database or backend), and with Gatsby + React they are even faster.
 
 ### Scalability
 
-No need for complexity on the server as static websites with HTML files can be easily scaled up by just increasing the bandwidth.
+Server as static websites with HTML files can be easily scaled up by increasing the bandwidth.
 
 ## Static-Site Generator Limitations
 
@@ -84,7 +86,7 @@ Note: You can replace "dotcms-site" with the name you want for your project.
 
 1. Created a new site with the Gatsby default starter.
 2. Created a folder with the name of the project (dotcms-site).
-3. Install all the npm packages that needs to run the site.
+3. Install all the npm packages that need to run the site.
 4. Made your life easier!
 
 ### Let's Run Our New Gatsby Site:
@@ -99,15 +101,15 @@ Browse into the folder of your project.
 $ gatsby develop
 ```
 
-This command starts a development server. You will be able to see and interact with your new site in a development environment. Also, it has live reload, so any changes you do in your files you can see immediately in your site.
+This command starts a development server. You will be able to see and interact with your new site in a development environment. It has also live reload, so any changes you make in your files you can see immediately in your site.
 
-Now open a browser and go to _http://localhost:8000_ and if everything went well you should something like:
+Now open a browser and go to _http://localhost:8000_ and if everything went well, you should something like:
 
 <Image src="/images/building-a-website-with-gatsby-and-a-headless-cms-part-1/gatsby-starter-site-hi-people.png" width="800" height="767" alt="Gatsby Hello World" />
 
 ## To Get Data, You Need a Source Plugin
 
-Gatsby has a plugin system, in order to get data you need what they call a "Source Plugin." Source plugins "source" data from remote or local locations into what Gatsby calls [nodes](https://www.gatsbyjs.org/docs/node-interface/).
+Gatsby has a plugin system. In order to get data, you need what they call a "Source Plugin." Source plugins "source" data from remote or local locations into what Gatsby calls [nodes](https://www.gatsbyjs.org/docs/node-interface/).
 
 Think of a node as the exact equivalent of a [contentlet in dotCMS](https://dotcms.com/docs/latest/content). So if you are showing products, every product object you pull from your headless CMS is a Gatsby node.
 
