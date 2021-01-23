@@ -1,7 +1,7 @@
 ---
 title: Using a Headless CMS and React to Build Single Page Apps - Part 2
 date: '2019-03-19'
-description: Let's create the page component and add content by using the REST API, we'll be able to create rows and colums.
+description: Let's create the page component and add content by using the REST API, and we'll be able to create rows and columns.
 category: 'react'
 ---
 
@@ -35,7 +35,7 @@ class App extends Component {
 export default App
 ```
 
-Then, clean up the default content that is in the generated React app and replace it with the recently created `<Page />` component (for more information, see the [commit](https://www.google.com/url?q=https://github.com/fmontes/dotcms-page/commit/7ad154916c86a84d950bfcd88f13c8e268d3a13a&sa=D&ust=1551819373892000)). So now in your browser you should see:
+Then, clean up the default content that is in the generated React app and replace it with the recently created `<Page />` component (for more information, see the [commit](https://www.google.com/url?q=https://github.com/fmontes/dotcms-page/commit/7ad154916c86a84d950bfcd88f13c8e268d3a13a&sa=D&ust=1551819373892000)). So now in your browser, you should see:
 
 <Image src="/images/using-a-headless-cms-and-react-to-build-single-page-apps-part-2/hello-im-a-page.png" alt="Basic empty page" width="800" height="628" />
 
@@ -75,9 +75,9 @@ class App extends Component {
 }
 ```
 
-The [Page API in dotCMS](https://www.google.com/url?q=https://dotcms.com/docs/latest/page-rest-api-layout-as-a-service-laas&sa=D&ust=1551819373897000) works doing a `GET` request to the URL `/api/v1/page/json/` and passing the path to the page we want, in this case `about-us`.
+The [Page API in dotCMS](https://www.google.com/url?q=https://dotcms.com/docs/latest/page-rest-api-layout-as-a-service-laas&sa=D&ust=1551819373897000) works making a `GET` request to the URL `/api/v1/page/json/` and passing the path to the page we want, in this case `about-us`.
 
-Using the [fetch API](https://www.google.com/url?q=https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API&sa=D&ust=1551819373898000), we do the request to the endpoint and get a response from the page object. This will be assigned to the state of the component that will then be passed down as `props` to the `<Page />` component where the "render chain" of rows, columns, containers, and contentlets will start. Check the [commit](https://www.google.com/url?q=https://github.com/fmontes/dotcms-page/commit/d5ba85dafb62cdb5e4ab3a05a4daedf76df41440&sa=D&ust=1551819373899000) for more information.
+Using the [fetch API](https://www.google.com/url?q=https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API&sa=D&ust=1551819373898000), we request the endpoint and get a response from the page object. The response is assigned to the state of the component will then be passed down as `props` to the `<Page />` component where the "render chain" of rows, columns, containers, and contentlets will start. Check the [commit](https://www.google.com/url?q=https://github.com/fmontes/dotcms-page/commit/d5ba85dafb62cdb5e4ab3a05a4daedf76df41440&sa=D&ust=1551819373899000) for more information.
 
 **Note** that the dotCMS Page API needs authorization. In this case, we used 'e use', an inline Authorization header property in the fetch, but there are other methods to attain authorization. Check [dotCMS documentation](https://www.google.com/url?q=https://dotcms.com/docs/latest/rest-api-authentication&sa=D&ust=1551819373899000) for more information.
 
@@ -135,7 +135,7 @@ import React from 'react';
 };
 ```
 
-Here we iterate over the `rows` inside the `layout.body` we receive via `props` and for each one we render a `<Row />` component. Full code of this change is in this [commit](https://www.google.com/url?q=https://github.com/fmontes/dotcms-page/commit/63bd89cf30c9a057277c2ae4836d7e1ac68e24bf&sa=D&ust=1551819373908000).
+Here we iterate over the `rows` inside the `layout.body` we receive via `props,` and we render a `<Row />` component for each one. The full code of this change is in this [commit](https://www.google.com/url?q=https://github.com/fmontes/dotcms-page/commit/63bd89cf30c9a057277c2ae4836d7e1ac68e24bf&sa=D&ust=1551819373908000).
 
 ### Preparing Columns With Full Data
 
@@ -171,7 +171,7 @@ We'll export a function named `getUpdatedColumns` that receives:
 1. The columns of a row.
 2. The full containers list of the page object.
 
-And return a new array of columns with the full container information extracted from the container list that was matched by the identifier and contentlets in the uuid.
+And return a new array of columns with the full container information extracted from the container list matched by the identifier and contentlets in the uuid.
 
 Doing this will allow us to pass the list of columns with all the containers and contentlets inside, which is easier to manage down the component tree.
 
@@ -322,13 +322,13 @@ import { Row as BtRow } from 'reactstrap';
 };
 ```
 
-We then map the columns array and render a `<Column />` component for each and pass the column object. If all is good, you should see this in your browser:
+We then map the columns array, render a `<Column />` component for each, and pass the column object. If all is good, you should see this in your browser:
 
 <Image src="/images/using-a-headless-cms-and-react-to-build-single-page-apps-part-2/im-a-column.png" alt="Rendering columns" width="800" height="610" />
 
-At this point, we have the rows and columns rendering correctly but we're not passing the width of the column, let's fix that.
+At this point, we have the rows and columns rendering correctly, but we're not passing the width of the column; let's fix that.
 
-Because each `<Column />` component has a column object, you will see a column `width` property. We'll just need to pass that to the reactstrap column component [according to the documentation](https://www.google.com/url?q=http://reactstrap.github.io/components/layout/&sa=D&ust=1551819373929000):
+Because each `<Column />` component has a column object, you will see a column `width` property. We'll need to pass that to the reactstrap column component [according to the documentation](https://www.google.com/url?q=http://reactstrap.github.io/components/layout/&sa=D&ust=1551819373929000):
 
 ```diff
 diff --git a/src/components/Column.js b/src/components/Column.js
@@ -376,7 +376,7 @@ const Container = (props) => {
 export default Container
 ```
 
-As you can see, in the `<Container />` component we map over the contentlets inside the container and render a `<Contentlet />` for each one.
+As you can see, in the `<Container />` component, we map over the contentlets inside the container and render a `<Contentlet />` for each one.
 
 And now we have to use our new ```<Container /> \*\*component. Open the `src/components/Column.js` and add the following:
 
@@ -406,15 +406,15 @@ Now that we have all the structure of the page rendered - the chain of `Page > R
 
 <Image src="/images/using-a-headless-cms-and-react-to-build-single-page-apps-part-2/im-a-contentlet.png" alt="Rendering contentlets" width="800" height="607" />
 
-Finally, to see all the render page chain done, view the [commit](https://www.google.com/url?q=https://github.com/fmontes/dotcms-page/commit/9b817e8bde15ef180d7a455aef7eb80aa28205c3&sa=D&ust=1551819373938000).
+Finally, to see all the render page chains done, view the [commit](https://www.google.com/url?q=https://github.com/fmontes/dotcms-page/commit/9b817e8bde15ef180d7a455aef7eb80aa28205c3&sa=D&ust=1551819373938000).
 
 ### Contentlet Information
 
-Each contentlet has its own fields based on the content type that they belong to. Let's use those fields to render the contentlets accordingly.
+Each contentlet has its fields based on the content type that they belong to. Let's use those fields to render the contentlets accordingly.
 
 You can check the [documentation for content types in dotCMS](https://www.google.com/url?q=https://dotcms.com/docs/latest/content-types&sa=D&ust=1551819373939000) for more information.
 
-In this page we have three content types:
+On this page, we have three content types:
 
 1. Generic content
 2. Widget
@@ -431,7 +431,7 @@ const ContentGeneric = (props) => {
 export default ContentGeneric
 ```
 
-This component is simple, just show the `body` field from the generic content type that is in HTML code in a `<div>`.
+This component is simple. Just show the `body` field from the generic content type in HTML code in a `<div>`.
 
 We also need a Calendar Event component. Create a file in `src/components/Event.js` and add the following code:
 
@@ -483,13 +483,13 @@ export default class SimpleWidget extends Component {
 }
 ```
 
-Because the Simple Widget is dynamic and the content can change, dotCMS doesn't send the HTML in the response, but there is a [Widget API](https://www.google.com/url?q=https://dotcms.com/docs/latest/widget-api&sa=D&ust=1551819373947000) where you can get the HTML and render it into the component, which is exactly what we did here:
+Because the Simple Widget is dynamic and the content can change, dotCMS doesn't send the HTML in the response, but there is a [Widget API](https://www.google.com/url?q=https://dotcms.com/docs/latest/widget-api&sa=D&ust=1551819373947000) where you can get the HTML and render it into the component, which is precisely what we did here:
 
 1. Create a state in the component.
 2. Fetch the widget HTML in the componentDidMount.
 3. Set the state and render the HTML.
 
-To finish, we need to show any of the contentlet components we just created depending on the content type. To do this, edit the `src/components/Contentlet.js`
+To finish, we need to show any of the contentlet components we just created, depending on the content type. To do this, edit the `src/components/Contentlet.js`
 
 ```diff
 diff --git a/src/components/Contentlet.js b/src/components/Contentlet.js
@@ -521,7 +521,7 @@ import React from 'react';
 +    return <Component {...props} />;
 ```
 
-What we did here was we created a function that receives the `type` of contentlet and returns a specific React Component based on that string, which could be `ContentGeneric`, `SimpleWidget` or `Event`, at least for this page. Then we render that component and pass the contentlet so we can render any of content we need.
+What we did here was we created a function that receives the `type` of contentlet and returns a specific React Component based on that string, which could be `ContentGeneric`, `SimpleWidget` or `Event`, at least for this page. Then we render that component and pass the contentlet so we can render any of the content we need.
 
 And that's it! In the end, you should see something like this:
 
@@ -531,4 +531,4 @@ Here is the final [commit](https://www.google.com/url?q=https://github.com/fmont
 
 ## Headless CMS + React = A Win-Win for Single Page App Developement
 
-The [headless capabilities](https://dotcms.com/product/features/headless-cms) of dotCMS not only allows you to render content in a Single Page App but also non-dev users can control the layout of each page and the developer can jump in and create really specific web apps without too much hassle.
+The [headless capabilities](https://dotcms.com/product/features/headless-cms) of dotCMS allows you to render content in a Single Page App, and non-dev users can control the layout of each page. The developer can jump in and create web apps without too much hassle.
