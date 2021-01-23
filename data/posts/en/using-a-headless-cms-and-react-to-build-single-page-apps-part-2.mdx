@@ -521,7 +521,7 @@ import React from 'react';
 +    return <Component {...props} />;
 ```
 
-What we did here was we created a function that receives the `type` of contentlet and returns a specific React Component based on that string, which could be `ContentGeneric`, `SimpleWidget` or `Event`, at least for this page. Then we render that component and pass the contentlet so we can render any of the content we need.
+What we did here was we created a function that receives the `type` of contentlet and returns a specific React Component based on that string, which could be `ContentGeneric`, `SimpleWidget` or `Event`, at least for this page. Then we render that component and pass the contentlet to render any of the content we need.
 
 And that's it! In the end, you should see something like this:
 
@@ -531,4 +531,4 @@ Here is the final [commit](https://www.google.com/url?q=https://github.com/fmont
 
 ## Headless CMS + React = A Win-Win for Single Page App Developement
 
-The [headless capabilities](https://dotcms.com/product/features/headless-cms) of dotCMS allows you to render content in a Single Page App, and non-dev users can control the layout of each page. The developer can jump in and create web apps without too much hassle.
+The [headless capabilities](https://dotcms.com/product/features/headless-cms) of dotCMS allows you to render content in a Single Page App non-dev users can control the layout of each page. The developer can jump in and create web apps without too much hassle.
