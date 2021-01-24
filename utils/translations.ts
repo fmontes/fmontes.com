@@ -1,6 +1,7 @@
 export default {
     en: {
-        bio: `I'm a Javascript Developer and Designer from Costa Rica. I learn and teach everything about Web Technologies and Design.`,
+        title: 'Freddy Montes - Frontend Developer and Designer. Learning, coding and teaching',
+        bio: `I'm a Frontend Developer and designer. I learn and teach everything about Web Technologies and Design.`,
         home: 'Home',
         uses: 'Uses',
         portfolio: 'Portfolio',
@@ -9,8 +10,10 @@ export default {
         more: 'More'
     },
     es: {
+        title:
+            'Freddy Montes - Frontend Developer and Diseñador. Aprendiendiendo, programando y enseñando',
         bio:
-            'Soy un Javascript Developer y diseñador de Costa Rica. Aprendo y enseño todo sobre Tecnologías y Diseño Web.',
+            'Soy un Frontend Developer y diseñador. Aprendo y enseño todo sobre Tecnologías y Diseño Web.',
         home: 'Inicio',
         uses: 'Usa',
         portfolio: 'Portafolio',

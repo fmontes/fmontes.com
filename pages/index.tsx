@@ -1,9 +1,8 @@
-import React from 'react';
-import Head from 'next/head';
-import BlogItem from '@components/BlogItem';
-import { GetStaticProps, GetStaticPropsContext } from 'next';
-import { ParsedUrlQuery } from 'querystring';
 import { getPostsSortedByDate, MatterContent } from '@utils/content';
+import { ParsedUrlQuery } from 'querystring';
+import { GetStaticProps, GetStaticPropsContext } from 'next';
+
+import BlogItem from '@components/BlogItem';
 
 type Props = {
     posts: MatterContent[];
@@ -12,11 +11,6 @@ type Props = {
 export default function Home({ posts }: Props): JSX.Element {
     return (
         <>
-            <Head>
-                <title>@fmontes</title>
-                <link href="/favicon.ico" rel="icon" />
-            </Head>
-
             <main className="grid gap-6 sm:grid-cols-2">
                 {posts.map((post: MatterContent, i: number) => (
                     <BlogItem key={i} {...post} />

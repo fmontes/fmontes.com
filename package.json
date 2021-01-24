@@ -16,6 +16,7 @@
         "mdx-prism": "^0.3.1",
         "next": "^10.0.4",
         "next-mdx-remote": "^2.0.1",
+        "next-seo": "^4.17.0",
         "npm-check-updates": "^10.2.5",
         "postcss": "^8.2.2",
         "react": "^17.0.1",

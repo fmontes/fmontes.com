@@ -28,6 +28,7 @@ export type MatterContent = {
     description: string;
     slug: string;
     category?: string;
+    canonical_url?: string;
 };
 
 const getAllFileNames = (folder: string, filesList = []): string[] => {

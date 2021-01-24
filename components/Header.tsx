@@ -17,9 +17,9 @@ function Header(): JSX.Element {
                         <div className="flex-shrink-0 mr-4">
                             <Image
                                 className="rounded-full"
-                                height={60}
+                                height={AVATAR_SIZE}
                                 src="/images/avatar.jpg"
-                                width={60}
+                                width={AVATAR_SIZE}
                             />
                         </div>
                         <h3 className="font-bold tracking-tight m-0 text-xl">Freddy Montes</h3>
