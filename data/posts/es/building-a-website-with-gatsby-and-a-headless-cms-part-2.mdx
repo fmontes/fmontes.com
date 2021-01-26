@@ -1,6 +1,6 @@
 ---
-título: La construcción de un sitio web con Gatsby y un CMS sin cabeza - Parte 2
-fecha: '2019-01-09'
+title: La construcción de un sitio web con Gatsby y un CMS sin cabeza - Parte 2
+date: '2019-01-09'
 description: 'Ahora empezamos a construir el plugin fuente de Gatsby para obtener los datos y crear las páginas.'
 categoría: 'gatsby'
 ---
@@ -83,7 +83,7 @@ const processContentlet = (contentlet) => {
 
 El trabajo de esta función es recibir un contentlet dotCMS y devolver un [Nodo Gatsby](https://www.gatsbyjs.org/docs/node-interface/) extendiéndolo con un [operador de propagación](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax). La estructura básica del nodo es la siguiente
 
-``typescript
+```typescript
 interface BasicNode {
     id: String;
     children: Array[String];

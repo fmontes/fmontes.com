@@ -1,10 +1,10 @@
 ---
-title: Cómo gestionar el estado de Angular en sus componentes
+title: 'Cómo gestionar el estado de Angular en sus componentes'
 date: '2020-11-27'
 description: 'En este tutorial, explicaré cómo gestionar el estado de tus componentes con @ngrx/component-store.'
 tags: angular, javascript
 canonical_url: https://indepth.dev/posts/1408/how-to-manage-angular-state-in-your-components
-categoría: 'angular'
+category: 'angular'
 ---
 
 Actualizado el 3 de diciembre de 2020
@@ -150,13 +150,13 @@ La aplicación tendrá una UI con tres secciones:
 
 El primer paso es crear una nueva aplicación Angular. Con [angular-cli](https://cli.angular.io/). Abre un terminal, ejecuta el comando
 
-``shell
+```shell
 ng new parking-lot-app
 ```
 
 Iniciamos la aplicación que hemos creado:
 
-``shell
+```shell
 cd parking-lot-app
 ng serve
 ```
@@ -429,7 +429,7 @@ Es bastante código, así que os lo explicaré por partes y empezaré por los se
 
 Para crear un selector, se utiliza el método `select` de la siguiente manera:
 
-``typescript
+```typescript
 readonly vm$: Observable<ParkingState> = this.select(state => state);
 ```
 

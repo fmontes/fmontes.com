@@ -6,6 +6,7 @@ import BlogIcon from '@components/BlogIcon';
 
 function BlogItem({ title, date, description, category, slug }: MatterContent): JSX.Element {
     const { locale } = useRouter();
+
     return (
         <article className="border-gray-200 border-solid border-2 hover:bg-blue-50 duration-200 hover:shadow-lg transition-all transform hover:scale-105 hover:-translate-y-1">
             <Link href={`/blog/${slug}`} locale={locale}>
