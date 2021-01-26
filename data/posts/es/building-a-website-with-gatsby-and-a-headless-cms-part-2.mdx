@@ -1,15 +1,15 @@
 ---
-title: Building a Website With Gatsby and a Headless CMS - Part 2
-date: '2019-01-09'
-description: 'Now we start bulding the Gatsby source plugin to get the data and create the pages.'
-category: 'gatsby'
+título: La construcción de un sitio web con Gatsby y un CMS sin cabeza - Parte 2
+fecha: '2019-01-09'
+description: 'Ahora empezamos a construir el plugin fuente de Gatsby para obtener los datos y crear las páginas.'
+categoría: 'gatsby'
 ---
 
-**This is a two part series blog post, [here is the first part](/blog/building-a-website-with-gatsby-and-a-headless-cms-part-1).**
+**Esta es una serie de dos partes del blog, [aquí está la primera parte](/blog/building-a-website-with-gatsby-and-a-headless-cms-part-1).**
 
-## Writing the Gatsby Plugin
+## Escribiendo el plugin de Gatsby
 
-Open the `/gatsby-source-dotcms/gatsby-node.js` file and replace the code with the following:
+Abre el archivo `/gatsby-source-dotcms/gatsby-node.js` y reemplaza el código con lo siguiente
 
 ```javascript
 const dotCMSApi = require('./dotcms-api');
@@ -17,10 +17,10 @@ const dotCMSApi = require('./dotcms-api');
 exports.sourceNodes = ({ actions, createNodeId }, configOptions) => {
     const { createNode } = actions;
 
-    // Gatsby adds a configOption that's not needed for this plugin, delete it
-    delete configOptions.plugins;
+    // Gatsby añade una configOption que no es necesaria para este plugin, elimínala
+    borrar configOptions.plugins;
 
-    // Helper function that processes a contentlet to match Gatsby's node structure
+    // Función de ayuda que procesa un contentlet para que coincida con la estructura de nodos de Gatsby
     const processContentlet = (contentlet) => {
         const nodeId = createNodeId('dotcms-${contentlet.contentType}-${contentlet.inode}');
         const nodeContent = JSON.stringify(contentlet);
@@ -38,15 +38,15 @@ exports.sourceNodes = ({ actions, createNodeId }, configOptions) => {
         return nodeData;
     };
 
-    // Gatsby expects sourceNodes to return a promise
+    // Gatsby espera que sourceNodes devuelva una promesa
     return dotCMSApi
         .getContentlets(configOptions)
         .then((contentlets) => {
-            // Process the response data into a node
+            // Procesa los datos de la respuesta en un nodo
             contentlets.forEach((contentlet) => {
-                // Process each contentlet data to match the structure of a Gatsby node
+                // Procesa los datos de cada contentlet para que coincidan con la estructura de un nodo Gatsby
                 const nodeData = processContentlet(contentlet);
-                // Use Gatsby's createNode helper to create a node from the node data
+                // Utiliza el ayudante de Gatsby createNode para crear un nodo a partir de los datos del nodo
                 createNode(nodeData);
             });
         });
@@ -54,13 +54,13 @@ exports.sourceNodes = ({ actions, createNodeId }, configOptions) => {
 
 ```
 
-Let's go over the new code.
+Repasemos el nuevo código.
 
 ```javascript
 const dotCMSApi = require('./dotcms-api');
 ```
 
-First of all, you imported the dotCMS API you created.
+En primer lugar, has importado la API de dotCMS que has creado.
 
 ```javascript
 const processContentlet = (contentlet) => {
@@ -70,9 +70,9 @@ const processContentlet = (contentlet) => {
         ...contentlet,
         id: nodeId,
         parent: null,
-        children: [],
-        internal: {
-            type: `DotCMS${contentlet.contentType}`,
+        hijos: [],
+        interno: {
+            tipo: `DotCMS${contentlet.contentType}`,
             content: nodeContent,
             contentDigest: JSON.stringify(contentlet)
         }
@@ -81,105 +81,105 @@ const processContentlet = (contentlet) => {
 };
 ```
 
-The job of this function is to receive a dotCMS contentlet and return a [Gatsby Node](https://www.gatsbyjs.org/docs/node-interface/) by extending it with a [spread operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax). The basic node structure looks like:
+El trabajo de esta función es recibir un contentlet dotCMS y devolver un [Nodo Gatsby](https://www.gatsbyjs.org/docs/node-interface/) extendiéndolo con un [operador de propagación](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax). La estructura básica del nodo es la siguiente
 
-```typescript
+``typescript
 interface BasicNode {
     id: String;
     children: Array[String];
     parent: String;
-    // Reserved for plugins who wish to extend other nodes.
+    // Reservado para plugins que deseen extender otros nodos.
     fields: Object;
     internal: {
-        contentDigest: String;
-        // Optional media type (https://en.wikipedia.org/wiki/Media_type) to indicate
-        // to transformer plugins this node has data they can further process.
+        contentDigest: Cadena;
+        // Tipo de medio opcional (https://en.wikipedia.org/wiki/Media_type) para indicar
+        // a los plugins transformadores que este nodo tiene datos que pueden procesar posteriormente.
         mediaType: String;
-        // A globally unique node type chosen by the plugin owner.
+        // Un tipo de nodo globalmente único elegido por el propietario del plugin.
         type: String;
-        // The plugin which created this node.
+        // El plugin que creó este nodo.
         owner: String;
-        // Stores which plugins created which fields.
-        fieldOwners: Object;
-        // Optional field exposing the raw content for this node
-        // that transformer plugins can take and further process.
-        content: String;
-        //...other fields specific to this type of node
+        // Almacena qué plugins crearon qué campos.
+        fieldOwners: Objeto;
+        // Campo opcional que expone el contenido bruto de este nodo
+        // que los plugins transformadores pueden tomar y procesar.
+        content: Cadena;
+        //...otros campos específicos para este tipo de nodo
     };
 }
 ```
 
-#### Gatsby expects sourceNodes to return a promise
+#### Gatsby espera que sourceNodes devuelva una promesa
 
 ```javascript
 return dotCMSApi
     .getContentlets(configOptions)
     .then((contentlets) => {
-        // Process the response data into a node
+        // Procesa los datos de la respuesta en un nodo
         contentlets.forEach((contentlet) => {
-            // Process each contentlet data to match the structure of a Gatsby node
+            // Procesa los datos de cada contentlet para que coincidan con la estructura de un nodo Gatsby
             const nodeData = processContentlet(contentlet);
-            // Use Gatsby's createNode helper to create a node from the node data
+            // Utiliza el ayudante de Gatsby createNode para crear un nodo a partir de los datos del nodo
             createNode(nodeData);
         });
     });
 
 ```
 
-The final piece of the puzzle is to return a Promise of processed Gatsby nodes. You used the dotCMSApi library to `getContentlets` and convert each one of those contentlets you got into a node.
+La última pieza del puzzle es devolver una Promesa de nodos Gatsby procesados. Has utilizado la librería dotCMSApi para `getContentlets` y convertir cada uno de los contentlets que has obtenido en un nodo.
 
-## Trying Our Fancy New Plugin
+## Probando nuestro nuevo plugin
 
-Edit your `gatsby-config.js` and update the entry for gatsby-source-dotcms:
+Edita tu `gatsby-config.js` y actualiza la entrada para gatsby-source-dotcms:
 
 ```javascript
 {
-    resolve: 'gatsby-source-dotcms',
-    options: {
+    resolver: 'gatsby-source-dotcms',
+    opciones: {
         host: {
-            protocol: 'http',
+            protocolo: 'http',
             url: 'localhost: 8080',
             identifier: '48190c8c-42c4-46af-8d1a-0cd5db894797'
         },
-        credentials: {
-            email: 'admin@dotcms.com',
-            password: 'admin'
+        credenciales: {
+            correo electrónico: 'admin@dotcms.com',
+            contraseña: 'admin'
         }
     }
 };
 ```
 
-NOTE: This configuration is set for a dotCMS instance running in localhost:8080, make sure you point this values to an actual running dotCMS instance.
+NOTA: Esta configuración se establece para una instancia de dotCMS que se ejecuta en localhost:8080, asegúrese de apuntar estos valores a una instancia real de dotCMS en ejecución.
 
-Now, from the root of your project, run the following in your terminal:
+Ahora, desde la raíz de su proyecto, ejecute lo siguiente en su terminal:
 
 ```
 $ gatsby develop
 ```
 
-If everything went well you should see:
+Si todo ha ido bien deberías ver
 
 <Image src="/images/building-a-website-with-gatsby-and-a-headless-cms-part-2/gatsby-done.png" width="435" height="61" alt="Gatsby Done Alert" />
 
-### Querying DotCMS Data With GraphQL
+### Consulta de datos de DotCMS con GraphQL
 
-Every time you run `$ gatsby develop` you get this:
+Cada vez que ejecutas `$ gatsby develop` obtienes esto:
 
-If you go to http://localhost:8000/___graphql_ in your browser, you will get a web app that allows you to run [GraphQL](https://graphql.org/) queries and make sure all DotCMS content is there. It will look like this:
+Si vas a http://localhost:8000/___graphql_ en tu navegador, obtendrás una aplicación web que te permite ejecutar consultas [GraphQL](https://graphql.org/) y asegurarte de que todo el contenido de DotCMS está ahí. Tendrá el siguiente aspecto:
 
 <Image src="/images/building-a-website-with-gatsby-and-a-headless-cms-part-2/graphql.png" width="815" height="482" alt="GraphiQL" />
 
-## How to Generate Pages
+## Cómo generar páginas
 
-Note: As I mentioned before, Gatsby use [React.js](https://reactjs.org/) to build pages and components. Is this tutorial, I am assuming you are familiar with this library*.*
+Nota: Como he mencionado antes, Gatsby utiliza [React.js](https://reactjs.org/) para construir páginas y componentes. Es este tutorial, estoy asumiendo que usted está familiarizado con esta biblioteca.
 
-So you have all our dotCMS content ready to use. Let's create some pages.
+Así que tienes todo nuestro contenido dotCMS listo para usar. Vamos a crear algunas páginas.
 
-You can create pages in Gatsby explicitly by defining React components in src/pages/, or programmatically by using the createPages API.
+Puedes crear páginas en Gatsby explícitamente definiendo componentes React en src/pages/, o programáticamente usando la API createPages.
 
-### Create a News Listing Page
+### Crear una página de listado de noticias
 
-By default, Gatsby creates a `src/pages/page-2.js` file. Let's rename that file to `src/pages/news.js` and then replace the code with:
+Por defecto, Gatsby crea un archivo `src/pages/page-2.js`. Cambiemos el nombre de ese archivo a `src/pages/news.js` y sustituyamos el código por
 
 ```javascript
 import React from 'react';
@@ -188,30 +188,30 @@ import Layout from '../components/layout';
 
 const NewsPage = () => (
     <Layout>
-        <h1>News list</h1>
-        <p>Here we will show a news list</p>
-        <Link to="/">Go back to the homepage</Link>
+        <h1>Lista de noticias</h1>
+        <p>Aquí mostraremos una lista de noticias</p>
+        <Link to="/">Volver a la página principal</Link>
     </Layout>
 );
 
-export default NewsPage;
+exportar NewsPage por defecto;
 ```
 
-This is very simple React.js code you just created a component that will print out plain HTML.
+Este es un código React.js muy sencillo con el que acabas de crear un componente que imprimirá HTML plano.
 
-To see this page, go to your terminal and run:
+Para ver esta página, ve a tu terminal y ejecuta
 
 `$ gatsby develop`
 
-And then open your browser to _http://localhost:8000/news_ and you should see:
+Y luego abre tu navegador a _http://localhost:8000/news_ y deberías ver:
 
 <Image src="/images/building-a-website-with-gatsby-and-a-headless-cms-part-2/gatsby-default-starter.png" width="815" height="712" alt="Gatsby Default Starter" />
 
 ### Bring the dotCMS Contentlets
 
-Okay, now is a good time to use the source plugin you built before. You're going to query all the contentlets of the content type "News" and put them in the page.
+Bien, ahora es un buen momento para usar el plugin fuente que construiste antes. Vas a consultar todos los contentlets del tipo de contenido "Noticias" y ponerlos en la página.
 
-Once again, edit `src/pages/news.js` and add the following code:
+Una vez más, edita `src/pages/news.js` y añade el siguiente código:
 
 ```javascript
 import React from 'react';
@@ -251,13 +251,13 @@ export default NewsPage;
 
 ```
 
-Let's go over this new code.
+Repasemos este nuevo código.
 
 ```javascript
 import { graphql } from 'gatsby'
 ```
 
-You need to import GraphQL so you can use it to query the contentlets. Gatsby's GraphQL [tag](https://www.gatsbyjs.org/docs/page-query#how-does-the-graphql-tag-work) enables page components to retrieve data via a GraphQL query.
+Necesitas importar GraphQL para poder utilizarlo para consultar los contentlets. La [etiqueta] GraphQL de Gatsby (https://www.gatsbyjs.org/docs/page-query#how-does-the-graphql-tag-work) permite a los componentes de la página recuperar datos a través de una consulta GraphQL.
 
 ```javascript
 const NewsPage = ({ data }) => (
@@ -277,7 +277,7 @@ const NewsPage = ({ data }) => (
 );
 ```
 
-Finally, you just print out the data you get from the GraphQL query.
+Finalmente, sólo tienes que imprimir los datos que obtienes de la consulta GraphQL.
 
 ```javascript
 export const query = graphql`
@@ -295,15 +295,15 @@ export const query = graphql`
 `;
 ```
 
-Here, the "magic" of getting the data to happen is a simple GraphQL query to get all the dotCMS News items. In this case, you asked for the field: lead, title, and urlTitle. If everything went well, you should see something like:
+En este caso, la "magia" para conseguir los datos es una simple consulta GraphQL para obtener todos los elementos de dotCMS News. En este caso, has pedido el campo: lead, title y urlTitle. Si todo ha ido bien, deberías ver algo como:
 
 <Image src="/images/building-a-website-with-gatsby-and-a-headless-cms-part-2/gatsby-default-starter-2.png" alt="Gatsby Default Starter" width="815" height="748" />
 
-### Creating News Detail Pages
+### Creación de páginas de detalles de noticias
 
-You have a list of news, now let's create a detail page for each news item in dotCMS. I know that's sound like a ton of work, but with Gatsby you can programmatically create pages from data: basically, you can tell Gatsby, here is a collection of news, create a page for each item using this template (another React component).
+Tienes una lista de noticias, ahora vamos a crear una página de detalle para cada noticia en dotCMS. Sé que suena como una tonelada de trabajo, pero con Gatsby puedes crear páginas programáticamente a partir de los datos: básicamente, puedes decirle a Gatsby, aquí hay una colección de noticias, crea una página para cada artículo usando esta plantilla (otro componente de React).
 
-Edit your `gatsby-node.js` file and add the following code:
+Edita tu archivo `gatsby-node.js` y añade el siguiente código:
 
 ```javascript
 const path = require('path');
@@ -350,15 +350,15 @@ exports.createPages = ({ graphql, actions }) => {
 
 ```
 
-What is this code doing?
+¿Qué hace este código?
 
-First, at all, this code will be running at build time, all these pages will be generated once when you build Gatsby, so if new a contentlet is added to dotCMS, you need to build and deploy your Gatsby site in order to get that content.
+En primer lugar, este código se ejecutará en tiempo de construcción, todas estas páginas se generarán una vez cuando construyas Gatsby, por lo que si se añade un nuevo contentlet a dotCMS, necesitas construir y desplegar tu sitio Gatsby con el fin de obtener ese contenido.
 
 ```javascript
 const path = require(`path`)
 ```
 
-This is the implementation of the `createPages` API which Gatsby calls so plugins can add pages. By exporting createPages from a gatsby-node.js file, you're saying, "at this point in the bootstrapping sequence, run this code.
+Esta es la implementación de la API `createPages` que Gatsby llama para que los plugins puedan añadir páginas. Al exportar createPages desde un archivo gatsby-node.js, estás diciendo, "en este punto de la secuencia de arranque, ejecuta este código.
 
 ```javascript
 graphql(`
@@ -378,7 +378,7 @@ graphql(`
 `);
 ```
 
-The same as you did with the listing page, here is another GraphQL query to get all the dotCMS news contentlets, the only difference is that you're asking for more fields.
+Igual que hiciste con la página del listado, aquí tienes otra consulta GraphQL para obtener todos los contentlets de noticias de dotCMS, la única diferencia es que estás pidiendo más campos.
 
 ```javascript
 .then((result) => {
@@ -397,17 +397,17 @@ The same as you did with the listing page, here is another GraphQL query to get 
 });
 ```
 
-Once the GraphQL query resolves, you have access to all the news items, and you can iterate over and create a page for each item; but you need to pass an object to the `createPage` function:
+Una vez que la consulta GraphQL se resuelve, tienes acceso a todas las noticias, y puedes iterar y crear una página para cada artículo; pero necesitas pasar un objeto a la función `createPage`:
 
-1.  path: the URL where the generated page will be created. In this case, it will be news/page-url-title. You use the `urlTitle` field from the contentlet to create the path, but, whatever you use, needs to be unique, because this will be the name of the HTML generated file and thus the URL of the page.
-2.  component: this is where you tell Gatsby which template you will be using to create each page (you will create this in the next step).
-3.  context: this is an object that you are passing to the GraphQL query that will be in the template component.
+1. path: la URL donde se creará la página generada. En este caso, será news/page-url-title. Se utiliza el campo `urlTitle` del contentlet para crear la ruta, pero, sea cual sea la que utilices, tiene que ser única, porque será el nombre del archivo HTML generado y, por tanto, la URL de la página.
+2. component: aquí es donde le dices a Gatsby qué plantilla vas a utilizar para crear cada página (lo crearás en el siguiente paso).
+3. context: es un objeto que se pasa a la consulta GraphQL que estará en el componente de la plantilla.
 
-Finally, you call `resolve()` for the Promise returning in the implementation of the `createPages` function.
+Finalmente, se llama a `resolve()` para la Promise que retorna en la implementación de la función `createPages`.
 
-### Creating the Template
+### Creación de la plantilla
 
-A template is just a regular React.js component, so let's create a file in `src/templates/news-item.js` (like you set in the path property of the createPage param) and add the following code:
+Una plantilla es un componente normal de React.js, así que vamos a crear un archivo en `src/templates/news-item.js` (como el que has establecido en la propiedad path del parámetro createPage) y añadir el siguiente código:
 
 ```javascript
 import React from 'react'
@@ -438,13 +438,13 @@ export const query = graphql`
 `
 ```
 
-Let's go over this code
+Repasemos este código
 
 ```javascript
 export default ({ data }) => {
 ```
 
-Before you get the data to use in the page, you get it as a prop in the component.
+Antes de obtener los datos para usarlos en la página, los obtienes como un prop en el componente.
 
 ```html
 <Layout>
@@ -453,7 +453,7 @@ Before you get the data to use in the page, you get it as a prop in the componen
 </Layout>
 ```
 
-You print out the content of the news item on the page.
+Imprime el contenido de la noticia en la página.
 
 ```javascript
 export const query = graphql`
@@ -470,50 +470,50 @@ export const query = graphql`
 `
 ```
 
-Here is in the GraphQL query. Everything is almost the same as the other queries with the difference that you're matching one news item by `urlTitle` and the `$slug` param, which is what you pass in the context object in the params of the `createPage` function in the gatsby-node.js
+Aquí está en la consulta GraphQL. Todo es casi lo mismo que las otras consultas con la diferencia de que estás coincidiendo con una noticia por `urlTitle` y el parámetro `$slug`, que es lo que pasas en el objeto context en los params de la función `createPage` en el gatsby-node.js
 
-Now we can build our pages, we just need to run:
+Ahora podemos construir nuestras páginas, sólo necesitamos ejecutarlas:
 
 ```bash
 $ gatsby develop
 ```
 
-Right now you don't have links to the recently created links, but you can use the `urlTitle` field from the contentlet. Go to: _http://localhost:8080/news/the-gas-price-rollercoaster_ and you should see:
+Ahora mismo no tienes enlaces a los enlaces creados recientemente, pero puedes usar el campo `urlTitle` del contentlet. Vaya a: _http://localhost:8080/news/the-gas-price-rollercoaster_ y debería ver:
 
 <Image src="/images/building-a-website-with-gatsby-and-a-headless-cms-part-2/gatsby-rollercoaster.png" alt="dotCMS Gatsby News Detail" width="815" height="808" />
 
-## Final Touches: Adding Links to Our Listing Page
+## Toques finales: Añadiendo enlaces a nuestra página de anuncios
 
-Go and edit `src/pages/news.js` and:
+Ve y edita `src/pages/news.js` y:
 
-Import the [Link](https://www.gatsbyjs.org/docs/linking-between-pages/) component on the top of the file:
+Importe el componente [Link](https://www.gatsbyjs.org/docs/linking-between-pages/) en la parte superior del archivo:
 
 ```javascript
 import { Link } from 'gatsby'
 ```
 
-Replace this line:
+Sustituye esta línea:
 
 ```html
 <h4>{node.title}</h4>
 ```
 
-With:
+Con:
 
 ```javascript
 <h4><Link to={'news/' + node.urlTitle}>{node.title}</Link></h4>
 ```
 
-In the browser go to _http://localhost:8080/news_ and you should see:
+En el navegador ve a _http://localhost:8080/news_ y deberías ver:
 
 <Image src="/images/building-a-website-with-gatsby-and-a-headless-cms-part-2/gatsby-default-starter-news.png" alt="dotCMS Gatsby News Results" width="815" height="731" />
 
-Now the news list items are linked to the detail page you dynamically created with Gatsby.
+Ahora los elementos de la lista de noticias están vinculados a la página de detalles que has creado dinámicamente con Gatsby.
 
-## Static-Site Generator + Headless CMS = The Perfect Match
+## Generador de sitios estáticos + Headless CMS = La combinación perfecta
 
-And there you have it! You've now used a static-site generator and a headless CMS to build a static website. This is just one example of how these two technologies can combine.
+¡Y ahí lo tienes! Ahora ha utilizado un generador de sitios estáticos y un CMS sin cabeza para construir un sitio web estático. Este es sólo un ejemplo de cómo estas dos tecnologías pueden combinarse.
 
-To recap, we built a Gatsby Source Plugin from scratch, created a listing page, and created a bunch of static HTML pages querying dotCMS data with GraphQL.
+Para recapitular, construimos un plugin de fuente de Gatsby desde cero, creamos una página de listado, y creamos un montón de páginas HTML estáticas consultando datos de dotCMS con GraphQL.
 
-I recommend you take a look [Gatsby Documentation](https://www.gatsbyjs.org/docs/), this is the very basic but you can do so much more, styled components, layouts, pagination, etc.
+Te recomiendo que eches un vistazo a [Gatsby Documentation](https://www.gatsbyjs.org/docs/), esto es lo más básico pero puedes hacer mucho más, componentes con estilo, diseños, paginación, etc.
