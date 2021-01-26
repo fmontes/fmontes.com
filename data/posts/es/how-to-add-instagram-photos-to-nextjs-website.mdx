@@ -1,0 +1,167 @@
+---
+title: How to add Instagram Photos to NextJS website
+date: '2020-10-04'
+description: 'Instagram is a great way to connect with your audience and build up your online brand.'
+tags: nextjs, instagram, react
+category: 'nextjs'
+---
+
+Showing your Instagram Photos on your website (or your client's) allows you to funnel some traffic from your web app to your Instagram account and vice versa. Instagram is a great way to connect with your audience and build up your online brand.
+
+This post will show you an example of how to show your last Instagram Posts in your NextJS web app.
+
+### Start a Next.JS project
+
+Let's start code. First, let's initialize a NextJS project. Using `create-next-app`, which sets up everything automatically for you. **Open your Terminal** and run
+
+```shell
+npx create-next-app
+# or
+yarn create next-app
+```
+
+After the installation is complete, run the app in development mode. Just need to `cd` into the folder and run:
+
+```shell
+yarn dev
+```
+
+This will start your development server in `http://localhost:3000`, open the browser:
+
+<Image src="/images/how-to-add-instagram-photos-to-nextjs-website/001-empty-nextjs.png" alt="NextJS" width="840" height="513" />
+
+### Add Instagram Web API Package
+
+To fetch the Instagram Post, we will use an npm package named: `instagram-web-api`. We need to install the package:
+
+```shell
+npm install instagram-web-api --save
+# or
+yarn add instagram-web-api
+```
+
+### Updaye your home page
+
+By default, Next.js pre-renders every page. This means that Next.js generates HTML for each page in advance, instead of having it all done by client-side JavaScript.
+
+Open the file `pages/index.js` and replace all the code with:
+
+```javascript
+import Head from 'next/head';
+import styles from '../styles/Home.module.css';
+
+export default function Home() {
+    return (
+        <div className={styles.container}>
+            <Head>
+                <title>Instagram Posts</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+
+            <h1>Instagram Posts</h1>
+        </div>
+    );
+}
+```
+
+Now your page should look like this:
+
+<Image src="/images/how-to-add-instagram-photos-to-nextjs-website/002-first-page.png" alt="Instagram Post" width="840" height="513" />
+
+### Fetching and rendering Instagram Posts
+
+To obtain better performance and SEO, we will use Static Generated Pages: The HTML is generated at build time and reused on each request.
+
+To fetch data at build time, we need to export a function `getStaticProps` in our `pages/index.js`
+
+```diff
+ import Head from 'next/head';
+ import styles from '../styles/Home.module.css';
++import Instagram from 'instagram-web-api';
+ 
+-export default function Home() {
++export default function Home({ posts }) {
+     return (
+         <div className={styles.container}>
+             <Head>
+@@ -10,6 +11,31 @@ export default function Home() {
+             </Head>
+ 
+             <h1>Instagram Posts</h1>
++            <ul className={styles.list}>
++                {posts.map(({ node }, i) => {
++                    return (
++                        <li key={i}>
++                            <img src={node.display_resources[0].src} />
++                            <p>{node.edge_media_to_caption.edges[0]?.node.text}</p>
++                        </li>
++                    );
++                })}
++            </ul>
+         </div>
+     );
+ }
++
++export async function getStaticProps(context) {
++    const client = new Instagram({ username: 'INSTAGRAM_USERNAME', password: 'INSTAGRAM_PASSWORD' });
++    await client.login();
++
++    const response = await client.getPhotosByUsername({
++        username: 'INSTAGRAM_USERNAME',
++    });
++
++    return {
++        props: {
++            posts: response.user.edge_owner_to_timeline_media.edges,
++        }, // will be passed to the page component as props
++    };
++}
+```
+
+To fetch the post from Instagram, we have needed three steps:
+
+1. Create the Instagram client
+2. Login to Instagram
+3. Fetch the data by username.
+
+After we need to return the posts as props and receive them in the `Home` React component, we render it.
+
+### Add Styles
+
+Edit your `styles/Home.module.css` and the following code:
+
+```css
+.container {
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.list li {
+    margin-bottom: 4rem;
+    border-bottom: solid 1px lightgray;
+    padding-bottom: 2.5rem;
+}
+
+.list img {
+    max-width: 100%;
+}
+```
+
+### Result
+<Image src="/images/how-to-add-instagram-photos-to-nextjs-website/003-result.png" alt="Instagram Post" width="886" height="1630" />
+
+### More information:
+
+- Repo: [https://github.com/fmontes/nextjs-instagram](https://github.com/fmontes/nextjs-instagram)
+- [instagram-web-api](https://github.com/jlobos/instagram-web-api#api-reference)
+- [NextJS](https://nextjs.org/)
