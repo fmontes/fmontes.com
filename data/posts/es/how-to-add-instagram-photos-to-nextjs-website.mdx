@@ -1,50 +1,50 @@
 ---
-title: How to add Instagram Photos to NextJS website
-date: '2020-10-04'
-description: 'Instagram is a great way to connect with your audience and build up your online brand.'
+title: Cómo añadir fotos de Instagram a la página web de NextJS
+fecha: '2020-10-04'
+description: 'Instagram es una gran manera de conectar con tu audiencia y construir tu marca online.'
 tags: nextjs, instagram, react
-category: 'nextjs'
+categoría: 'nextjs'
 ---
 
-Showing your Instagram Photos on your website (or your client's) allows you to funnel some traffic from your web app to your Instagram account and vice versa. Instagram is a great way to connect with your audience and build up your online brand.
+Mostrar tus fotos de Instagram en tu sitio web (o en el de tu cliente) te permite canalizar parte del tráfico de tu aplicación web a tu cuenta de Instagram y viceversa. Instagram es una gran manera de conectar con tu audiencia y construir tu marca online.
 
-This post will show you an example of how to show your last Instagram Posts in your NextJS web app.
+Este post te mostrará un ejemplo de cómo mostrar tus últimas publicaciones de Instagram en tu aplicación web NextJS.
 
-### Start a Next.JS project
+### Comienza un proyecto Next.JS
 
-Let's start code. First, let's initialize a NextJS project. Using `create-next-app`, which sets up everything automatically for you. **Open your Terminal** and run
+Empecemos a codificar. Primero, vamos a inicializar un proyecto NextJS. Usando `create-next-app`, que configura todo automáticamente por ti. **Abre tu Terminal** y ejecuta
 
-```shell
+``shell
 npx create-next-app
-# or
+# o
 yarn create next-app
 ```
 
-After the installation is complete, run the app in development mode. Just need to `cd` into the folder and run:
+Una vez completada la instalación, ejecuta la aplicación en modo de desarrollo. Sólo tienes que `cd` en la carpeta y ejecutar
 
-```shell
+``shell
 yarn dev
 ```
 
-This will start your development server in `http://localhost:3000`, open the browser:
+Esto iniciará tu servidor de desarrollo en `http://localhost:3000`, abre el navegador:
 
 <Image src="/images/how-to-add-instagram-photos-to-nextjs-website/001-empty-nextjs.png" alt="NextJS" width="840" height="513" />
 
-### Add Instagram Web API Package
+### Añadir el paquete de la API web de Instagram
 
-To fetch the Instagram Post, we will use an npm package named: `instagram-web-api`. We need to install the package:
+Para obtener la publicación de Instagram, utilizaremos un paquete npm llamado: `instagram-web-api`. Tenemos que instalar el paquete:
 
-```shell
+``shell
 npm install instagram-web-api --save
-# or
+# o
 yarn add instagram-web-api
 ```
 
-### Updaye your home page
+### Actualiza tu página de inicio
 
-By default, Next.js pre-renders every page. This means that Next.js generates HTML for each page in advance, instead of having it all done by client-side JavaScript.
+Por defecto, Next.js pre-renderiza cada página. Esto significa que Next.js genera el HTML para cada página por adelantado, en lugar de que todo lo haga el JavaScript del lado del cliente.
 
-Open the file `pages/index.js` and replace all the code with:
+Abre el archivo `pages/index.js` y reemplaza todo el código con:
 
 ```javascript
 import Head from 'next/head';
@@ -64,15 +64,15 @@ export default function Home() {
 }
 ```
 
-Now your page should look like this:
+Ahora tu página debería tener este aspecto:
 
 <Image src="/images/how-to-add-instagram-photos-to-nextjs-website/002-first-page.png" alt="Instagram Post" width="840" height="513" />
 
 ### Fetching and rendering Instagram Posts
 
-To obtain better performance and SEO, we will use Static Generated Pages: The HTML is generated at build time and reused on each request.
+Para obtener un mejor rendimiento y SEO, utilizaremos páginas generadas estáticamente: El HTML se genera en tiempo de construcción y se reutiliza en cada solicitud.
 
-To fetch data at build time, we need to export a function `getStaticProps` in our `pages/index.js`
+Para obtener los datos en tiempo de construcción, necesitamos exportar una función `getStaticProps` en nuestro `pages/index.js`.
 
 ```diff
  import Head from 'next/head';
@@ -118,17 +118,17 @@ To fetch data at build time, we need to export a function `getStaticProps` in ou
 +}
 ```
 
-To fetch the post from Instagram, we have needed three steps:
+Para obtener la publicación de Instagram, hemos necesitado tres pasos:
 
-1. Create the Instagram client
-2. Login to Instagram
-3. Fetch the data by username.
+1. Crear el cliente de Instagram
+2. Iniciar sesión en Instagram
+3. Obtener los datos por nombre de usuario.
 
-After we need to return the posts as props and receive them in the `Home` React component, we render it.
+Después de devolver los posts como props y recibirlos en el componente React `Home`, lo renderizamos.
 
 ### Add Styles
 
-Edit your `styles/Home.module.css` and the following code:
+Edita tu `styles/Home.module.css` y el siguiente código:
 
 ```css
 .container {
@@ -160,7 +160,7 @@ Edit your `styles/Home.module.css` and the following code:
 ### Result
 <Image src="/images/how-to-add-instagram-photos-to-nextjs-website/003-result.png" alt="Instagram Post" width="886" height="1630" />
 
-### More information:
+### Más información:
 
 - Repo: [https://github.com/fmontes/nextjs-instagram](https://github.com/fmontes/nextjs-instagram)
 - [instagram-web-api](https://github.com/jlobos/instagram-web-api#api-reference)
