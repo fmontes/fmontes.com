@@ -40,7 +40,8 @@ This starter has some important plugins installed, so out of the box, I got:
 ## What I added
 1. [Styled components](https://www.gatsbyjs.org/docs/styled-components/)
 2. Lazy load image inside markdown files with [gatsby-remark-lazy-load](https://www.gatsbyjs.org/packages/gatsby-remark-lazy-load/) and [lazines](https://www.npmjs.com/package/lazysizes) **(this is a must for performance)**.
-99. Github Repo Showcase with [gatsby-source-github-api](https://www.gatsbyjs.org/packages/gatsby-source-github-api) and this GraphQL Query:
+3. Github Repo Showcase with [gatsby-source-github-api](https://www.gatsbyjs.org/packages/gatsby-source-github-api) and this GraphQL Query:
+
 ```graphql
     {
         search(query: "fmonteslab user:fmontes", type: REPOSITORY, first: 100) {
