@@ -1,32 +1,34 @@
 ---
-title: Dealing with dynamic images in Gatsby
-date: '2020-05-04'
-description: 'When you need to show images from the file system dynamically, you need to be clever, and sometimes system files are not enough.'
-category: 'gatsby'
+título: Cómo tratar las imágenes dinámicas en Gatsby
+fecha: '2020-05-04'
+description: 'Cuando necesitas mostrar imágenes del sistema de archivos de forma dinámica, necesitas ser inteligente, y a veces los archivos del sistema no son suficientes.'
+categoría: 'gatsby'
 ---
 
-Showing images from Gatsby file system is very easy with a combination of GraphQL and [gatsby-image](https://www.gatsbyjs.org/packages/gatsby-image/), but... there is a catch.
+> Gatsby lanzó un nuevo component de imagenes que soluciona este problema. [Más Informacion](https://gatsbyjs.com/docs/how-to/images-and-media/using-gatsby-plugin-image/).
 
-The problem is when you get the image names dynamically from a data source or CMS, and you can't know in advance (build time) the name to do the queries in GraphQL because you can't interpolate variables in GraphQL queries in Gatsby [right now](https://github.com/gatsbyjs/gatsby/issues/5069).
+Mostrar imágenes desde el sistema de archivos Gatsby es muy fácil con una combinación de GraphQL y [gatsby-image](https://www.gatsbyjs.org/packages/gatsby-image/), pero... hay una trampa.
 
-I've [seen](https://noahgilmore.com/blog/easy-gatsby-image-components/) [some](https://stackoverflow.com/a/56508865) [solutions](https://codebushi.com/using-gatsby-image/) which basically consist in query ALL the files and then inside the component match the name of the one you want to show.
+El problema es cuando obtienes los nombres de las imágenes dinámicamente desde una fuente de datos o CMS, y no puedes saber de antemano (tiempo de construcción) el nombre para hacer las consultas en GraphQL porque no puedes interpolar variables en las consultas GraphQL en Gatsby [ahora mismo](https://github.com/gatsbyjs/gatsby/issues/5069).
 
-This approach works like a charm when you don't have many images, but, in my case, there was ~800. Since Gatsby saves all the GraphQL queries resulting in a `page-data.json` file, it can be really big. For example, here is a comparison of a file with ~800 images and no images:
+He [visto](https://noahgilmore.com/blog/easy-gatsby-image-components/) [algunas](https://stackoverflow.com/a/56508865) [soluciones](https://codebushi.com/using-gatsby-image/) que básicamente consisten en consultar TODOS los archivos y luego dentro del componente hacer coincidir el nombre del que quieres mostrar.
 
-### Gatsby JSON file with ~800 images
-<Image src="/images/dynamic-gatsby-images-an-anternative/page-data-compare-01.jpg" alt="page-data-compare-01" width="904" height="106" />
+Este método funciona a las mil maravillas cuando no tienes muchas imágenes, pero, en mi caso, había ~800. Como Gatsby guarda todas las consultas GraphQL que resultan en un archivo `page-data.json`, puede ser realmente grande. Por ejemplo, aquí hay una comparación de un archivo con ~800 imágenes y sin imágenes:
 
-### No Images
+### Archivo JSON de Gatsby con ~800 imágenes
+<Image src="/images/dynamic-gatsby-images-an-ternative/page-data-compare-01.jpg" alt="page-data-compare-01" width="904" height="106" />
+
+### No hay imágenes
 <Image src="/images/dynamic-gatsby-images-an-anternative/page-data-compare-02.jpg" alt="page-data-compare-02" width="904" height="106" />
 
-### My solution
-Even though I tried anything I could think of using local images on Gatsby, I couldn't get an acceptable solution for my case, so I decided to go another route, an image hosting service, and I picked Cloudinary.
+### Mi solución
+Aunque probé todo lo que se me ocurrió para usar imágenes locales en Gatsby, no conseguí una solución aceptable para mi caso, así que decidí tomar otro camino, un servicio de alojamiento de imágenes, y elegí Cloudinary.
 
-Cloudinary is a service to host media, but you can't apply transformations like resize, crop, and even change the format when you serve them; all this by building a URL with parameters.
+Cloudinary es un servicio para alojar medios, pero no puedes aplicar transformaciones como redimensionar, recortar, e incluso cambiar el formato cuando las sirves; todo esto construyendo una URL con parámetros.
 
-I uploaded all the images to Cloudinary using their Web UI, drag and drop, and I was up and running with my custom folder structure.
+Subí todas las imágenes a Cloudinary usando su interfaz web, arrastrando y soltando, y ya estaba en marcha con mi estructura de carpetas personalizada.
 
-After that, I created a simple React component which takes: name, category, and image size, and it built Cloudinary URL and the last touch: LazyLoad, never forget to LazyLoad your images, for this I just used [react-lazy-load-image-component](https://www.npmjs.com/package/react-lazy-load-image-component), the final code:
+Después de eso, creé un simple componente React que toma: nombre, categoría y tamaño de la imagen, y construyó la URL de Cloudinary y el último toque: LazyLoad, nunca te olvides de hacer LazyLoad a tus imágenes, para esto solo usé [react-lazy-load-image-component](https://www.npmjs.com/package/react-lazy-load-image-component), el código final:
 
 ```javascript
 import React from 'react'
@@ -35,15 +37,15 @@ import { LazyLoadImage } from 'react-lazy-load-image-component'
 const getCloudinaryImageUrl = ({ category, name, size }) =>
     `https://res.cloudinary.com/CLOUDINARY_CLOUD/image/upload/f_auto,q_auto,c_pad,w_${size},h_${size}/lapulpe/${category}/${name}`
 
-const CloudinaryImage = ({ category, name, size }) => {
-    const url = getCloudinaryImageUrl({ category, name, size })
+const CloudinaryImage = ({ categoría, nombre, tamaño }) => {
+    const url = getCloudinaryImageUrl({ categoría, nombre, tamaño })
     return (
         <LazyLoadImage
             style={{ marginBottom: '0' }}
-            alt={name}
-            height={size}
+            alt={nombre}
+            height={tamaño}
             src={url}
-            width={size}
+            width={tamaño}
         />
     )
 }
@@ -51,9 +53,9 @@ const CloudinaryImage = ({ category, name, size }) => {
 export default CloudinaryImage
 ```
 
-### The result
+### El resultado
 
-1. Less build time since Gatsby doesn't have to process the images
-2. Much smaller JSON bundle
-3. No extra GraphQL queries
-4. Being able to publish new images without having to rebuild
+1. Menos tiempo de construcción ya que Gatsby no tiene que procesar las imágenes
+2. Un paquete JSON mucho más pequeño
+3. No hay consultas GraphQL adicionales
+4. Poder publicar nuevas imágenes sin tener que reconstruirlas
