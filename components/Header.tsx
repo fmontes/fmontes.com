@@ -16,6 +16,7 @@ function Header(): JSX.Element {
                     <a className="flex items-center mb-2 no-underline">
                         <div className="flex-shrink-0 mr-4">
                             <Image
+                                alt="Freddy Montes - Frontend Developer, Designer and Teacher"
                                 className="rounded-full"
                                 height={AVATAR_SIZE}
                                 src="/images/avatar.jpg"
@@ -27,7 +28,7 @@ function Header(): JSX.Element {
                 </Link>
                 <div>
                     <p className="mt-0 mb-6">
-                        {t('bio')} <a href="/about-me">{t('more')}</a>
+                        {t('bio')} <Link href="/about">{t('more')}</Link>
                     </p>
                     <div className="flex justify-between items-center">
                         <p className="text-blue-900 inline-flex items-center m-0 pr-3 pl-1 text-sm bg-blue-100 rounded-full">

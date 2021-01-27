@@ -12,7 +12,7 @@ function Nav(): JSX.Element {
             <Link href="/about">
                 <a className="nav__link">{t('about')}</a>
             </Link>
-            <Link href="/about">
+            <Link href="/uses">
                 <a className="nav__link">{t('uses')}</a>
             </Link>
             <Link href="/portfolio">
@@ -21,9 +21,9 @@ function Nav(): JSX.Element {
             <Link href="/talks">
                 <a className="nav__link">{t('talks')}</a>
             </Link>
-            <Link href="/contact">
-                <a className="nav__link">{t('contact')}</a>
-            </Link>
+            <a className="nav__link" href="mailto:me@fmontes.com?subject=Hello from your website">
+                {t('contact')}
+            </a>
         </nav>
     );
 }
