@@ -6,7 +6,13 @@ import path from 'path';
 import renderToString from 'next-mdx-remote/render-to-string';
 import { MdxRemote } from 'next-mdx-remote/types';
 
-const FOLDER_POST = path.resolve(process.cwd(), 'data/posts');
+const FOLDER_POSTS = path.resolve(process.cwd(), 'data/posts');
+const FOLDER_PAGES = path.resolve(process.cwd(), 'data/pages');
+
+const FOLDERS = {
+    posts: FOLDER_POSTS,
+    pages: FOLDER_PAGES
+};
 
 interface Slugs {
     params: {
@@ -54,7 +60,7 @@ const getAllFileNames = (folder: string, filesList = []): string[] => {
 };
 
 export const getPostsSortedByDate = (locale: string): MatterContent[] => {
-    const fullPath = path.join(FOLDER_POST, `${locale}/`);
+    const fullPath = path.join(FOLDER_POSTS, `${locale}/`);
 
     if (!fs.existsSync(fullPath)) {
         return [];
@@ -70,7 +76,7 @@ export const getPostsSortedByDate = (locale: string): MatterContent[] => {
 };
 
 export const getPostsSlugs = (): Slugs[] => {
-    const files: string[] = getAllFileNames(FOLDER_POST);
+    const files: string[] = getAllFileNames(FOLDER_POSTS);
 
     return files.map((fileName: string) => {
         const [locale, slug] = fileName.split('/');
@@ -84,8 +90,14 @@ export const getPostsSlugs = (): Slugs[] => {
     });
 };
 
-export const getContent = async (slug: string, locale: string): Promise<PageContent> => {
-    const fullPath = path.join(FOLDER_POST, `${locale}/${slug}.mdx`);
+type ContentProps = {
+    slug: string;
+    locale: string;
+    type: 'pages' | 'posts';
+};
+
+export const getContent = async ({ slug, locale, type }: ContentProps): Promise<PageContent> => {
+    const fullPath = path.join(FOLDERS[type], `${locale}/${slug}.mdx`);
     const fileContents = fs.readFileSync(fullPath, 'utf-8');
     const { data, content } = matter(fileContents);
     const mdxSource = await renderToString(content, {

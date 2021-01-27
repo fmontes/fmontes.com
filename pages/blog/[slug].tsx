@@ -47,7 +47,7 @@ export default function Blog({
                     description: description,
                     images: [image]
                 }}
-                title={`${title} – Lee Robinson`}
+                title={`${title} – Freddy Montes`}
             />
             <ArticleJsonLd
                 authorName="Freddy Montes"
@@ -85,7 +85,11 @@ export const getStaticProps: GetStaticProps = async ({
     params,
     locale
 }: GetStaticPropsContext<ParsedUrlQuery>) => {
-    const { mdxSource, frontMatter } = await getContent(params.slug as string, locale);
+    const { mdxSource, frontMatter } = await getContent({
+        slug: params.slug as string,
+        locale,
+        type: 'posts'
+    });
 
     return {
         props: {
