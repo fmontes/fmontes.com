@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
                 <meta content="width=device-width, initial-scale=1" name="viewport" />
             </Head>
             <DefaultSeo {...seoDefault} />
-            <div className="container p-5 sm:py-10 lg:grid lg:grid-cols-12 lg:gap-10 lg:items-start antialiased">
+            <div className="container p-5 sm:py-10 lg:grid lg:grid-cols-12 lg:gap-14 lg:items-start antialiased">
                 <div className="lg:col-span-4">
                     <Header />
                 </div>
