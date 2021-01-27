@@ -1,6 +1,6 @@
 module.exports = {
     corePlugins: {},
-    purge: ['./pages/**/*.tsx', './components/**/*.tsx'],
+    purge: ['./pages/**/*.tsx', './components/**/*.tsx', './data/**/*.mdx'],
     darkMode: false, // or 'media' or 'class'
     theme: {
         container: false,
