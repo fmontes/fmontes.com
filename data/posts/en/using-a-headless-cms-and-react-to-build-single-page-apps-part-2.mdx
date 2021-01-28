@@ -37,7 +37,7 @@ export default App
 
 Then, clean up the default content that is in the generated React app and replace it with the recently created `<Page />` component (for more information, see the [commit](https://www.google.com/url?q=https://github.com/fmontes/dotcms-page/commit/7ad154916c86a84d950bfcd88f13c8e268d3a13a&sa=D&ust=1551819373892000)). So now in your browser, you should see:
 
-<Image src="/images/using-a-headless-cms-and-react-to-build-single-page-apps-part-2/hello-im-a-page.png" alt="Basic empty page" width="800" height="628" />
+<Image src="/images/blog/using-a-headless-cms-and-react-to-build-single-page-apps-part-2/hello-im-a-page.png" alt="Basic empty page" width="800" height="628" />
 
 We're creating the `<Page />` as a [presentational component](https://www.google.com/url?q=https://medium.com/@yassimortensen/container-vs-presentational-components-in-react-8eea956e1cea&sa=D&ust=1551819373893000), we'll be passing the page object as `props` from the `<App />`, and it will be in charge of receiving and passing down the page object to be rendered in the whole chain of rows, columns, containers, and contentlets.
 
@@ -141,7 +141,7 @@ Here we iterate over the `rows` inside the `layout.body` we receive via `props,`
 
 Here is where all the chain of render starts; we're going to need all the data from the containers and contentlets. We need to get the full container data from the containers property in the props, which is illustrated in the following diagram:
 
-<Image src="/images/using-a-headless-cms-and-react-to-build-single-page-apps-part-2/columns-diagram.jpg" alt="Understanding columns and content" width="680" height="582" />
+<Image src="/images/blog/using-a-headless-cms-and-react-to-build-single-page-apps-part-2/columns-diagram.jpg" alt="Understanding columns and content" width="680" height="582" />
 
 Let's create a folder called `utils` and an `index.js` file, edit the file and add the following:
 
@@ -280,7 +280,7 @@ const Row = (props) => {
 
 If you go to the browser and see the page, it should be center now and rendered with the Bootstrap CSS:
 
-<Image src="/images/using-a-headless-cms-and-react-to-build-single-page-apps-part-2/./im-a-row.png" alt="Row rendering" width="800" height="638" />
+<Image src="/images/blog/using-a-headless-cms-and-react-to-build-single-page-apps-part-2/./im-a-row.png" alt="Row rendering" width="800" height="638" />
 
 We're all set with Bootstrap containers and rows, so let's add the columns and create a new component for each column in `src/components/Column.js`
 
@@ -324,7 +324,7 @@ import { Row as BtRow } from 'reactstrap';
 
 We then map the columns array, render a `<Column />` component for each, and pass the column object. If all is good, you should see this in your browser:
 
-<Image src="/images/using-a-headless-cms-and-react-to-build-single-page-apps-part-2/im-a-column.png" alt="Rendering columns" width="800" height="610" />
+<Image src="/images/blog/using-a-headless-cms-and-react-to-build-single-page-apps-part-2/im-a-column.png" alt="Rendering columns" width="800" height="610" />
 
 At this point, we have the rows and columns rendering correctly, but we're not passing the width of the column; let's fix that.
 
@@ -345,7 +345,7 @@ const Column = (props) => {
 
 You should be able to see the left column bigger in your browser:
 
-<Image src="/images/using-a-headless-cms-and-react-to-build-single-page-apps-part-2/im-a-column-bigger.png" alt="Rendering columns with size" width="800" height="588" />
+<Image src="/images/blog/using-a-headless-cms-and-react-to-build-single-page-apps-part-2/im-a-column-bigger.png" alt="Rendering columns with size" width="800" height="588" />
 
 If you run into any issues, take a look at the [commit](https://www.google.com/url?q=https://github.com/fmontes/dotcms-page/commit/8b25c8225085d6f07da9244e5a336db2ad07d506&sa=D&ust=1551819373931000) for this change.
 
@@ -404,7 +404,7 @@ import { Col as BtColumn } from 'reactstrap';
 
 Now that we have all the structure of the page rendered - the chain of `Page > Row > Column > Container > Contentlet` - you should see this in your browser:
 
-<Image src="/images/using-a-headless-cms-and-react-to-build-single-page-apps-part-2/im-a-contentlet.png" alt="Rendering contentlets" width="800" height="607" />
+<Image src="/images/blog/using-a-headless-cms-and-react-to-build-single-page-apps-part-2/im-a-contentlet.png" alt="Rendering contentlets" width="800" height="607" />
 
 Finally, to see all the render page chains done, view the [commit](https://www.google.com/url?q=https://github.com/fmontes/dotcms-page/commit/9b817e8bde15ef180d7a455aef7eb80aa28205c3&sa=D&ust=1551819373938000).
 
@@ -525,7 +525,7 @@ What we did here was we created a function that receives the `type` of contentle
 
 And that's it! In the end, you should see something like this:
 
-<Image src="/images/using-a-headless-cms-and-react-to-build-single-page-apps-part-2/about.png" alt="React Single Page App" width="800" height="648" />
+<Image src="/images/blog/using-a-headless-cms-and-react-to-build-single-page-apps-part-2/about.png" alt="React Single Page App" width="800" height="648" />
 
 Here is the final [commit](https://www.google.com/url?q=https://github.com/fmontes/dotcms-page/commit/e0513fbd561c40b867791c549c76813f065d4193&sa=D&ust=1551819373952000) for the contentlet specific render, with the [full code available via Github](https://www.google.com/url?q=https://github.com/fmontes/dotcms-page&sa=D&ust=1551819373952000).
 
