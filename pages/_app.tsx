@@ -1,18 +1,30 @@
+import { useEffect } from 'react';
 import Head from 'next/head';
 import { AppProps } from 'next/app';
 import { DefaultSeo } from 'next-seo';
 import { MDXProvider } from '@mdx-js/react';
-import { useRouter } from 'next/router';
+import router, { useRouter } from 'next/router';
 
 import Header from '@components/Header';
 import MDXComponents from '@components/MDXComponents';
 import SEO from '../next-seo.config';
+import { pageview } from '@utils/google-analytics';
 
 import '../styles/global.css';
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
     const { locale } = useRouter();
     const seoDefault = SEO[locale];
+
+    useEffect(() => {
+        const handleRouteChange = (url: string) => {
+            pageview(url, document.title);
+        };
+        router.events.on('routeChangeComplete', handleRouteChange);
+        return () => {
+            router.events.off('routeChangeComplete', handleRouteChange);
+        };
+    }, []);
 
     return (
         <MDXProvider components={MDXComponents}>
