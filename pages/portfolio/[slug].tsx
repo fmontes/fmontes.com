@@ -4,8 +4,8 @@ import { ParsedUrlQuery } from 'querystring';
 import { NextSeo, ArticleJsonLd } from 'next-seo';
 import { useRouter } from 'next/router';
 
-import Date from '@components/Date';
 import MDXComponents from '@components/MDXComponents';
+import TechList from '@components/TechList';
 import { getContent, getSlugs, MatterContent } from '@utils/content';
 
 type BlogPost = {
@@ -18,7 +18,7 @@ type BlogPost = {
 
 export default function Blog({
     mdxSource,
-    frontMatter: { title, date, description, slug, canonical_url }
+    frontMatter: { title, date, description, slug, tech }
 }: BlogPost): JSX.Element {
     const content = hydrate(mdxSource, {
         components: MDXComponents
@@ -35,7 +35,6 @@ export default function Blog({
     return (
         <>
             <NextSeo
-                canonical={canonical_url}
                 description={description}
                 openGraph={{
                     type: 'article',
@@ -64,8 +63,11 @@ export default function Blog({
             <main className="sm:col-span-2">
                 <h1>{title}</h1>
                 <p>
-                    <Date date={date} />
+                    <blockquote className="text-base">{description}</blockquote>
                 </p>
+
+                <h3>Tech Stack</h3>
+                <TechList tech={tech} />
                 {content}
             </main>
         </>
@@ -73,7 +75,7 @@ export default function Blog({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const paths = getSlugs('posts');
+    const paths = getSlugs('portfolio');
 
     return {
         fallback: false,
@@ -88,7 +90,7 @@ export const getStaticProps: GetStaticProps = async ({
     const { mdxSource, frontMatter } = await getContent({
         slug: params.slug as string,
         locale,
-        type: 'posts'
+        type: 'portfolio'
     });
 
     return {

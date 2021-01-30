@@ -8,10 +8,12 @@ import { MdxRemote } from 'next-mdx-remote/types';
 
 const FOLDER_POSTS = path.resolve(process.cwd(), 'data/posts');
 const FOLDER_PAGES = path.resolve(process.cwd(), 'data/pages');
+const FOLDER_PORTFOLIO = path.resolve(process.cwd(), 'data/portfolio');
 
 const FOLDERS = {
     posts: FOLDER_POSTS,
-    pages: FOLDER_PAGES
+    pages: FOLDER_PAGES,
+    portfolio: FOLDER_PORTFOLIO
 };
 
 interface Slugs {
@@ -33,8 +35,17 @@ export type MatterContent = {
     date: string;
     description: string;
     slug: string;
+    tech?: string;
     category?: string;
     canonical_url?: string;
+};
+
+type ContentType = 'pages' | 'posts' | 'portfolio';
+
+type ContentProps = {
+    slug: string;
+    locale: string;
+    type: ContentType;
 };
 
 const getAllFileNames = (folder: string, filesList = []): string[] => {
@@ -59,8 +70,14 @@ const getAllFileNames = (folder: string, filesList = []): string[] => {
     return filteredList;
 };
 
-export const getPostsSortedByDate = (locale: string): MatterContent[] => {
-    const fullPath = path.join(FOLDER_POSTS, `${locale}/`);
+export const getContentSortedByDate = (locale: string, type: ContentType): MatterContent[] => {
+    if (!FOLDERS[type]) {
+        throw new Error(
+            `You need to create folder "/data/${type}" and add it to the "FOLDERS" object`
+        );
+    }
+
+    const fullPath = path.join(FOLDERS[type], `${locale}/`);
 
     if (!fs.existsSync(fullPath)) {
         return [];
@@ -75,8 +92,14 @@ export const getPostsSortedByDate = (locale: string): MatterContent[] => {
     return (allPosts as MatterContent[]).sort((postA, postB) => (postA.date < postB.date ? 1 : -1));
 };
 
-export const getPostsSlugs = (): Slugs[] => {
-    const files: string[] = getAllFileNames(FOLDER_POSTS);
+export const getSlugs = (type: ContentType): Slugs[] => {
+    if (!FOLDERS[type]) {
+        throw new Error(
+            `You need to create folder "/data/${type}" and add it to the "FOLDERS" object`
+        );
+    }
+
+    const files: string[] = getAllFileNames(FOLDERS[type]);
 
     return files.map((fileName: string) => {
         const [locale, slug] = fileName.split('/');
@@ -90,13 +113,13 @@ export const getPostsSlugs = (): Slugs[] => {
     });
 };
 
-type ContentProps = {
-    slug: string;
-    locale: string;
-    type: 'pages' | 'posts';
-};
-
 export const getContent = async ({ slug, locale, type }: ContentProps): Promise<PageContent> => {
+    if (!FOLDERS[type]) {
+        throw new Error(
+            `You need to create folder "/data/${type}" and add it to the "FOLDERS" object`
+        );
+    }
+
     const fullPath = path.join(FOLDERS[type], `${locale}/${slug}.mdx`);
     const fileContents = fs.readFileSync(fullPath, 'utf-8');
     const { data, content } = matter(fileContents);

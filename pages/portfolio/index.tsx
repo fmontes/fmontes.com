@@ -2,18 +2,22 @@ import { getContentSortedByDate, MatterContent } from '@utils/content';
 import { ParsedUrlQuery } from 'querystring';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 
-import BlogItem from '@components/BlogItem';
+import PortfolioListItem from '@components/PortfolioListItem';
+import useTranslation from '@utils/i18n';
 
 type Props = {
     posts: MatterContent[];
 };
 
 export default function Home({ posts }: Props): JSX.Element {
+    const t = useTranslation();
+
     return (
         <>
-            <main className="grid gap-6 sm:grid-cols-2">
+            <main>
+                <h1>{t('portfolio')}</h1>
                 {posts.map((post: MatterContent, i: number) => (
-                    <BlogItem key={i} {...post} />
+                    <PortfolioListItem key={i} {...post} />
                 ))}
             </main>
         </>
@@ -23,7 +27,7 @@ export default function Home({ posts }: Props): JSX.Element {
 export const getStaticProps: GetStaticProps = async ({
     locale
 }: GetStaticPropsContext<ParsedUrlQuery>) => {
-    const posts = await getContentSortedByDate(locale, 'posts');
+    const posts = await getContentSortedByDate(locale, 'portfolio');
 
     return { props: { posts } };
 };

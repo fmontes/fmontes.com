@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { MatterContent } from '@utils/content';
 import Date from '@components/Date';
-import BlogIcon from '@components/BlogIcon';
+import TechIcon from '@components/TechIcon';
 
 function BlogItem({ title, date, description, category, slug }: MatterContent): JSX.Element {
     const { locale } = useRouter();
@@ -12,7 +12,7 @@ function BlogItem({ title, date, description, category, slug }: MatterContent): 
             <Link href={`/blog/${slug}`} locale={locale}>
                 <a className="block no-underline p-6">
                     <div className="flex justify-between items-center mb-4">
-                        <BlogIcon type={category} />
+                        <TechIcon type={category} />
                         <Date date={date} />
                     </div>
                     <h2 className="mt-0 mb-2 text-lg leading-9">{title}</h2>

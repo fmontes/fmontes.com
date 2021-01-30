@@ -7,8 +7,15 @@
             sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     }
 
+    h1,
+    h2,
+    h3,
+    h4 {
+        @apply text-gray-800 mb-2 mt-10 leading-tight;
+    }
+
     h1 {
-        @apply text-xl font-bold sm:text-2xl tracking-tight text-gray-600;
+        @apply text-2xl font-bold sm:text-3xl tracking-tight sm:leading-tight mb-4;
     }
 
     h1:first-child {
@@ -16,22 +23,13 @@
     }
 
     h2 {
-        @apply text-lg sm:text-xl text-gray-600 ;
+        @apply text-lg sm:text-xl;
     }
 
     h3 {
         @apply text-base sm:text-lg font-bold;
     }
 
-    h4 {
-    }
-
-    h1,
-    h2,
-    h3,
-    h4 {
-        @apply text-gray-800 mb-2 mt-10 leading-tight;
-    }
 
     p,
     ul,
