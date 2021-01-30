@@ -5,7 +5,7 @@ function Nav(): JSX.Element {
     const t = useTranslation();
 
     return (
-        <nav className="flex flex-wrap mt-4 lg:flex-col">
+        <nav className="inline-flex flex-wrap mt-4 lg:flex-col">
             <Link href="/">
                 <a className="nav__link">{t('home')}</a>
             </Link>

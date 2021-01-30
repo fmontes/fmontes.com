@@ -27,9 +27,7 @@ function Header(): JSX.Element {
                     </a>
                 </Link>
                 <div>
-                    <p className="mt-0 mb-6">
-                        {t('bio')} <Link href="/about">{t('more')}</Link>
-                    </p>
+                    <p className="mt-0 mb-6">{t('bio')}</p>
                     <div className="flex justify-between items-center">
                         <p className="text-blue-900 inline-flex items-center m-0 pr-3 pl-1 text-sm bg-blue-100 rounded-full">
                             <svg
