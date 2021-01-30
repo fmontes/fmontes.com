@@ -1,4 +1,4 @@
-import useTranslation from '@utils/i18n';
+import useTranslation from '@utils/i18n/hooks';
 import Image from 'next/image';
 import Link from 'next/link';
 import Nav from './Nav';

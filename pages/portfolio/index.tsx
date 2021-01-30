@@ -3,7 +3,7 @@ import { ParsedUrlQuery } from 'querystring';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 
 import PortfolioListItem from '@components/PortfolioListItem';
-import useTranslation from '@utils/i18n';
+import useTranslation from '@utils/i18n/hooks';
 
 type Props = {
     posts: MatterContent[];

@@ -1,6 +1,13 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+const i18nConfig = require('./utils/i18n/config');
+
 module.exports = {
-    i18n: {
-        locales: ['en', 'es'],
-        defaultLocale: 'en'
+    i18n: i18nConfig,
+    webpack: (config, { isServer }) => {
+        if (isServer) {
+            require('./scripts/generate-sitemap');
+        }
+
+        return config;
     }
 };

@@ -1,4 +1,4 @@
-import useTranslation from '@utils/i18n';
+import useTranslation from '@utils/i18n/hooks';
 import Link from 'next/link';
 
 function Nav(): JSX.Element {

@@ -1,6 +1,7 @@
 type Props = {
     type: string;
     size?: string;
+    // eslint-disable-next-line no-unused-vars
     fallback?: (type: string) => JSX.Element;
 };
 
