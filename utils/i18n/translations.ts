@@ -8,7 +8,7 @@ export default {
         portfolio: 'Portfolio',
         talks: 'Talks',
         contact: 'Contact',
-        more: 'More'
+        latest_blog_posts: 'Latest Blog Posts'
     },
     es: {
         title:
@@ -21,6 +21,6 @@ export default {
         portfolio: 'Portafolio',
         talks: 'Charlas',
         contact: 'Contacto',
-        more: 'Más'
+        latest_blog_posts: 'Últimos Posts del Blog'
     }
 };

@@ -23,7 +23,7 @@ function Header(): JSX.Element {
                                 width={AVATAR_SIZE}
                             />
                         </div>
-                        <h3 className="font-bold tracking-tight m-0 text-xl">Freddy Montes</h3>
+                        <h2 className="font-bold tracking-tight m-0 text-xl">Freddy Montes</h2>
                     </a>
                 </Link>
                 <div>
