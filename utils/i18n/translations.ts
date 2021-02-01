@@ -8,7 +8,9 @@ export default {
         portfolio: 'Portfolio',
         talks: 'Talks',
         contact: 'Contact',
-        latest_blog_posts: 'Latest Blog Posts'
+        latest_blog_posts: 'Latest Blog Posts',
+        post_blog_action:
+            'Thank your read this blog post. Any feedback or question hit me up on Twitter'
     },
     es: {
         title:
@@ -21,6 +23,8 @@ export default {
         portfolio: 'Portafolio',
         talks: 'Charlas',
         contact: 'Contacto',
-        latest_blog_posts: 'Últimos Posts del Blog'
+        latest_blog_posts: 'Últimos Posts del Blog',
+        post_blog_action:
+            'Gracias por leer esta entrada del blog. Cualquier comentario o pregunta me puedes preguntarme en mi Twitter'
     }
 };

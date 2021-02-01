@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import Date from '@components/Date';
 import MDXComponents from '@components/MDXComponents';
 import { getContent, getSlugs, MatterContent } from '@utils/content';
+import useTranslation from '@utils/i18n/hooks';
 
 type BlogPost = {
     mdxSource: {
@@ -20,6 +21,8 @@ export default function Blog({
     mdxSource,
     frontMatter: { title, date, description, slug, canonical_url }
 }: BlogPost): JSX.Element {
+    const t = useTranslation();
+
     const content = hydrate(mdxSource, {
         components: MDXComponents
     });
@@ -67,6 +70,10 @@ export default function Blog({
                     <Date date={date} />
                 </p>
                 {content}
+                <hr />
+                <blockquote>
+                    {t('post_blog_action')}: <a href="https://twitter.com/fmontes">@fmontes</a>
+                </blockquote>
             </main>
         </>
     );
