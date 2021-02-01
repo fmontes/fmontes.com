@@ -11,7 +11,7 @@
     h2,
     h3,
     h4 {
-        @apply text-gray-800 mb-2 mt-10 leading-tight;
+        @apply text-gray-800 mb-2 mt-8 leading-tight;
     }
 
     h1 {
@@ -27,7 +27,11 @@
     }
 
     h3 {
-        @apply text-base sm:text-lg font-bold;
+        @apply text-base sm:text-lg;
+    }
+
+    h4 {
+        @apply font-bold;
     }
 
 
