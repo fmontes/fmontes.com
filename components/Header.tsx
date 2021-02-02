@@ -4,6 +4,8 @@ import Link from 'next/link';
 import Nav from './Nav';
 import Translate from './Translate';
 
+import SocialMediaMenu from '@components/SocialMediaMenu';
+
 const AVATAR_SIZE = 60;
 
 function Header(): JSX.Element {
@@ -46,6 +48,10 @@ function Header(): JSX.Element {
                         </p>
                         <Translate />
                     </div>
+                </div>
+
+                <div className="mt-8">
+                    <SocialMediaMenu />
                 </div>
             </header>
 

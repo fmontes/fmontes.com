@@ -96,7 +96,7 @@
     }
 
     .nav__link {
-        @apply p-2;
+        @apply p-2 sm:pl-0;
     }
 
     .skills {
