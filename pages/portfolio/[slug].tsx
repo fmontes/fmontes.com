@@ -54,7 +54,7 @@ export default function Blog({
                 datePublished={date}
                 description={description}
                 images={[image.url]}
-                publisherLogo="/static/favicons/android-chrome-192x192.png"
+                publisherLogo="/static/android-chrome-192x192.png"
                 publisherName="Freddy Montes"
                 title={title}
                 url={url}
