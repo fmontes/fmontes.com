@@ -13,6 +13,7 @@ Welcome to my personal website. I build it using Next.js 10 and is fully multila
 - `data/*`: MDX files for all the content
 - `pages/*`: Next.js pages
 - `public/*`: static files, mostly images
+- `scripts/*`: scripts than runs in build time, right now just sitemap generator
 - `styles/*`: global CSS files
 - `utils/*`: helpers and translations utilities
 
