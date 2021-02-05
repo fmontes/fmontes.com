@@ -16,7 +16,7 @@ type Props = {
     frontMatter: MatterContent;
 };
 
-export default function Blog({ mdxSource, frontMatter: { title } }: Props): JSX.Element {
+export default function Talks({ mdxSource, frontMatter: { title } }: Props): JSX.Element {
     const t = useTranslation();
 
     const content = hydrate(mdxSource, {
@@ -39,7 +39,7 @@ export const getStaticProps: GetStaticProps = async ({
     locale
 }: GetStaticPropsContext<ParsedUrlQuery>) => {
     const { mdxSource, frontMatter } = await getContent({
-        slug: 'uses',
+        slug: 'talks',
         locale,
         type: 'pages'
     });

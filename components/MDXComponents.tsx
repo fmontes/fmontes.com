@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import Date from './Date';
 
 type LinkProps = {
     href: string;
@@ -22,7 +23,8 @@ const CustomLink = (props: LinkProps): JSX.Element => {
 
 const MDXComponents = {
     a: CustomLink,
-    Image
+    Image,
+    Date
 };
 
 export default MDXComponents;

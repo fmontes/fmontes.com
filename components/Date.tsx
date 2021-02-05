@@ -3,13 +3,17 @@ import { useRouter } from 'next/router';
 import { parseISO, format } from 'date-fns';
 import es from 'date-fns/locale/es';
 
-function Date(props: { date: string }): JSX.Element {
-    const { locale } = useRouter();
+function Date({ date, locale }: { date: string; locale?: string }): JSX.Element {
+    const router = useRouter();
+
+    if (!locale) {
+        locale = router.locale || 'en';
+    }
 
     return (
         <time>
             {format(
-                parseISO(props.date),
+                parseISO(date),
                 'MMMM dd, yyyy',
                 locale === 'es' && {
                     locale: es
