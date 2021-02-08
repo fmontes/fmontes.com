@@ -3,6 +3,7 @@ import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import { NextSeo, ArticleJsonLd } from 'next-seo';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 import Date from '@components/Date';
 import MDXComponents from '@components/MDXComponents';
@@ -66,7 +67,21 @@ export default function Blog({
 
             <main className="sm:col-span-2">
                 <h1>{title}</h1>
-                <p>
+                <p className="flex items-center">
+                    <span className="flex items-center">
+                        <Image
+                            alt="Freddy Montes - Frontend Developer, Designer and Teacher"
+                            className="rounded-full"
+                            height={32}
+                            src="/images/avatar.jpg"
+                            width={32}
+                        />
+
+                        <span className="ml-2">
+                            <a href="https://twitter.com/fmontes">Freddy Montes</a>
+                        </span>
+                    </span>
+                    <span className="mx-4 text-gray-300">|</span>
                     <Date date={date} />
                 </p>
                 {content}
