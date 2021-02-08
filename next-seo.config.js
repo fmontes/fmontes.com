@@ -16,7 +16,7 @@ const SEO = {
             description: en.bio,
             images: [
                 {
-                    url: `${SITE}/static/images/banner_en.png`,
+                    url: `${SITE}/images/banner_en.png`,
                     alt: en.title,
                     width: 1280,
                     height: 720
@@ -40,7 +40,7 @@ const SEO = {
             description: es.bio,
             images: [
                 {
-                    url: `${SITE}/static/images/banner_es.png`,
+                    url: `${SITE}/images/banner_es.png`,
                     alt: es.title,
                     width: 1280,
                     height: 720

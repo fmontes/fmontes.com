@@ -123,13 +123,11 @@
 .token.prolog,
 .token.doctype,
 .token.cdata {
-    /* @apply text-gray-700 dark:text-gray-300; */
     @apply text-gray-700;
 }
 
 .token.punctuation {
     @apply text-gray-700;
-    /* @apply text-gray-700 dark:text-gray-300; */
 }
 
 .token.property,
@@ -178,7 +176,6 @@
 
 code[class*='language-'],
 pre[class*='language-'] {
-    /* @apply text-gray-800 dark:text-gray-50; */
     @apply text-gray-800;
 }
 

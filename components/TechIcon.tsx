@@ -27,13 +27,21 @@ function TechIcon({ type, size, fallback }: Props): JSX.Element {
         return (
             <img
                 alt="Freddy Montes - Web Developer"
+                height={size || '32'}
                 src={`/images/_logos/fmontes.svg`}
                 width={size || '32'}
             />
         );
     }
 
-    return <img alt={item} src={`/images/_logos/${item}.svg`} width={size || '32'} />;
+    return (
+        <img
+            alt={item}
+            height={size || '32'}
+            src={`/images/_logos/${item}.svg`}
+            width={size || '32'}
+        />
+    );
 }
 
 export default TechIcon;
