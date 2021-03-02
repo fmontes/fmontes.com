@@ -119,11 +119,15 @@
     @apply m-0;
 }
 
-.token.comment,
-.token.prolog,
+
+.token.prolog {}
 .token.doctype,
 .token.cdata {
     @apply text-gray-700;
+}
+
+.token.comment {
+    @apply text-gray-400;
 }
 
 .token.punctuation {
@@ -137,7 +141,7 @@
 .token.constant,
 .token.symbol,
 .token.deleted {
-    @apply text-green-500;
+    @apply text-green-600;
 }
 
 .token.selector,
@@ -159,7 +163,8 @@
 
 .token.atrule,
 .token.attr-value,
-.token.keyword {
+.token.keyword,
+.token.unit {
     @apply text-blue-500;
 }
 

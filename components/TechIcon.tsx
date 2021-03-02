@@ -13,7 +13,8 @@ const map = {
     Dragula: 'dragula',
     RxJS: 'rxjs',
     SASS: 'sass',
-    StencilJS: 'stencil'
+    StencilJS: 'stencil',
+    CSS: 'CSS'
 };
 
 function TechIcon({ type, size, fallback }: Props): JSX.Element {
