@@ -14,7 +14,7 @@ const map = {
     RxJS: 'rxjs',
     SASS: 'sass',
     StencilJS: 'stencil',
-    CSS: 'CSS'
+    CSS: 'css'
 };
 
 function TechIcon({ type, size, fallback }: Props): JSX.Element {
