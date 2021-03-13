@@ -63,6 +63,12 @@ module.exports = {
     plugins: [
         function ({ addComponents }) {
             addComponents({
+                '.main': {
+                    maxWidth: '100%',
+                    '@screen sm': {
+                        maxWidth: '70ch'
+                    }
+                },
                 '.container': {
                     margin: '0 auto',
                     maxWidth: '100%',

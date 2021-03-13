@@ -32,11 +32,9 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
                 <meta content="width=device-width, initial-scale=1" name="viewport" />
             </Head>
             <DefaultSeo {...seoDefault} />
-            <div className="container p-5 sm:py-10 lg:grid lg:grid-cols-12 lg:gap-14 lg:items-start antialiased">
-                <div className="lg:col-span-4">
-                    <Header />
-                </div>
-                <div className="main lg:col-span-8 mt-5 lg:m-0">
+            <div className="container p-5 sm:py-10 antialiased">
+                <Header />
+                <div className="main mx-auto mt-5">
                     <Component {...pageProps} />
                 </div>
             </div>

@@ -65,7 +65,7 @@ export default function Blog({
                 url={url}
             />
 
-            <main className="sm:col-span-2">
+            <main>
                 <h1>{title}</h1>
                 <p className="flex items-center">
                     <span className="flex items-center">

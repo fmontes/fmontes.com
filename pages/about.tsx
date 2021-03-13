@@ -27,7 +27,7 @@ export default function Blog({ mdxSource, frontMatter: { title } }: BlogPost): J
         <>
             <NextSeo description={t('bio')} title={t('title')} />
 
-            <main className="sm:col-span-2">
+            <main>
                 <h1>{title}</h1>
                 {content}
             </main>

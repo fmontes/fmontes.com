@@ -60,8 +60,9 @@ export default function Blog({
                 url={url}
             />
 
-            <main className="sm:col-span-2">
+            <main>
                 <h1>{title}</h1>
+
                 <p>
                     <blockquote className="text-base">{description}</blockquote>
                 </p>

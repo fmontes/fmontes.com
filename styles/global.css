@@ -95,10 +95,6 @@
         @apply text-lg border-l-4 border-yellow-300 pl-6 mt-6;
     }
 
-    .nav__link {
-        @apply p-2 sm:pl-0;
-    }
-
     .skills {
         display: grid;
         grid-gap: 1rem;

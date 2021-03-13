@@ -27,7 +27,7 @@ export default function Talks({ mdxSource, frontMatter: { title } }: Props): JSX
         <>
             <NextSeo description={t('bio')} title={t('title')} />
 
-            <main className="sm:col-span-2">
+            <main>
                 <h1>{title}</h1>
                 {content}
             </main>

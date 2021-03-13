@@ -2,9 +2,9 @@ import Link from 'next/link';
 
 function SocialMediaMenu(): JSX.Element {
     return (
-        <div className="flex space-x-6">
+        <div className="flex space-x-3">
             <Link href="//instagram.com/fmontes">
-                <a>
+                <a className="p-2" target="_blank">
                     <img
                         alt="Instagram"
                         height="24"
@@ -15,7 +15,7 @@ function SocialMediaMenu(): JSX.Element {
             </Link>
 
             <Link href="//twitter.com/fmontes">
-                <a>
+                <a className="p-2" target="_blank">
                     <img
                         alt="Twitter"
                         height="24"
@@ -25,8 +25,19 @@ function SocialMediaMenu(): JSX.Element {
                 </a>
             </Link>
 
+            <Link href="//www.youtube.com/channel/UCrv92ZCJjXgI1wK7Ru0rObg?sub_confirmation=1">
+                <a className="p-2" target="_blank">
+                    <img
+                        alt="Youtube"
+                        height="24"
+                        src="/images/social-icons/youtube.svg"
+                        width="24"
+                    />
+                </a>
+            </Link>
+
             <Link href="//github.com/fmontes">
-                <a>
+                <a className="p-2" target="_blank">
                     <img
                         alt="Github"
                         height="24"
@@ -37,7 +48,7 @@ function SocialMediaMenu(): JSX.Element {
             </Link>
 
             <Link href="//linkedin.com/in/fmontes/">
-                <a>
+                <a className="p-2" target="_blank">
                     <img
                         alt="LinkedIn"
                         height="24"
@@ -48,7 +59,7 @@ function SocialMediaMenu(): JSX.Element {
             </Link>
 
             <Link href="//stackoverflow.com/users/3367318/fmontes">
-                <a>
+                <a className="p-2" target="_blank">
                     <img
                         alt="StackOverflow"
                         height="24"
