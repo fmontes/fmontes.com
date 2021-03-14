@@ -15,7 +15,7 @@ function Header(): JSX.Element {
         <>
             <header>
                 <Link href="/">
-                    <a className="flex items-center mb-2 no-underline">
+                    <a className="inline-flex items-center mb-2 no-underline">
                         <div className="flex-shrink-0 mr-4">
                             <Image
                                 alt="Freddy Montes - Frontend Developer, Designer and Teacher"

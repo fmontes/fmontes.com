@@ -25,7 +25,7 @@ function Nav(): JSX.Element {
     return (
         <>
             <button
-                className="fixed z-20 bottom-0 right-0 bg-blue-800 rounded-none active:outline-none sm:hidden"
+                className="fixed z-20 top-0 right-0 bg-blue-800 rounded-none active:outline-none sm:hidden"
                 onClick={() => {
                     setShow(!show);
                 }}
@@ -39,7 +39,7 @@ function Nav(): JSX.Element {
             <nav
                 className={`${
                     show ? 'block' : 'hidden'
-                } fixed bottom-0 right-0 z-10 bg-blue-700 flex flex-col sm:flex-row sm:flex sm:static sm:bg-transparent`}
+                } fixed top-0 right-0 z-10 bg-blue-700 flex flex-col sm:flex-row sm:flex sm:static sm:bg-transparent`}
                 onClick={() => {
                     setShow(false);
                 }}
