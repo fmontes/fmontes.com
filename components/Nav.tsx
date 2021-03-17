@@ -1,4 +1,5 @@
 import { ReactNode, useState } from 'react';
+import { useRouter } from 'next/router';
 
 import useTranslation from '@utils/i18n/hooks';
 import Link from 'next/link';
@@ -9,9 +10,16 @@ type Props = {
 };
 
 function NanLink({ children, href }: Props) {
+    const { pathname } = useRouter();
+    const active = pathname === href;
+
     return (
         <Link href={href}>
-            <a className="block py-2 pl-5 pr-16 text-white no-underline sm:text-blue-700 sm:p-2 hover:underline">
+            <a
+                className={`${
+                    active ? 'font-bold ' : ''
+                }block py-2 pl-5 pr-16 text-white no-underline sm:text-blue-700 sm:p-2 hover:underline`}
+            >
                 {children}
             </a>
         </Link>
