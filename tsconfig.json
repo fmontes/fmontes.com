@@ -23,5 +23,5 @@
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/Date.js", "utils/i18n/config.js"],
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules", "fmontes-flayyer"]
 }
