@@ -21,9 +21,17 @@ const CustomLink = (props: LinkProps): JSX.Element => {
     return <a rel="noopener noreferrer" target="_blank" {...props} />;
 };
 
+const CustomImage = (props: any): JSX.Element => {
+    return (
+        <div className="text-center">
+            <Image {...props} />
+        </div>
+    );
+};
+
 const MDXComponents = {
     a: CustomLink,
-    Image,
+    Image: CustomImage,
     Date
 };
 

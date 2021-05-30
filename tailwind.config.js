@@ -64,10 +64,7 @@ module.exports = {
         function ({ addComponents }) {
             addComponents({
                 '.main': {
-                    maxWidth: '100%',
-                    '@screen sm': {
-                        maxWidth: '70ch'
-                    }
+                    maxWidth: '100%'
                 },
                 '.container': {
                     margin: '0 auto',
@@ -77,6 +74,11 @@ module.exports = {
                     },
                     '@screen md': {
                         maxWidth: '1024px'
+                    }
+                },
+                '.constrain': {
+                    '@screen sm': {
+                        maxWidth: '47rem'
                     }
                 }
             });

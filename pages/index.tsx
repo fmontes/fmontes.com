@@ -14,7 +14,7 @@ export default function Home({ posts }: Props): JSX.Element {
     return (
         <>
             <h1 className="mb-8">{t('latest_blog_posts')}</h1>
-            <main className="grid gap-6 sm:grid-cols-2">
+            <main className="grid gap-6 sm:grid-cols-2 constrain m-auto">
                 {posts.map((post: MatterContent, i: number) => (
                     <BlogItem key={i} {...post} />
                 ))}

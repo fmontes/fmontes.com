@@ -7,13 +7,6 @@
             sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     }
 
-    h1,
-    h2,
-    h3,
-    h4 {
-        @apply text-gray-800 mb-2 mt-8 leading-tight;
-    }
-
     h1 {
         @apply text-2xl font-bold sm:text-3xl tracking-tight sm:leading-tight mb-4;
     }
@@ -34,6 +27,12 @@
         @apply font-bold;
     }
 
+    h1,
+    h2,
+    h3,
+    h4 {
+        @apply text-gray-800 mb-2 mt-8 leading-tight;
+    }
 
     p,
     ul,
@@ -63,7 +62,8 @@
         @apply mt-0;
     }
 
-    ol, ul {
+    ol,
+    ul {
         @apply ml-5;
     }
 
@@ -79,9 +79,10 @@
         @apply list-disc;
     }
 
-    li ul, li ol {
+    li ul,
+    li ol {
         @apply my-0;
-    } 
+    }
 
     a {
         @apply text-blue-600 underline;
@@ -98,7 +99,7 @@
     .skills {
         display: grid;
         grid-gap: 1rem;
-        grid-template-columns: repeat( auto-fit, minmax(100px, 1fr) );
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     }
 }
 
@@ -115,8 +116,30 @@
     @apply m-0;
 }
 
+@screen sm {
+    .main h1,
+    .main h2,
+    .main h3,
+    .main h4,
+    .main h5,
+    .main h6,
+    .main p,
+    .main ul,
+    .main ol,
+    .main blockquote {
+        @apply constrain;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
-.token.prolog {}
+    .main ul,
+    .main ol {
+        padding-left: 1.5rem;
+    }
+}
+
+.token.prolog {
+}
 .token.doctype,
 .token.cdata {
     @apply text-gray-700;
