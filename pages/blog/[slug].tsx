@@ -87,7 +87,7 @@ export default function Blog({
                 dateModified={date}
                 datePublished={date}
                 description={description}
-                images={[fallbackOGImage]}
+                images={[flayyer?.href()]}
                 publisherLogo="/static/android-chrome-192x192.png"
                 publisherName="Freddy Montes"
                 title={title}
