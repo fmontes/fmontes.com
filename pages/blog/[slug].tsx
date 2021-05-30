@@ -10,6 +10,7 @@ import Date from '@components/Date';
 import MDXComponents from '@components/MDXComponents';
 import { getContent, getSlugs, MatterContent } from '@utils/content';
 import useTranslation from '@utils/i18n/hooks';
+import image from 'next/image';
 
 type BlogPost = {
     mdxSource: {
@@ -18,6 +19,12 @@ type BlogPost = {
     };
     frontMatter: MatterContent;
 };
+
+interface Vars {
+    title: string;
+    description: string;
+    image?: string;
+}
 
 export default function Blog({
     mdxSource,
@@ -32,26 +39,25 @@ export default function Blog({
     const { locale } = useRouter();
 
     const url = `https://fmontes.com${locale === 'es' ? '/es' : ''}/blog/${slug}`;
-    const fallbackOGImage = `https://fmontes.com/static/images/banner_${locale}.png`;
 
-    let flayyer;
+    const variables: Vars = {
+        title,
+        description
+    };
 
     if (cover) {
-        flayyer = new FlayyerIO({
-            tenant: 'fmontes-com',
-            deck: 'fmontes-flayyer',
-            template: 'main',
-            variables: {
-                image: `https://fmontes.com/images/blog/${cover}`,
-                title,
-                description
-            },
-            meta: {
-                id: slug
-            }
-        });
+        variables.image = `https://fmontes.com/images/blog/${cover}`;
     }
 
+    const flayyer = new FlayyerIO({
+        tenant: 'fmontes-com',
+        deck: 'fmontes-flayyer',
+        template: 'main',
+        variables,
+        meta: {
+            id: slug
+        }
+    });
 
 
     return (
@@ -67,7 +73,7 @@ export default function Blog({
                     url,
                     title,
                     description: description,
-                    images: [{ url: flayyer?.href() || fallbackOGImage, alt: title }]
+                    images: [{ url: flayyer?.href() }]
                 }}
                 title={`${title} – Freddy Montes`}
                 twitter={{

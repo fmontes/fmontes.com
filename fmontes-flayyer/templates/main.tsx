@@ -26,8 +26,7 @@ const logos = {
 };
 
 // import logo from '../static/logo.svg';
-import background from '../static/background.jpeg';
-import alternative from '../static/alternative.jpeg';
+import background from '../static/background.png';
 
 import { Layer } from '../components/layers';
 
@@ -38,7 +37,6 @@ export const schema = V.Object({
     title: V.String({ default: '' }),
     image: V.Image({
         title: 'Background image URL',
-        examples: [alternative],
         default: background
     }),
     logo: V.Optional(V.String())
