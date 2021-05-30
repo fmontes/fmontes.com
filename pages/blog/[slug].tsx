@@ -10,7 +10,6 @@ import Date from '@components/Date';
 import MDXComponents from '@components/MDXComponents';
 import { getContent, getSlugs, MatterContent } from '@utils/content';
 import useTranslation from '@utils/i18n/hooks';
-import image from 'next/image';
 
 type BlogPost = {
     mdxSource: {
@@ -22,13 +21,13 @@ type BlogPost = {
 
 interface Vars {
     title: string;
-    description: string;
+    category: string;
     image?: string;
 }
 
 export default function Blog({
     mdxSource,
-    frontMatter: { title, date, description, slug, canonical_url, cover }
+    frontMatter: { title, date, description, slug, canonical_url, cover, category }
 }: BlogPost): JSX.Element {
     const t = useTranslation();
 
@@ -42,7 +41,7 @@ export default function Blog({
 
     const variables: Vars = {
         title,
-        description
+        category
     };
 
     if (cover) {
