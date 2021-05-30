@@ -38,11 +38,11 @@ export default function Blog({
 
     if (cover) {
         flayyer = new FlayyerIO({
-            tenant: 'fmontes',
+            tenant: 'fmontes-com',
             deck: 'fmontes-flayyer',
             template: 'main',
             variables: {
-                img: `https://fmontes.com/images/blog/${slug}/${cover}`,
+                img: `https://fmontes.com/images/blog/${cover}`,
                 title,
                 description
             },
@@ -73,7 +73,7 @@ export default function Blog({
                 twitter={{
                     handle: '@fmontes',
                     site: '@fmontes',
-                    cardType: 'summary_large_image',
+                    cardType: 'summary_large_image'
                 }}
             />
             <ArticleJsonLd
