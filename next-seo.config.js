@@ -34,7 +34,7 @@ const SEO = {
         description: es.bio,
         openGraph: {
             type: 'website',
-            locale: 'en_IE',
+            locale: 'es_IE',
             url: SITE,
             title: es.title,
             description: es.bio,
