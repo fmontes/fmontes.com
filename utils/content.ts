@@ -38,6 +38,7 @@ export type MatterContent = {
     tech?: string;
     category?: string;
     canonical_url?: string;
+    cover?: string;
 };
 
 type ContentType = 'pages' | 'posts' | 'portfolio';

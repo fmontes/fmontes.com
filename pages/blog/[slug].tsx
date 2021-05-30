@@ -4,6 +4,7 @@ import { ParsedUrlQuery } from 'querystring';
 import { NextSeo, ArticleJsonLd } from 'next-seo';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { FlayyerIO } from '@flayyer/flayyer';
 
 import Date from '@components/Date';
 import MDXComponents from '@components/MDXComponents';
@@ -20,7 +21,7 @@ type BlogPost = {
 
 export default function Blog({
     mdxSource,
-    frontMatter: { title, date, description, slug, canonical_url }
+    frontMatter: { title, date, description, slug, canonical_url, cover }
 }: BlogPost): JSX.Element {
     const t = useTranslation();
 
@@ -31,10 +32,27 @@ export default function Blog({
     const { locale } = useRouter();
 
     const url = `https://fmontes.com${locale === 'es' ? '/es' : ''}/blog/${slug}`;
-    const image = {
-        url: `https://fmontes.com/static/images/banner_${locale}.png`,
-        alt: title
-    };
+    const fallbackOGImage = `https://fmontes.com/static/images/banner_${locale}.png`;
+
+    let flayyer;
+
+    if (cover) {
+        flayyer = new FlayyerIO({
+            tenant: 'fmontes',
+            deck: 'fmontes-flayyer',
+            template: 'main',
+            variables: {
+                img: `https://fmontes.com/images/blog/${slug}/${cover}`,
+                title,
+                description
+            },
+            meta: {
+                id: slug
+            }
+        });
+    }
+
+
 
     return (
         <>
@@ -49,16 +67,21 @@ export default function Blog({
                     url,
                     title,
                     description: description,
-                    images: [image]
+                    images: [{ url: flayyer?.href() || fallbackOGImage, alt: title }]
                 }}
                 title={`${title} – Freddy Montes`}
+                twitter={{
+                    handle: '@fmontes',
+                    site: '@fmontes',
+                    cardType: 'summary_large_image',
+                }}
             />
             <ArticleJsonLd
                 authorName="Freddy Montes"
                 dateModified={date}
                 datePublished={date}
                 description={description}
-                images={[image.url]}
+                images={[fallbackOGImage]}
                 publisherLogo="/static/android-chrome-192x192.png"
                 publisherName="Freddy Montes"
                 title={title}
