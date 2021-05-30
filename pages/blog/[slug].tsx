@@ -42,7 +42,7 @@ export default function Blog({
             deck: 'fmontes-flayyer',
             template: 'main',
             variables: {
-                img: `https://fmontes.com/images/blog/${cover}`,
+                image: `https://fmontes.com/images/blog/${cover}`,
                 title,
                 description
             },
