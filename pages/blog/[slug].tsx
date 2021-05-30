@@ -21,7 +21,7 @@ type BlogPost = {
 
 interface Vars {
     title: string;
-    category: string;
+    logo: string;
     image?: string;
 }
 
@@ -41,7 +41,7 @@ export default function Blog({
 
     const variables: Vars = {
         title,
-        category
+        logo: category.toLowerCase()
     };
 
     if (cover) {
