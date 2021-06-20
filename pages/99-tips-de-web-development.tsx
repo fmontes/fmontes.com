@@ -7,7 +7,7 @@ export default function Book(): JSX.Element {
 
     return (
         <>
-            <h1>
+            <h1 className="text-center">
                 <Image
                     alt="99 tips de Web Development"
                     height="470"
