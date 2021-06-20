@@ -66,10 +66,15 @@ export default function Book(): JSX.Element {
             </h1>
 
             <div className="max-w-lg m-auto">
-                <h2>
-                    Descargalo <span className="uppercase text-green-600 font-bold">¡gratis!</span>
-                </h2>
-                <p>😀 El libro es gratis pero puedes regalarme un café o una cerveza.</p>
+                <header>
+                    <h2>
+                        Descargalo{' '}
+                        <span className="uppercase text-green-600 font-bold">¡gratis!</span>
+                    </h2>
+                    <h3 className="m-0 my-4 text-base border border-yellow-300 bg-yellow-100 p-2 rounded">
+                        🎁 El libro es gratis pero puedes regalarme un café o una cerveza.
+                    </h3>
+                </header>
                 <p>
                     Este libro <b>recopila 99 soluciones a problemas</b> de desarrollo web que se
                     pueden resolver de manera nativa, fácil, pero más importante, eficientemente.
