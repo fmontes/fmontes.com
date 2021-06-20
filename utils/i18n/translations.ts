@@ -13,10 +13,8 @@ export default {
             'Thank your read this blog post. Any feedback or question hit me up on Twitter'
     },
     es: {
-        title:
-            'Freddy Montes - Frontend Developer and Diseñador. Aprendiendiendo, programando y enseñando',
-        bio:
-            'Soy un Frontend Developer y diseñador. Aprendo y enseño todo sobre Tecnologías y Diseño Web.',
+        title: 'Freddy Montes - Frontend Developer and Diseñador. Aprendiendiendo, programando y enseñando',
+        bio: 'Soy un Frontend Developer y diseñador. Aprendo y enseño todo sobre Tecnologías y Diseño Web.',
         home: 'Inicio',
         about: 'Sobre mi',
         uses: 'Uses',
