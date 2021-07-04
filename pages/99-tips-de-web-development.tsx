@@ -79,11 +79,10 @@ export default function Book(): JSX.Element {
                     Este libro <b>recopila 99 soluciones a problemas</b> de desarrollo web que se
                     pueden resolver de manera nativa, fácil, pero más importante, eficientemente.
                 </p>
-                <script
-                    async
-                    data-uid="8e2fa14e8a"
-                    src="https://fmontes.ck.page/8e2fa14e8a/index.js"
-                />
+                <script src="https://gumroad.com/js/gumroad-embed.js" />
+                <div className="gumroad-product-embed">
+                    <a href="https://gumroad.com/l/ZYhCP">Cargando...</a>
+                </div>
             </div>
         </>
     );
