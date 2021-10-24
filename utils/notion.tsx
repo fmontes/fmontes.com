@@ -3,6 +3,8 @@ import slugify from 'slugify';
 import { Text } from '@components/Text';
 import { Client } from '@notionhq/client';
 
+import Image from 'next/image';
+
 const notion = new Client({
     auth: 'secret_uqfg9c6N0gaHrqmfXPpWEvFq9AdHdTWJfFXqL5V6pjI'
 });
@@ -93,13 +95,17 @@ export const renderBlock = (block) => {
             return <p>{value.title}</p>;
         case 'image':
             const src = value.type === 'external' ? value.external.url : value.file.url;
-            const caption = value.caption ? value.caption[0].plain_text : '';
+            const caption = value.caption.length ? value.caption[0].plain_text : '';
             return (
-                <figure>
-                    <img alt={caption} src={src} />
+                <figure className="flex flex-col items-center gap-4">
+                    <div className="relative w-full" style={{ aspectRatio: '16/9' }}>
+                        <Image alt={caption} src={src} layout="fill" objectFit="contain" />
+                    </div>
                     {caption && <figcaption>{caption}</figcaption>}
                 </figure>
             );
+        case 'code':
+            return <>CODE</>;
         default:
             return `❌ Unsupported block (${
                 type === 'unsupported' ? 'unsupported by Notion API' : type
