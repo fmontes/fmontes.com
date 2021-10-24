@@ -1,3 +1,5 @@
+import { Fragment } from 'react';
+
 import slugify from 'slugify';
 
 import { Text } from '@components/Text';
@@ -30,7 +32,7 @@ export const getBlocks = async (blockId) => {
 };
 
 export const getSlug = (post): string => {
-    return post.properties.Title.title[0]
+    return post && post?.properties?.Title?.title[0]
         ? slugify(post.properties.Title.title[0]?.plain_text).toLocaleLowerCase()
         : '';
 };
@@ -99,7 +101,7 @@ export const renderBlock = (block) => {
             return (
                 <figure className="flex flex-col items-center gap-4">
                     <div className="relative w-full" style={{ aspectRatio: '16/9' }}>
-                        <Image alt={caption} src={src} layout="fill" objectFit="contain" />
+                        <Image alt={caption} layout="fill" objectFit="contain" src={src} />
                     </div>
                     {caption && <figcaption>{caption}</figcaption>}
                 </figure>

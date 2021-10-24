@@ -2,15 +2,24 @@ import { Fragment } from 'react';
 import { Text } from '@components/Text';
 import { getBlocks, getDatabase, getPage, getSlug, renderBlock } from '@utils/notion';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-// eslint-disable-next-line react/prop-types
-export default function Post({ blocks, page }) {
+interface Props {
+    blocks: any;
+    page: {
+        properties: {
+            Title: {
+                title: string;
+            };
+        };
+    };
+}
+
+export default function Post({ blocks, page }: Props): JSX.Element {
     return (
         <>
             <h1>
-                <Text text={page.properties.Title.title} />
+                <Text text={page?.properties.Title.title} />
             </h1>
-            {blocks.map((block) => (
+            {blocks?.map((block) => (
                 <Fragment key={block.id}>{renderBlock(block)}</Fragment>
             ))}
         </>
@@ -22,7 +31,14 @@ export const getStaticPaths = async () => {
     return {
         paths: database
             .filter((i, n) => n > 0)
-            .map((page) => ({ params: { slug: getSlug(page) }, locale: 'en' })),
+            .map((page, m) => {
+                return {
+                    params: {
+                        slug: getSlug(page)
+                    },
+                    locale: 'en'
+                };
+            }),
         fallback: true
     };
 };
