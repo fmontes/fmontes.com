@@ -58,6 +58,11 @@ module.exports = {
             typography: {
                 DEFAULT: {
                     css: {
+                        pre: {
+                            backgroundColor: '#f3f4f6',
+                            border: 'solid 1px #d1d5db',
+                            color: '#1f2937'
+                        },
                         a: {
                             color: '#1d4ed8'
                         }

@@ -15,14 +15,14 @@ interface Props {
 
 export default function Post({ blocks, page }: Props): JSX.Element {
     return (
-        <>
+        <main className="prose lg:prose-lg xl:prose-xl">
             <h1>
                 <Text text={page?.properties.Title.title} />
             </h1>
             {blocks?.map((block) => (
                 <Fragment key={block.id}>{renderBlock(block)}</Fragment>
             ))}
-        </>
+        </main>
     );
 }
 

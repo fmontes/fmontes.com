@@ -5,7 +5,7 @@ import { getDatabase, getSlug } from '@utils/notion';
 
 export default function Notion({ posts }: any) {
     return (
-        <>
+        <main className="prose">
             <h1>Hello World</h1>
             <ol>
                 {posts
@@ -14,11 +14,13 @@ export default function Notion({ posts }: any) {
                         const slug = getSlug(post);
                         return (
                             <li key={post.id}>
-                                <Link href={`/notion/${slug}`}>
-                                    <a>
-                                        <Text text={post.properties.Title.title} />
-                                    </a>
-                                </Link>
+                                <h2>
+                                    <Link href={`/notion/${slug}`}>
+                                        <a>
+                                            <Text text={post.properties.Title.title} />
+                                        </a>
+                                    </Link>
+                                </h2>
                                 <p>
                                     <Text text={post.properties.Description.rich_text} />
                                 </p>
@@ -26,7 +28,7 @@ export default function Notion({ posts }: any) {
                         );
                     })}
             </ol>
-        </>
+        </main>
     );
 }
 

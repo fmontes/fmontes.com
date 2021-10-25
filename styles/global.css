@@ -7,6 +7,7 @@
             sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     }
 
+
     .skills {
         display: grid;
         grid-gap: 1rem;
@@ -14,40 +15,13 @@
     }
 }
 
-.main pre {
+/* .prose pre {
     @apply bg-gray-100 border border-gray-300 p-2 overflow-auto rounded-md;
 }
 
-.main code {
+.prose code {
     @apply text-gray-800;
-}
-
-.main img {
-    /* Don't apply styles to next/image */
-    @apply m-0;
-}
-
-@screen sm {
-    .main h1,
-    .main h2,
-    .main h3,
-    .main h4,
-    .main h5,
-    .main h6,
-    .main p,
-    .main ul,
-    .main ol,
-    .main blockquote {
-        @apply constrain;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .main ul,
-    .main ol {
-        padding-left: 1.5rem;
-    }
-}
+} */
 
 .token.prolog {
 }
