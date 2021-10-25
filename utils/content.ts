@@ -5,6 +5,7 @@ import mdxPrism from 'mdx-prism';
 import path from 'path';
 import renderToString from 'next-mdx-remote/render-to-string';
 import { MdxRemote } from 'next-mdx-remote/types';
+import { getDatabase, getSlug } from './notion';
 
 const FOLDER_POSTS = path.resolve(process.cwd(), 'data/posts');
 const FOLDER_PAGES = path.resolve(process.cwd(), 'data/pages');
@@ -134,3 +135,111 @@ export const getContent = async ({ slug, locale, type }: ContentProps): Promise<
 
     return { mdxSource, frontMatter: { ...data, slug } };
 };
+
+export const getPosts = async (locale: string): Promise<MatterContent[]> => {
+    const notion = await getDatabase(process.env.NOTION_DATABASE);
+    const notionPosts = notion.results
+        .filter((_, i) => i > 0)
+        .map((item) => {
+            return {
+                title: item.properties.Title.title[0].text.content,
+                date: item.created_time,
+                description: item.properties.Description.rich_text[0].text.content,
+                slug: getSlug(item),
+                // tech: '',
+                // category: '',
+                // canonical_url: '',
+                cover: item?.cover?.external?.url || ''
+            };
+        });
+
+    const mdxPosts = await getContentSortedByDate(locale, 'posts');
+
+    return [...mdxPosts, ...notionPosts].sort((a, b) => {
+        const dateA = new Date(a.date).getTime();
+        const dateB = new Date(b.date).getTime();
+        return dateA < dateB ? 1 : -1; // ? -1 : 1 for ascending/increasing order
+    });
+};
+
+// {
+//     "object": "page",
+//     "id": "6c5da27f-4a74-4c6a-aa61-cf30fd6f3e3f",
+//     "created_time": "2021-09-25T03:27:00.000Z",
+//     "last_edited_time": "2021-09-25T04:59:00.000Z",
+//     "cover": {
+//         "type": "external",
+//         "external": {
+//             "url": "https://www.notion.so/images/page-cover/rijksmuseum_avercamp_1608.jpg"
+//         }
+//     },
+//     "icon": {
+//         "type": "emoji",
+//         "emoji": "🌐"
+//     },
+//     "parent": {
+//         "type": "database_id",
+//         "database_id": "e9a32443-ff29-4d38-8c56-e9625516e9e5"
+//     },
+//     "archived": false,
+//     "properties": {
+//         "Description": {
+//             "id": "kcoC",
+//             "type": "rich_text",
+//             "rich_text": [
+//                 {
+//                     "type": "text",
+//                     "text": {
+//                         "content": "But I'm a desc too",
+//                         "link": null
+//                     },
+//                     "annotations": {
+//                         "bold": false,
+//                         "italic": false,
+//                         "strikethrough": false,
+//                         "underline": false,
+//                         "code": false,
+//                         "color": "default"
+//                     },
+//                     "plain_text": "But I'm a desc too",
+//                     "href": null
+//                 }
+//             ]
+//         },
+//         "Tags": {
+//             "id": "rVil",
+//             "type": "multi_select",
+//             "multi_select": [
+//                 {
+//                     "id": "babe26bd-ac53-44f5-a1e6-643e99974ab0",
+//                     "name": "css",
+//                     "color": "gray"
+//                 }
+//             ]
+//         },
+//         "Title": {
+//             "id": "title",
+//             "type": "title",
+//             "title": [
+//                 {
+//                     "type": "text",
+//                     "text": {
+//                         "content": "Blog title 2",
+//                         "link": null
+//                     },
+//                     "annotations": {
+//                         "bold": false,
+//                         "italic": false,
+//                         "strikethrough": false,
+//                         "underline": false,
+//                         "code": false,
+//                         "color": "default"
+//                     },
+//                     "plain_text": "Blog title 2",
+//                     "href": null
+//                 }
+//             ]
+//         }
+//     },
+//     "url": "https://www.notion.so/Blog-title-2-6c5da27f4a744c6aaa61cf30fd6f3e3f"
+// }

@@ -1,45 +1,53 @@
 import { Fragment } from 'react';
 
+import Image from 'next/image';
 import slugify from 'slugify';
+import { Client } from '@notionhq/client';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import {
+    GetPageResponse,
+    ListBlockChildrenResponse,
+    QueryDatabaseResponse
+} from '@notionhq/client/build/src/api-endpoints';
 
 import { Text } from '@components/Text';
-import { Client } from '@notionhq/client';
-
-import Image from 'next/image';
-
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 const notion = new Client({
-    auth: 'secret_uqfg9c6N0gaHrqmfXPpWEvFq9AdHdTWJfFXqL5V6pjI'
+    auth: process.env.NOTION_SECRET
 });
 
-export const getDatabase = async (databaseId) => {
+export const getDatabase = async (databaseId: string): Promise<QueryDatabaseResponse> => {
     const response = await notion.databases.query({
         database_id: databaseId
     });
-    return response.results;
+    return {
+        ...response,
+        results: response.results
+    };
 };
 
-export const getPage = async (pageId) => {
+export const getPage = async (pageId: string): Promise<GetPageResponse> => {
     const response = await notion.pages.retrieve({ page_id: pageId });
     return response;
 };
 
-export const getBlocks = async (blockId) => {
+export const getBlocks = async (blockId: string): Promise<ListBlockChildrenResponse> => {
     const response = await notion.blocks.children.list({
         block_id: blockId,
         page_size: 50
     });
-    return response.results;
+    return response;
 };
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const getSlug = (post): string => {
     return post && post?.properties?.Title?.title[0]
         ? slugify(post.properties.Title.title[0]?.plain_text).toLocaleLowerCase()
         : '';
 };
 
-export const renderBlock = (block) => {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const renderBlock = (block): JSX.Element => {
     const { type, id } = block;
     const value = block[type];
 
@@ -110,7 +118,7 @@ export const renderBlock = (block) => {
             );
         case 'code':
             return (
-                <SyntaxHighlighter useInlineStyles={false} language={value.language}>
+                <SyntaxHighlighter language={value.language} useInlineStyles={false}>
                     {value.text[0].plain_text}
                 </SyntaxHighlighter>
             );

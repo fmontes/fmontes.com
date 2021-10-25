@@ -33,11 +33,11 @@ export default function Notion({ posts }: any) {
 }
 
 export const getStaticProps = async () => {
-    const database = await getDatabase('e9a32443ff294d388c56e9625516e9e5');
+    const database = await getDatabase(process.env.NOTION_DATABASE);
 
     return {
         props: {
-            posts: database
+            posts: database.results
         },
         // Next.js will attempt to re-generate the page:
         // - When a request comes in
