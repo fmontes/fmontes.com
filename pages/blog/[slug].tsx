@@ -92,7 +92,7 @@ export default function Blog({
                 url={url}
             />
 
-            <main>
+            <main className="prose lg:prose-lg xl:prose-xl mt-12 mx-auto">
                 <h1>{title}</h1>
                 <p className="flex items-center">
                     <span className="flex items-center">

@@ -54,6 +54,15 @@ module.exports = {
                 eight: '12rem',
                 twelve: '18rem',
                 sixteen: '24rem'
+            },
+            typography: {
+                DEFAULT: {
+                    css: {
+                        a: {
+                            color: '#1d4ed8'
+                        }
+                    }
+                }
             }
         }
     },
@@ -61,6 +70,7 @@ module.exports = {
         extend: {}
     },
     plugins: [
+        require('@tailwindcss/typography'),
         function ({ addComponents }) {
             addComponents({
                 '.main': {
