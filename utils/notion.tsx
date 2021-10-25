@@ -7,6 +7,8 @@ import { Client } from '@notionhq/client';
 
 import Image from 'next/image';
 
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+
 const notion = new Client({
     auth: 'secret_uqfg9c6N0gaHrqmfXPpWEvFq9AdHdTWJfFXqL5V6pjI'
 });
@@ -107,7 +109,11 @@ export const renderBlock = (block) => {
                 </figure>
             );
         case 'code':
-            return <>CODE</>;
+            return (
+                <SyntaxHighlighter useInlineStyles={false} language={value.language}>
+                    {value.text[0].plain_text}
+                </SyntaxHighlighter>
+            );
         default:
             return `❌ Unsupported block (${
                 type === 'unsupported' ? 'unsupported by Notion API' : type
