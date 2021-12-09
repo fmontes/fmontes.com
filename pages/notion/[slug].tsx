@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { Text } from '@components/Text';
-import { getBlocks, getDatabase, getPage, getSlug, renderBlock } from '@utils/notion';
+import { getBlocks, getDatabase, getPage, renderBlock } from '@utils/notion';
 
 interface Props {
     blocks: any;
@@ -49,13 +49,12 @@ export const getStaticProps = async (context) => {
     });
 
     const page = await getPage(id);
-    const { results } = await getBlocks(id);
-    const blocks = results;
+    const blocks = await getBlocks(id);
 
     // Retrieve block children for nested blocks (one level deep), for example toggle blocks
     // https://developers.notion.com/docs/working-with-page-content#reading-nested-blocks
     const childBlocks = await Promise.all(
-        blocks
+        blocks.results
             .filter((block) => block.has_children)
             .map(async (block) => {
                 return {
@@ -64,7 +63,7 @@ export const getStaticProps = async (context) => {
                 };
             })
     );
-    const blocksWithChildren = blocks.map((block) => {
+    const blocksWithChildren = blocks.results.map((block) => {
         // Add child blocks if the block should contain children but none exists
         if (block.has_children && !block[block.type].children) {
             block[block.type]['children'] = childBlocks.find((x) => x.id === block.id)?.children;

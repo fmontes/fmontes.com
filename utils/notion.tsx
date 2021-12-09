@@ -1,7 +1,6 @@
 import { Fragment } from 'react';
 
 import Image from 'next/image';
-import slugify from 'slugify';
 import { Client } from '@notionhq/client';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import {
@@ -11,7 +10,8 @@ import {
 } from '@notionhq/client/build/src/api-endpoints';
 
 import { Text } from '@components/Text';
-import { Slugs } from './content';
+import { MatterContent, Slugs } from './content';
+import { BlogPost } from 'pages/blog/[slug]';
 
 const notion = new Client({
     auth: process.env.NOTION_SECRET
@@ -51,7 +51,6 @@ export const getBlocks = async (blockId: string): Promise<ListBlockChildrenRespo
     });
     return response;
 };
-
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const renderBlock = (block): JSX.Element => {
@@ -162,4 +161,53 @@ export const getNotionPostsSlugs = async (): Promise<Slugs[]> => {
     });
 
     return [...notionESPaths, ...notionENPaths];
+};
+
+export const getNotionPostPage = async (slug: string, locale = 'en'): Promise<BlogPost> => {
+    const database = await getDatabase(locale);
+    const { id } = database.results.find((item: any) => {
+        return item.properties.Slug.rich_text[0].text.content === slug;
+    });
+
+    const page = await getPage(id);
+    const blocks = await getBlocks(id);
+
+    // Retrieve block children for nested blocks (one level deep), for example toggle blocks
+    // https://developers.notion.com/docs/working-with-page-content#reading-nested-blocks
+    const childBlocks = await Promise.all(
+        blocks.results
+            .filter((block) => block.has_children)
+            .map(async (block) => {
+                return {
+                    id: block.id,
+                    children: await getBlocks(block.id)
+                };
+            })
+    );
+    const blocksWithChildren = blocks.results.map((block) => {
+        // Add child blocks if the block should contain children but none exists
+        if (block.has_children && !block[block.type].children) {
+            block[block.type]['children'] = childBlocks.find((x) => x.id === block.id)?.children;
+        }
+        return block;
+    });
+
+    return {
+        type: 'notion',
+        content: blocksWithChildren,
+        frontMatter: getFrontMatter(page)
+    };
+};
+
+export const getFrontMatter = (page: any): MatterContent => {
+    return {
+        title: page.properties.Title.title[0].text.content,
+        date: page.created_time,
+        description: page.properties.Description.rich_text[0].text.content,
+        slug: page.properties.Slug.rich_text[0].text.content,
+        // tech: '',
+        // category: '',
+        // canonical_url: '',
+        cover: page?.cover?.external?.url || ''
+    };
 };

@@ -9,16 +9,21 @@ import { FlayyerIO } from '@flayyer/flayyer';
 import Date from '@components/Date';
 import MDXComponents from '@components/MDXComponents';
 import { getContent, getMDXPostsSlugs, MatterContent } from '@utils/content';
-import { getNotionPostsSlugs } from '@utils/notion';
+import { getNotionPostPage, getNotionPostsSlugs, renderBlock } from '@utils/notion';
 import useTranslation from '@utils/i18n/hooks';
+import React, { Fragment } from 'react';
 
 type MDXPost = {
     compiledSource: string;
     renderedOutput: string;
 };
 
-type BlogPost = {
-    content: MDXPost;
+export type NotionBlocks = {
+    [key: string]: any;
+};
+
+export type BlogPost = {
+    content: MDXPost | NotionBlocks[];
     frontMatter: MatterContent;
     type: 'notion' | 'mdx';
 };
@@ -33,24 +38,29 @@ export default function Blog(props: BlogPost): JSX.Element {
     const t = useTranslation();
     const { locale } = useRouter();
 
-    if (props.type !== 'mdx') {
-        return <h1>Notion</h1>;
-    }
+    console.log(props.frontMatter)
+
+    // if (props.type !== 'mdx') {
+    //     return <h1>Notion</h1>;
+    // }
 
     const {
         content,
         frontMatter: { title, date, description, slug, canonical_url, cover, category }
     } = props;
 
-    const render = hydrate(content, {
-        components: MDXComponents
-    });
+    const render =
+        props.type === 'mdx'
+            ? hydrate(content as MDXPost, {
+                  components: MDXComponents
+              })
+            : null;
 
     const url = `https://fmontes.com${locale === 'es' ? '/es' : ''}/blog/${slug}`;
 
     const variables: Vars = {
         title,
-        logo: category.toLowerCase()
+        logo: category?.toLowerCase() || ''
     };
 
     if (cover) {
@@ -120,7 +130,12 @@ export default function Blog(props: BlogPost): JSX.Element {
                     <span className="mx-4 text-gray-300">|</span>
                     <Date date={date} />
                 </p>
-                {render}
+
+                {render ||
+                    (content as NotionBlocks[])?.map((block) => (
+                        <Fragment key={block.id}>{renderBlock(block)}</Fragment>
+                    ))}
+
                 <hr />
                 <blockquote>
                     {t('post_blog_action')}: <a href="https://twitter.com/fmontes">@fmontes</a>
@@ -158,7 +173,9 @@ export const getStaticProps: GetStaticProps = async ({
             type: 'mdx'
         };
     } catch (error) {
-        console.log(error);
+        const page = await getNotionPostPage(params.slug as string, locale);
+        console.log(page);
+        props = page;
     }
 
     return {

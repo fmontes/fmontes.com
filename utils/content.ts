@@ -5,7 +5,7 @@ import mdxPrism from 'mdx-prism';
 import path from 'path';
 import renderToString from 'next-mdx-remote/render-to-string';
 import { MdxRemote } from 'next-mdx-remote/types';
-import { getDatabase, getSlug } from './notion';
+import { getDatabase, getFrontMatter, getSlug } from './notion';
 
 const FOLDER_POSTS = path.resolve(process.cwd(), 'data/posts');
 const FOLDER_PAGES = path.resolve(process.cwd(), 'data/pages');
@@ -139,18 +139,7 @@ export const getContent = async ({ slug, locale, type }: ContentProps): Promise<
 export const getPosts = async (locale: string): Promise<MatterContent[]> => {
     // Get Notion posts
     const notion = await getDatabase(locale);
-    const notionPosts = notion.results.map((item: any) => {
-        return {
-            title: item.properties.Title.title[0].text.content,
-            date: item.created_time,
-            description: item.properties.Description.rich_text[0].text.content,
-            slug: item.properties.Slug.rich_text[0].text.content,
-            // tech: '',
-            // category: '',
-            // canonical_url: '',
-            cover: item?.cover?.external?.url || ''
-        };
-    });
+    const notionPosts = notion.results.map((item: any) => getFrontMatter(item));
 
     // Get MDX posts
     const mdxPosts = await getContentSortedByDate(locale, 'posts');
