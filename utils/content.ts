@@ -5,7 +5,7 @@ import mdxPrism from 'mdx-prism';
 import path from 'path';
 import renderToString from 'next-mdx-remote/render-to-string';
 import { MdxRemote } from 'next-mdx-remote/types';
-import { getDatabase, getFrontMatter, getSlug } from './notion';
+import { getDatabase, getFrontMatter } from './notion';
 
 const FOLDER_POSTS = path.resolve(process.cwd(), 'data/posts');
 const FOLDER_PAGES = path.resolve(process.cwd(), 'data/pages');
@@ -155,85 +155,3 @@ export const getPosts = async (locale: string): Promise<MatterContent[]> => {
 export const getMDXPostsSlugs = async (): Promise<Slugs[]> => {
     return getSlugs('posts');
 };
-
-// {
-//     "object": "page",
-//     "id": "6c5da27f-4a74-4c6a-aa61-cf30fd6f3e3f",
-//     "created_time": "2021-09-25T03:27:00.000Z",
-//     "last_edited_time": "2021-09-25T04:59:00.000Z",
-//     "cover": {
-//         "type": "external",
-//         "external": {
-//             "url": "https://www.notion.so/images/page-cover/rijksmuseum_avercamp_1608.jpg"
-//         }
-//     },
-//     "icon": {
-//         "type": "emoji",
-//         "emoji": "🌐"
-//     },
-//     "parent": {
-//         "type": "database_id",
-//         "database_id": "e9a32443-ff29-4d38-8c56-e9625516e9e5"
-//     },
-//     "archived": false,
-//     "properties": {
-//         "Description": {
-//             "id": "kcoC",
-//             "type": "rich_text",
-//             "rich_text": [
-//                 {
-//                     "type": "text",
-//                     "text": {
-//                         "content": "But I'm a desc too",
-//                         "link": null
-//                     },
-//                     "annotations": {
-//                         "bold": false,
-//                         "italic": false,
-//                         "strikethrough": false,
-//                         "underline": false,
-//                         "code": false,
-//                         "color": "default"
-//                     },
-//                     "plain_text": "But I'm a desc too",
-//                     "href": null
-//                 }
-//             ]
-//         },
-//         "Tags": {
-//             "id": "rVil",
-//             "type": "multi_select",
-//             "multi_select": [
-//                 {
-//                     "id": "babe26bd-ac53-44f5-a1e6-643e99974ab0",
-//                     "name": "css",
-//                     "color": "gray"
-//                 }
-//             ]
-//         },
-//         "Title": {
-//             "id": "title",
-//             "type": "title",
-//             "title": [
-//                 {
-//                     "type": "text",
-//                     "text": {
-//                         "content": "Blog title 2",
-//                         "link": null
-//                     },
-//                     "annotations": {
-//                         "bold": false,
-//                         "italic": false,
-//                         "strikethrough": false,
-//                         "underline": false,
-//                         "code": false,
-//                         "color": "default"
-//                     },
-//                     "plain_text": "Blog title 2",
-//                     "href": null
-//                 }
-//             ]
-//         }
-//     },
-//     "url": "https://www.notion.so/Blog-title-2-6c5da27f4a744c6aaa61cf30fd6f3e3f"
-// }
