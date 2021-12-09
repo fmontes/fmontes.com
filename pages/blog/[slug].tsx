@@ -38,12 +38,6 @@ export default function Blog(props: BlogPost): JSX.Element {
     const t = useTranslation();
     const { locale } = useRouter();
 
-    console.log(props.frontMatter)
-
-    // if (props.type !== 'mdx') {
-    //     return <h1>Notion</h1>;
-    // }
-
     const {
         content,
         frontMatter: { title, date, description, slug, canonical_url, cover, category }
@@ -60,7 +54,7 @@ export default function Blog(props: BlogPost): JSX.Element {
 
     const variables: Vars = {
         title,
-        logo: category?.toLowerCase() || ''
+        logo: category?.toLowerCase() || 'fmontes'
     };
 
     if (cover) {
