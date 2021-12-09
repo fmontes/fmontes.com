@@ -1,4 +1,5 @@
 import hydrate from 'next-mdx-remote/hydrate';
+import React, { Fragment } from 'react';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import { NextSeo, ArticleJsonLd } from 'next-seo';
@@ -11,7 +12,6 @@ import MDXComponents from '@components/MDXComponents';
 import { getContent, getMDXPostsSlugs, MatterContent } from '@utils/content';
 import { getNotionPostPage, getNotionPostsSlugs, renderBlock } from '@utils/notion';
 import useTranslation from '@utils/i18n/hooks';
-import React, { Fragment } from 'react';
 
 type MDXPost = {
     compiledSource: string;
@@ -168,7 +168,6 @@ export const getStaticProps: GetStaticProps = async ({
         };
     } catch (error) {
         const page = await getNotionPostPage(params.slug as string, locale);
-        console.log(page);
         props = page;
     }
 
