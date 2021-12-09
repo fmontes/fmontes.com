@@ -52,12 +52,6 @@ export const getBlocks = async (blockId: string): Promise<ListBlockChildrenRespo
     return response;
 };
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const getSlug = (post): string => {
-    return post && post?.properties?.Title?.title[0]
-        ? slugify(post.properties.Title.title[0]?.plain_text).toLocaleLowerCase()
-        : '';
-};
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const renderBlock = (block): JSX.Element => {

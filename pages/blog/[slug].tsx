@@ -9,7 +9,7 @@ import { FlayyerIO } from '@flayyer/flayyer';
 import Date from '@components/Date';
 import MDXComponents from '@components/MDXComponents';
 import { getContent, getMDXPostsSlugs, MatterContent } from '@utils/content';
-import { getDatabase, getNotionPostsSlugs, getSlug } from '@utils/notion';
+import { getNotionPostsSlugs } from '@utils/notion';
 import useTranslation from '@utils/i18n/hooks';
 
 type MDXPost = {
