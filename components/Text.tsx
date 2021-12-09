@@ -12,11 +12,11 @@ export const Text = ({ text }) => {
             <span
                 key={key}
                 className={[
-                    bold ? 'text-bold' : '',
-                    code ? 'text-code' : '',
-                    italic ? 'text-italic' : '',
-                    strikethrough ? 'text-strikeout' : '',
-                    underline ? 'text-underline' : ''
+                    bold ? 'font-bold' : '',
+                    code ? 'font-mono text-red-600 bg-gray-200 py-1 px-2 rounded' : '',
+                    italic ? 'italic' : '',
+                    strikethrough ? 'line-through' : '',
+                    underline ? 'underline' : ''
                 ].join(' ')}
                 style={color !== 'default' ? { color } : {}}
             >
