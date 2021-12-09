@@ -1,6 +1,6 @@
 module.exports = {
     corePlugins: {},
-    purge: ['./pages/**/*.tsx', './components/**/*.tsx', './data/**/*.mdx'],
+    purge: ['./pages/**/*.tsx', './components/**/*.tsx', './data/**/*.mdx', './utils/notion.tsx'],
     darkMode: false, // or 'media' or 'class'
     theme: {
         container: false,
@@ -28,6 +28,16 @@ module.exports = {
                 'Apple Color Emoji',
                 'Segoe UI Emoji',
                 'Segoe UI Symbol'
+            ],
+            mono: [
+                'ui-monospace',
+                'SFMono-Regular',
+                'Menlo',
+                'Monaco',
+                'Consolas',
+                'Liberation Mono',
+                'Courier New',
+                'monospace'
             ]
         },
         extend: {
@@ -54,6 +64,20 @@ module.exports = {
                 eight: '12rem',
                 twelve: '18rem',
                 sixteen: '24rem'
+            },
+            typography: {
+                DEFAULT: {
+                    css: {
+                        pre: {
+                            backgroundColor: '#f3f4f6',
+                            border: 'solid 1px #d1d5db',
+                            color: '#1f2937'
+                        },
+                        a: {
+                            color: '#1d4ed8'
+                        }
+                    }
+                }
             }
         }
     },
@@ -61,6 +85,7 @@ module.exports = {
         extend: {}
     },
     plugins: [
+        require('@tailwindcss/typography'),
         function ({ addComponents }) {
             addComponents({
                 '.main': {

@@ -15,8 +15,10 @@ function BlogItem({ title, date, description, category, slug }: MatterContent): 
                         <TechIcon type={category} />
                         <Date date={date} />
                     </div>
-                    <h2 className="mt-0 mb-2 text-lg leading-9">{title}</h2>
-                    <p className="mt-2">{description}</p>
+                    <div className="prose">
+                        <h2 className="mt-0 mb-2 text-lg leading-9">{title}</h2>
+                        <p className="mt-2">{description}</p>
+                    </div>
                 </a>
             </Link>
         </article>

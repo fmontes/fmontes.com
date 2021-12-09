@@ -5,6 +5,7 @@ import mdxPrism from 'mdx-prism';
 import path from 'path';
 import renderToString from 'next-mdx-remote/render-to-string';
 import { MdxRemote } from 'next-mdx-remote/types';
+import { getDatabase, getFrontMatter } from './notion';
 
 const FOLDER_POSTS = path.resolve(process.cwd(), 'data/posts');
 const FOLDER_PAGES = path.resolve(process.cwd(), 'data/pages');
@@ -16,7 +17,7 @@ const FOLDERS = {
     portfolio: FOLDER_PORTFOLIO
 };
 
-interface Slugs {
+export interface Slugs {
     params: {
         slug: string;
     };
@@ -133,4 +134,24 @@ export const getContent = async ({ slug, locale, type }: ContentProps): Promise<
     });
 
     return { mdxSource, frontMatter: { ...data, slug } };
+};
+
+export const getPosts = async (locale: string): Promise<MatterContent[]> => {
+    // Get Notion posts
+    const notion = await getDatabase(locale);
+    const notionPosts = notion.results.map((item: any) => getFrontMatter(item));
+
+    // Get MDX posts
+    const mdxPosts = await getContentSortedByDate(locale, 'posts');
+
+    // Sort and merge posts
+    return [...mdxPosts, ...notionPosts].sort((a, b) => {
+        const dateA = new Date(a.date).getTime();
+        const dateB = new Date(b.date).getTime();
+        return dateA < dateB ? 1 : -1; // ? -1 : 1 for ascending/increasing order
+    });
+};
+
+export const getMDXPostsSlugs = async (): Promise<Slugs[]> => {
+    return getSlugs('posts');
 };

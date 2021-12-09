@@ -7,94 +7,6 @@
             sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     }
 
-    h1 {
-        @apply text-2xl font-bold sm:text-3xl tracking-tight sm:leading-tight mb-4;
-    }
-
-    h1:first-child {
-        @apply mt-0;
-    }
-
-    h2 {
-        @apply text-lg sm:text-xl;
-    }
-
-    h3 {
-        @apply text-base sm:text-lg;
-    }
-
-    h4 {
-        @apply font-bold;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4 {
-        @apply text-gray-800 mb-2 mt-8 leading-tight;
-    }
-
-    p,
-    ul,
-    ol,
-    time {
-        @apply text-gray-700;
-    }
-
-    p,
-    ul,
-    ol {
-        @apply my-5;
-    }
-
-    h1 + p,
-    h1 + ul,
-    h1 + ol,
-    h2 + p,
-    h2 + ul,
-    h2 + ol,
-    h3 + p,
-    h3 + ul,
-    h3 + ol,
-    h4 + p,
-    h4 + ul,
-    h4 + ol {
-        @apply mt-0;
-    }
-
-    ol,
-    ul {
-        @apply ml-5;
-    }
-
-    li {
-        @apply list-outside my-2;
-    }
-
-    ol li {
-        @apply list-decimal;
-    }
-
-    ul li {
-        @apply list-disc;
-    }
-
-    li ul,
-    li ol {
-        @apply my-0;
-    }
-
-    a {
-        @apply text-blue-600 underline;
-    }
-
-    b {
-        @apply font-bold;
-    }
-
-    blockquote {
-        @apply text-lg border-l-4 border-yellow-300 pl-6 mt-6;
-    }
 
     .skills {
         display: grid;
@@ -103,40 +15,13 @@
     }
 }
 
-.main pre {
+/* .prose pre {
     @apply bg-gray-100 border border-gray-300 p-2 overflow-auto rounded-md;
 }
 
-.main code {
+.prose code {
     @apply text-gray-800;
-}
-
-.main img {
-    /* Don't apply styles to next/image */
-    @apply m-0;
-}
-
-@screen sm {
-    .main h1,
-    .main h2,
-    .main h3,
-    .main h4,
-    .main h5,
-    .main h6,
-    .main p,
-    .main ul,
-    .main ol,
-    .main blockquote {
-        @apply constrain;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .main ul,
-    .main ol {
-        padding-left: 1.5rem;
-    }
-}
+} */
 
 .token.prolog {
 }

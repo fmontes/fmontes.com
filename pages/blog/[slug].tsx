@@ -1,4 +1,5 @@
 import hydrate from 'next-mdx-remote/hydrate';
+import React, { Fragment } from 'react';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import { NextSeo, ArticleJsonLd } from 'next-seo';
@@ -8,15 +9,23 @@ import { FlayyerIO } from '@flayyer/flayyer';
 
 import Date from '@components/Date';
 import MDXComponents from '@components/MDXComponents';
-import { getContent, getSlugs, MatterContent } from '@utils/content';
+import { getContent, getMDXPostsSlugs, MatterContent } from '@utils/content';
+import { getNotionPostPage, getNotionPostsSlugs, renderBlock } from '@utils/notion';
 import useTranslation from '@utils/i18n/hooks';
 
-type BlogPost = {
-    mdxSource: {
-        compiledSource: string;
-        renderedOutput: string;
-    };
+type MDXPost = {
+    compiledSource: string;
+    renderedOutput: string;
+};
+
+export type NotionBlocks = {
+    [key: string]: any;
+};
+
+export type BlogPost = {
+    content: MDXPost | NotionBlocks[];
     frontMatter: MatterContent;
+    type: 'notion' | 'mdx';
 };
 
 interface Vars {
@@ -25,23 +34,27 @@ interface Vars {
     image?: string;
 }
 
-export default function Blog({
-    mdxSource,
-    frontMatter: { title, date, description, slug, canonical_url, cover, category }
-}: BlogPost): JSX.Element {
+export default function Blog(props: BlogPost): JSX.Element {
     const t = useTranslation();
-
-    const content = hydrate(mdxSource, {
-        components: MDXComponents
-    });
-
     const { locale } = useRouter();
+
+    const {
+        content,
+        frontMatter: { title, date, description, slug, canonical_url, cover, category }
+    } = props;
+
+    const render =
+        props.type === 'mdx'
+            ? hydrate(content as MDXPost, {
+                  components: MDXComponents
+              })
+            : null;
 
     const url = `https://fmontes.com${locale === 'es' ? '/es' : ''}/blog/${slug}`;
 
     const variables: Vars = {
         title,
-        logo: category.toLowerCase()
+        logo: category?.toLowerCase() || 'fmontes'
     };
 
     if (cover) {
@@ -92,7 +105,7 @@ export default function Blog({
                 url={url}
             />
 
-            <main>
+            <main className="prose lg:prose-lg xl:prose-xl mt-12 mx-auto">
                 <h1>{title}</h1>
                 <p className="flex items-center">
                     <span className="flex items-center">
@@ -111,7 +124,12 @@ export default function Blog({
                     <span className="mx-4 text-gray-300">|</span>
                     <Date date={date} />
                 </p>
-                {content}
+
+                {render ||
+                    (content as NotionBlocks[])?.map((block) => (
+                        <Fragment key={block.id}>{renderBlock(block)}</Fragment>
+                    ))}
+
                 <hr />
                 <blockquote>
                     {t('post_blog_action')}: <a href="https://twitter.com/fmontes">@fmontes</a>
@@ -122,11 +140,12 @@ export default function Blog({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const paths = getSlugs('posts');
+    const paths = await getMDXPostsSlugs();
+    const notion = await getNotionPostsSlugs();
 
     return {
         fallback: false,
-        paths
+        paths: [...paths, ...notion]
     };
 };
 
@@ -134,16 +153,27 @@ export const getStaticProps: GetStaticProps = async ({
     params,
     locale
 }: GetStaticPropsContext<ParsedUrlQuery>) => {
-    const { mdxSource, frontMatter } = await getContent({
-        slug: params.slug as string,
-        locale,
-        type: 'posts'
-    });
+    let props = null;
+
+    try {
+        const { mdxSource, frontMatter } = await getContent({
+            slug: params.slug as string,
+            locale,
+            type: 'posts'
+        });
+        props = {
+            content: mdxSource,
+            frontMatter,
+            type: 'mdx'
+        };
+    } catch (error) {
+        const page = await getNotionPostPage(params.slug as string, locale);
+        props = page;
+    }
 
     return {
         props: {
-            mdxSource,
-            frontMatter
+            ...props
         }
     };
 };

@@ -34,9 +34,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
             <DefaultSeo {...seoDefault} />
             <div className="container p-5 sm:py-10 antialiased">
                 <Header />
-                <div className="main mx-auto mt-5">
-                    <Component {...pageProps} />
-                </div>
+                <Component {...pageProps} />
             </div>
         </MDXProvider>
     );

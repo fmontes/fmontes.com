@@ -11,6 +11,10 @@ module.exports = {
             }
         ];
     },
+    images: {
+        domains: ['s3.us-west-2.amazonaws.com'],
+        imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    },
     i18n: i18nConfig,
     webpack5: true,
     webpack: (config, { isServer }) => {
