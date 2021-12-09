@@ -58,7 +58,7 @@ export default function Blog(props: BlogPost): JSX.Element {
     };
 
     if (cover) {
-        variables.image = `https://fmontes.com/images/blog/${cover}`;
+        variables.image = props.type === 'mdx' ? `https://fmontes.com/images/blog/${cover}` : cover;
     }
 
     const flayyer = new FlayyerIO({
