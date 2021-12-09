@@ -11,15 +11,28 @@ import {
 } from '@notionhq/client/build/src/api-endpoints';
 
 import { Text } from '@components/Text';
+import { Slugs } from './content';
 
 const notion = new Client({
     auth: process.env.NOTION_SECRET
 });
 
-export const getDatabase = async (databaseId: string): Promise<QueryDatabaseResponse> => {
+const databaseIds = {
+    es: process.env.NOTION_DATABASE_ES,
+    en: process.env.NOTION_DATABASE_EN
+};
+
+export const getDatabase = async (locale = 'en'): Promise<QueryDatabaseResponse> => {
+    const databaseId = databaseIds[locale];
+
+    if (!databaseId) {
+        throw new Error(`No database found for locale ${locale}`);
+    }
+
     const response = await notion.databases.query({
         database_id: databaseId
     });
+
     return {
         ...response,
         results: response.results
@@ -123,8 +136,36 @@ export const renderBlock = (block): JSX.Element => {
                 </SyntaxHighlighter>
             );
         default:
-            return `❌ Unsupported block (${
-                type === 'unsupported' ? 'unsupported by Notion API' : type
-            })`;
+            return (
+                <p>
+                    ❌ Unsupported block
+                    {type === 'unsupported' ? 'unsupported by Notion API' : type}
+                </p>
+            );
     }
+};
+
+export const getNotionPostsSlugs = async (): Promise<Slugs[]> => {
+    const notionES = await getDatabase('es');
+    const notionEN = await getDatabase('en');
+
+    const notionESPaths = notionES.results.map((page: any, m) => {
+        return {
+            params: {
+                slug: page.properties.Slug.rich_text[0].text.content
+            },
+            locale: 'es'
+        };
+    });
+
+    const notionENPaths = notionEN.results.map((page: any, m) => {
+        return {
+            params: {
+                slug: page.properties.Slug.rich_text[0].text.content
+            },
+            locale: 'en'
+        };
+    });
+
+    return [...notionESPaths, ...notionENPaths];
 };

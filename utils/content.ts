@@ -17,7 +17,7 @@ const FOLDERS = {
     portfolio: FOLDER_PORTFOLIO
 };
 
-interface Slugs {
+export interface Slugs {
     params: {
         slug: string;
     };
@@ -137,29 +137,34 @@ export const getContent = async ({ slug, locale, type }: ContentProps): Promise<
 };
 
 export const getPosts = async (locale: string): Promise<MatterContent[]> => {
-    const notion = await getDatabase(process.env.NOTION_DATABASE);
-    const notionPosts = notion.results
-        .filter((_, i) => i > 0)
-        .map((item) => {
-            return {
-                title: item.properties.Title.title[0].text.content,
-                date: item.created_time,
-                description: item.properties.Description.rich_text[0].text.content,
-                slug: getSlug(item),
-                // tech: '',
-                // category: '',
-                // canonical_url: '',
-                cover: item?.cover?.external?.url || ''
-            };
-        });
+    // Get Notion posts
+    const notion = await getDatabase(locale);
+    const notionPosts = notion.results.map((item: any) => {
+        return {
+            title: item.properties.Title.title[0].text.content,
+            date: item.created_time,
+            description: item.properties.Description.rich_text[0].text.content,
+            slug: item.properties.Slug.rich_text[0].text.content,
+            // tech: '',
+            // category: '',
+            // canonical_url: '',
+            cover: item?.cover?.external?.url || ''
+        };
+    });
 
+    // Get MDX posts
     const mdxPosts = await getContentSortedByDate(locale, 'posts');
 
+    // Sort and merge posts
     return [...mdxPosts, ...notionPosts].sort((a, b) => {
         const dateA = new Date(a.date).getTime();
         const dateB = new Date(b.date).getTime();
         return dateA < dateB ? 1 : -1; // ? -1 : 1 for ascending/increasing order
     });
+};
+
+export const getMDXPostsSlugs = async (): Promise<Slugs[]> => {
+    return getSlugs('posts');
 };
 
 // {

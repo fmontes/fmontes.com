@@ -27,14 +27,14 @@ export default function Post({ blocks, page }: Props): JSX.Element {
 }
 
 export const getStaticPaths = async () => {
-    const database = await getDatabase(process.env.NOTION_DATABASE);
+    const database = await getDatabase('es');
     return {
         paths: database.results.map((page, m) => {
             return {
                 params: {
                     slug: getSlug(page)
                 },
-                locale: 'en'
+                locale: 'es'
             };
         }),
         fallback: true
@@ -43,7 +43,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context) => {
     const { slug } = context.params;
-    const database = await getDatabase(process.env.NOTION_DATABASE);
+    const database = await getDatabase('es');
     const { id } = database.results.find((item) => {
         return getSlug(item) === slug;
     });
