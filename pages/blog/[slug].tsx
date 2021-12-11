@@ -1,4 +1,3 @@
-import hydrate from 'next-mdx-remote/hydrate';
 import React, { Fragment } from 'react';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
@@ -12,6 +11,7 @@ import MDXComponents from '@components/MDXComponents';
 import { getContent, getMDXPostsSlugs, MatterContent } from '@utils/content';
 import { getNotionPostPage, getNotionPostsSlugs, renderBlock } from '@utils/notion';
 import useTranslation from '@utils/i18n/hooks';
+import { MDXRemote } from 'next-mdx-remote';
 
 type MDXPost = {
     compiledSource: string;
@@ -42,13 +42,6 @@ export default function Blog(props: BlogPost): JSX.Element {
         content,
         frontMatter: { title, date, description, slug, canonical_url, cover, category }
     } = props;
-
-    const render =
-        props.type === 'mdx'
-            ? hydrate(content as MDXPost, {
-                  components: MDXComponents
-              })
-            : null;
 
     const url = `https://fmontes.com${locale === 'es' ? '/es' : ''}/blog/${slug}`;
 
@@ -125,10 +118,13 @@ export default function Blog(props: BlogPost): JSX.Element {
                     <Date date={date} />
                 </p>
 
-                {render ||
+                {props.type === 'mdx' ? (
+                    <MDXRemote {...(content as MDXPost)} components={MDXComponents} />
+                ) : (
                     (content as NotionBlocks[])?.map((block) => (
                         <Fragment key={block.id}>{renderBlock(block)}</Fragment>
-                    ))}
+                    ))
+                )}
 
                 <hr />
                 <blockquote>

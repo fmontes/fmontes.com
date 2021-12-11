@@ -3,7 +3,7 @@ import Link from 'next/link';
 function SocialMediaMenu(): JSX.Element {
     return (
         <div className="flex space-x-3">
-            <Link href="//instagram.com/fmontes">
+            <Link href="https://instagram.com/fmontes">
                 <a className="p-2" target="_blank">
                     <img
                         alt="Instagram"
@@ -14,7 +14,7 @@ function SocialMediaMenu(): JSX.Element {
                 </a>
             </Link>
 
-            <Link href="//twitter.com/fmontes">
+            <Link href="https://twitter.com/fmontes">
                 <a className="p-2" target="_blank">
                     <img
                         alt="Twitter"
@@ -25,7 +25,7 @@ function SocialMediaMenu(): JSX.Element {
                 </a>
             </Link>
 
-            <Link href="//www.youtube.com/channel/UCrv92ZCJjXgI1wK7Ru0rObg?sub_confirmation=1">
+            <Link href="https://www.youtube.com/channel/UCrv92ZCJjXgI1wK7Ru0rObg?sub_confirmation=1">
                 <a className="p-2" target="_blank">
                     <img
                         alt="Youtube"
@@ -36,7 +36,7 @@ function SocialMediaMenu(): JSX.Element {
                 </a>
             </Link>
 
-            <Link href="//github.com/fmontes">
+            <Link href="https://github.com/fmontes">
                 <a className="p-2" target="_blank">
                     <img
                         alt="Github"
@@ -47,7 +47,7 @@ function SocialMediaMenu(): JSX.Element {
                 </a>
             </Link>
 
-            <Link href="//linkedin.com/in/fmontes/">
+            <Link href="https://linkedin.com/in/fmontes/">
                 <a className="p-2" target="_blank">
                     <img
                         alt="LinkedIn"
@@ -58,7 +58,7 @@ function SocialMediaMenu(): JSX.Element {
                 </a>
             </Link>
 
-            <Link href="//stackoverflow.com/users/3367318/fmontes">
+            <Link href="https://stackoverflow.com/users/3367318/fmontes">
                 <a className="p-2" target="_blank">
                     <img
                         alt="StackOverflow"

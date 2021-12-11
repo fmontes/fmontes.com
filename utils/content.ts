@@ -3,9 +3,8 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import mdxPrism from 'mdx-prism';
 import path from 'path';
-import renderToString from 'next-mdx-remote/render-to-string';
-import { MdxRemote } from 'next-mdx-remote/types';
 import { getDatabase, getFrontMatter } from './notion';
+import { serialize } from 'next-mdx-remote/serialize';
 
 const FOLDER_POSTS = path.resolve(process.cwd(), 'data/posts');
 const FOLDER_PAGES = path.resolve(process.cwd(), 'data/pages');
@@ -25,7 +24,7 @@ export interface Slugs {
 }
 
 type PageContent = {
-    mdxSource: MdxRemote.Source;
+    mdxSource: any;
     frontMatter: {
         [key: string]: string;
     };
@@ -125,8 +124,7 @@ export const getContent = async ({ slug, locale, type }: ContentProps): Promise<
     const fullPath = path.join(FOLDERS[type], `${locale}/${slug}.mdx`);
     const fileContents = fs.readFileSync(fullPath, 'utf-8');
     const { data, content } = matter(fileContents);
-    const mdxSource = await renderToString(content, {
-        components: MDXComponents,
+    const mdxSource = await serialize(content, {
         mdxOptions: {
             remarkPlugins: [require('remark-code-titles')],
             rehypePlugins: [mdxPrism]

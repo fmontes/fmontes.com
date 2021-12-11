@@ -1,4 +1,4 @@
-import hydrate from 'next-mdx-remote/hydrate';
+import { MDXRemote } from 'next-mdx-remote';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 
@@ -19,17 +19,13 @@ type BlogPost = {
 export default function Blog({ mdxSource, frontMatter: { title } }: BlogPost): JSX.Element {
     const t = useTranslation();
 
-    const content = hydrate(mdxSource, {
-        components: MDXComponents
-    });
-
     return (
         <>
             <NextSeo description={t('bio')} title={t('title')} />
 
-            <main>
+            <main className="prose lg:prose-lg xl:prose-xl mt-12 mx-auto">
                 <h1>{title}</h1>
-                {content}
+                <MDXRemote {...mdxSource} components={MDXComponents} />
             </main>
         </>
     );
