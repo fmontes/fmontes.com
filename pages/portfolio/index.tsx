@@ -14,7 +14,7 @@ export default function Home({ posts }: Props): JSX.Element {
 
     return (
         <>
-            <main>
+            <main className="prose lg:prose-lg xl:prose-xl mt-12 mx-auto">
                 <h1>{t('portfolio')}</h1>
                 {posts.map((post: MatterContent, i: number) => (
                     <PortfolioListItem key={i} {...post} />
