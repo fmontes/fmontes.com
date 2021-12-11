@@ -12,7 +12,7 @@ module.exports = {
         ];
     },
     images: {
-        domains: ['s3.us-west-2.amazonaws.com'],
+        domains: ['s3.us-west-2.amazonaws.com', 'res.cloudinary.com'],
         imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     },
     i18n: i18nConfig,
