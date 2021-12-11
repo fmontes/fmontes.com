@@ -1,4 +1,3 @@
-import hydrate from 'next-mdx-remote/hydrate';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import { NextSeo, ArticleJsonLd } from 'next-seo';
@@ -7,6 +6,8 @@ import { useRouter } from 'next/router';
 import MDXComponents from '@components/MDXComponents';
 import TechList from '@components/TechList';
 import { getContent, getSlugs, MatterContent } from '@utils/content';
+import React from 'react';
+import { MDXRemote } from 'next-mdx-remote';
 
 type BlogPost = {
     mdxSource: {
@@ -20,10 +21,6 @@ export default function Blog({
     mdxSource,
     frontMatter: { title, date, description, slug, tech }
 }: BlogPost): JSX.Element {
-    const content = hydrate(mdxSource, {
-        components: MDXComponents
-    });
-
     const { locale } = useRouter();
 
     const url = `https://fmontes.com${locale === 'es' ? '/es' : ''}/blog/${slug}`;
@@ -69,7 +66,7 @@ export default function Blog({
 
                 <h3>Tech Stack</h3>
                 <TechList tech={tech} />
-                {content}
+                <MDXRemote {...mdxSource} components={MDXComponents} />
             </main>
         </>
     );

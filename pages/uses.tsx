@@ -1,4 +1,3 @@
-import hydrate from 'next-mdx-remote/hydrate';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 
@@ -7,6 +6,7 @@ import { NextSeo } from 'next-seo';
 import MDXComponents from '@components/MDXComponents';
 import { getContent, MatterContent } from '@utils/content';
 import useTranslation from '@utils/i18n/hooks';
+import { MDXRemote } from 'next-mdx-remote';
 
 type Props = {
     mdxSource: {
@@ -19,17 +19,13 @@ type Props = {
 export default function Blog({ mdxSource, frontMatter: { title } }: Props): JSX.Element {
     const t = useTranslation();
 
-    const content = hydrate(mdxSource, {
-        components: MDXComponents
-    });
-
     return (
         <>
             <NextSeo description={t('bio')} title={t('title')} />
 
             <main>
                 <h1>{title}</h1>
-                {content}
+                <MDXRemote {...mdxSource} components={MDXComponents} />
             </main>
         </>
     );
