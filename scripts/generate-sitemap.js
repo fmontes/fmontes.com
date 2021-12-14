@@ -7,7 +7,9 @@ const prettier = require('prettier');
 const i18nConfig = require('../utils/i18n/config');
 
 const { defaultLocale, locales } = i18nConfig;
+const { getNotionSitemap } = require('./notion-sitemap');
 const modDate = new Date().toISOString();
+
 
 (async () => {
     const prettierConfig = await prettier.resolveConfig('./.prettierrc.tsx');
@@ -19,6 +21,7 @@ const modDate = new Date().toISOString();
         '!pages/api' // Ignore API routes
     ]);
     const posts = await globby(['data/posts/**/*.mdx', 'data/posts/**/_*.mdx']);
+
 
     const pagesRoutes = [];
 
@@ -49,7 +52,9 @@ const modDate = new Date().toISOString();
             });
         });
 
-    const allRoutes = [...pagesRoutes, ...postsRoutes];
+    const notionRoutes = await getNotionSitemap();
+
+    const allRoutes = [...pagesRoutes, ...postsRoutes, ...notionRoutes];
 
     const sitemap = `
     <?xml version="1.0" encoding="UTF-8"?>
