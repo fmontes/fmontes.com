@@ -30,7 +30,13 @@ export const getDatabase = async (locale = 'en'): Promise<QueryDatabaseResponse>
     }
 
     const response = await notion.databases.query({
-        database_id: databaseId
+        database_id: databaseId,
+        filter: {
+            property: 'Status',
+            select: {
+                equals: 'published'
+            }
+        }
     });
 
     return {
