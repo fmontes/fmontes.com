@@ -1,6 +1,7 @@
 type Props = {
     type: string;
-    size?: string;
+    size?: string | number;
+    white?: boolean;
     // eslint-disable-next-line no-unused-vars
     fallback?: (type: string) => JSX.Element;
 };
@@ -17,7 +18,7 @@ const map = {
     CSS: 'css'
 };
 
-function TechIcon({ type, size, fallback }: Props): JSX.Element {
+function TechIcon({ type, size, white, fallback }: Props): JSX.Element {
     const item = map[type];
 
     if (!item) {
@@ -28,6 +29,7 @@ function TechIcon({ type, size, fallback }: Props): JSX.Element {
         return (
             <img
                 alt="Freddy Montes - Web Developer"
+                className={white ? 'brightness-0 invert' : ''}
                 height={size || '32'}
                 src={`/images/_logos/fmontes.svg`}
                 width={size || '32'}
@@ -38,6 +40,7 @@ function TechIcon({ type, size, fallback }: Props): JSX.Element {
     return (
         <img
             alt={item}
+            className={white ? 'brightness-0 invert' : ''}
             height={size || '32'}
             src={`/images/_logos/${item}.svg`}
             width={size || '32'}

@@ -5,6 +5,8 @@ import mdxPrism from 'mdx-prism';
 import path from 'path';
 import { getDatabase, getFrontMatter } from './notion';
 import { serialize } from 'next-mdx-remote/serialize';
+import { BlogPost, NotionBlocks } from 'pages/blog/[slug]';
+import { type } from 'os';
 
 const FOLDER_POSTS = path.resolve(process.cwd(), 'data/posts');
 const FOLDER_PAGES = path.resolve(process.cwd(), 'data/pages');
@@ -134,18 +136,29 @@ export const getContent = async ({ slug, locale, type }: ContentProps): Promise<
     return { mdxSource, frontMatter: { ...data, slug } };
 };
 
-export const getPosts = async (locale: string): Promise<MatterContent[]> => {
+export const getPosts = async (locale: string): Promise<BlogPost[]> => {
     // Get Notion posts
     const notion = await getDatabase(locale);
-    const notionPosts = notion.results.map((item: any) => getFrontMatter(item));
+    const notionPosts: BlogPost[] = notion.results.map((item: any) => {
+        return {
+            frontMatter: getFrontMatter(item),
+            type: 'notion'
+        };
+    });
 
     // Get MDX posts
-    const mdxPosts = await getContentSortedByDate(locale, 'posts');
+    const mdxContent = await getContentSortedByDate(locale, 'posts');
+    const mdxPosts: BlogPost[] = mdxContent.map((item: MatterContent) => {
+        return {
+            frontMatter: item,
+            type: 'mdx'
+        };
+    });
 
     // Sort and merge posts
-    return [...mdxPosts, ...notionPosts].sort((a, b) => {
-        const dateA = new Date(a.date).getTime();
-        const dateB = new Date(b.date).getTime();
+    return [...mdxPosts, ...notionPosts].sort((a: BlogPost, b: BlogPost) => {
+        const dateA = new Date(a.frontMatter.date).getTime();
+        const dateB = new Date(b.frontMatter.date).getTime();
         return dateA < dateB ? 1 : -1; // ? -1 : 1 for ascending/increasing order
     });
 };

@@ -23,7 +23,7 @@ export type NotionBlocks = {
 };
 
 export type BlogPost = {
-    content: MDXPost | NotionBlocks[];
+    content?: MDXPost | NotionBlocks[];
     frontMatter: MatterContent;
     type: 'notion' | 'mdx';
 };
@@ -50,8 +50,10 @@ export default function Blog(props: BlogPost): JSX.Element {
         logo: category?.toLowerCase() || 'fmontes'
     };
 
+    const isMDX = props.type === 'mdx';
+
     if (cover) {
-        variables.image = props.type === 'mdx' ? `https://fmontes.com/images/blog/${cover}` : cover;
+        variables.image = isMDX ? `https://fmontes.com/images/blog/${cover}` : cover;
     }
 
     const flayyer = new FlayyerIO({
@@ -118,7 +120,7 @@ export default function Blog(props: BlogPost): JSX.Element {
                     <Date date={date} />
                 </p>
 
-                {props.type === 'mdx' ? (
+                {isMDX ? (
                     <MDXRemote {...(content as MDXPost)} components={MDXComponents} />
                 ) : (
                     (content as NotionBlocks[])?.map((block) => (

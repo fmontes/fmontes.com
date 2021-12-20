@@ -4,9 +4,10 @@ import { GetStaticProps, GetStaticPropsContext } from 'next';
 
 import useTranslation from '@utils/i18n/hooks';
 import BlogItem from '@components/BlogItem';
+import { BlogPost } from './blog/[slug]';
 
 type Props = {
-    posts: MatterContent[];
+    posts: BlogPost[];
 };
 
 export default function Home({ posts }: Props): JSX.Element {
@@ -17,9 +18,9 @@ export default function Home({ posts }: Props): JSX.Element {
                 {t('latest_blog_posts')}
             </h1>
             <main className="grid gap-6 sm:grid-cols-2">
-                {posts.map((post: MatterContent, i: number) => (
-                    <BlogItem key={i} {...post} />
-                ))}
+                {posts.map((post: BlogPost, i: number) => {
+                    return <BlogItem key={i} {...post} />;
+                })}
             </main>
         </main>
     );
