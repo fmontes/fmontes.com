@@ -27,24 +27,28 @@ function TechIcon({ type, size, white, fallback }: Props): JSX.Element {
         }
 
         return (
-            <img
-                alt="Freddy Montes - Web Developer"
-                className={white ? 'brightness-0 invert' : ''}
-                height={size || '32'}
-                src={`/images/_logos/fmontes.svg`}
-                width={size || '32'}
-            />
+            <div className="not-prose">
+                <img
+                    alt="Freddy Montes - Web Developer"
+                    className={white ? 'brightness-0 invert' : ''}
+                    height={size || '32'}
+                    src={`/images/_logos/fmontes.svg`}
+                    width={size || '32'}
+                />
+            </div>
         );
     }
 
     return (
-        <img
-            alt={item}
-            className={white ? 'brightness-0 invert' : ''}
-            height={size || '32'}
-            src={`/images/_logos/${item}.svg`}
-            width={size || '32'}
-        />
+        <div className="not-prose">
+            <img
+                alt={item}
+                className={white ? 'brightness-0 invert' : ''}
+                height={size || '32'}
+                src={`/images/_logos/${item}.svg`}
+                width={size || '32'}
+            />
+        </div>
     );
 }
 
