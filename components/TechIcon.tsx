@@ -7,19 +7,20 @@ type Props = {
 };
 
 const map = {
-    Angular: 'angular',
-    Gatsby: 'gatsby',
-    ReactJS: 'react',
-    NextJS: 'nextjs',
-    Dragula: 'dragula',
-    RxJS: 'rxjs',
-    SASS: 'sass',
-    StencilJS: 'stencil',
-    CSS: 'css'
+    angular: 'angular',
+    gatsby: 'gatsby',
+    reactjs: 'react',
+    nextjs: 'nextjs',
+    dragula: 'dragula',
+    rxjs: 'rxjs',
+    sass: 'sass',
+    stenciljs: 'stencil',
+    css: 'css',
+    ui: 'ui'
 };
 
 function TechIcon({ type, size, white, fallback }: Props): JSX.Element {
-    const item = map[type];
+    const item = map[type?.toLowerCase()];
 
     if (!item) {
         if (fallback) {

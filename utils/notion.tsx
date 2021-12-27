@@ -31,12 +31,12 @@ export const getDatabase = async (locale = 'en'): Promise<QueryDatabaseResponse>
 
     const response = await notion.databases.query({
         database_id: databaseId,
-        filter: {
-            property: 'Status',
-            select: {
-                equals: 'published'
-            }
-        }
+        // filter: {
+        //     property: 'Status',
+        //     select: {
+        //         equals: 'published'
+        //     }
+        // }
     });
 
     return {
@@ -208,11 +208,10 @@ export const getNotionPostPage = async (slug: string, locale = 'en'): Promise<Bl
 export const getFrontMatter = (page: any): MatterContent => {
     return {
         title: page.properties.Title.title[0].text.content,
-        date: page.created_time,
+        date: page.properties.Date.date.start,
         description: page.properties.Description.rich_text[0].text.content,
         slug: page.properties.Slug.rich_text[0].text.content,
-        // tech: '',
-        // category: '',
+        category: page.properties.Category.select.name,
         // canonical_url: '',
         cover: page?.cover?.external?.url || ''
     };

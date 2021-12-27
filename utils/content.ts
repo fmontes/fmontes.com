@@ -37,7 +37,7 @@ export type MatterContent = {
     date: string;
     description: string;
     slug: string;
-    tech?: string;
+    tech?: string; // Use in the portfolio
     category?: string;
     canonical_url?: string;
     cover?: string;
