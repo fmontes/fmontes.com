@@ -10,6 +10,10 @@ function Date({ date, locale }: { date: string; locale?: string }): JSX.Element 
         locale = router.locale || 'en';
     }
 
+    if (!date) {
+        return null;
+    }
+
     return (
         <time>
             {format(

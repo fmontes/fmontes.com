@@ -6,12 +6,14 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import {
     GetPageResponse,
     ListBlockChildrenResponse,
+    QueryDatabaseParameters,
     QueryDatabaseResponse
 } from '@notionhq/client/build/src/api-endpoints';
 
 import { Text } from '@components/Text';
 import { MatterContent, Slugs } from './content';
 import { BlogPost } from 'pages/blog/[slug]';
+import { AsyncLocalStorage } from 'async_hooks';
 
 const notion = new Client({
     auth: process.env.NOTION_SECRET
@@ -29,15 +31,20 @@ export const getDatabase = async (locale = 'en'): Promise<QueryDatabaseResponse>
         throw new Error(`No database found for locale ${locale}`);
     }
 
-    const response = await notion.databases.query({
-        database_id: databaseId,
-        // filter: {
-        //     property: 'Status',
-        //     select: {
-        //         equals: 'published'
-        //     }
-        // }
-    });
+    const options: QueryDatabaseParameters = {
+        database_id: databaseId
+    };
+
+    if (process.env.NODE_ENV === 'production') {
+        options.filter = {
+            property: 'Status',
+            select: {
+                equals: 'published'
+            }
+        };
+    }
+
+    const response = await notion.databases.query(options);
 
     return {
         ...response,
@@ -60,7 +67,7 @@ export const getBlocks = async (blockId: string): Promise<ListBlockChildrenRespo
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const renderBlock = (block): JSX.Element => {
-    const { type, id } = block;
+    const { type, id, has_children } = block;
     const value = block[type];
 
     switch (type) {
@@ -88,11 +95,26 @@ export const renderBlock = (block): JSX.Element => {
                     <Text text={value.text} />
                 </h3>
             );
+        case 'bulleted_list':
+            return <ul>{block[type].children.results.map((child) => renderBlock(child))}</ul>;
+        case 'numbered_list':
+            return <ol>{block[type].children.results.map((child) => renderBlock(child))}</ol>;
         case 'bulleted_list_item':
+            return (
+                <li>
+                    <Text text={value.text} />
+                    {has_children ? (
+                        <ul>{block[type].children.results.map((child) => renderBlock(child))}</ul>
+                    ) : null}
+                </li>
+            );
         case 'numbered_list_item':
             return (
                 <li>
                     <Text text={value.text} />
+                    {has_children ? (
+                        <ol>{block[type].children.results.map((child) => renderBlock(child))}</ol>
+                    ) : null}
                 </li>
             );
         case 'to_do':
@@ -148,23 +170,31 @@ export const getNotionPostsSlugs = async (): Promise<Slugs[]> => {
     const notionES = await getDatabase('es');
     const notionEN = await getDatabase('en');
 
-    const notionESPaths = notionES.results.map((page: any, m) => {
-        return {
-            params: {
-                slug: page.properties.Slug.rich_text[0].text.content
-            },
-            locale: 'es'
-        };
-    });
+    const notionESPaths = notionES.results
+        .filter((page: any, m) => {
+            return page.properties.Slug.rich_text.length;
+        })
+        .map((page: any, m) => {
+            return {
+                params: {
+                    slug: page.properties.Slug.rich_text[0]?.text.content
+                },
+                locale: 'es'
+            };
+        });
 
-    const notionENPaths = notionEN.results.map((page: any, m) => {
-        return {
-            params: {
-                slug: page.properties.Slug.rich_text[0].text.content
-            },
-            locale: 'en'
-        };
-    });
+    const notionENPaths = notionEN.results
+        .filter((page: any, m) => {
+            return page.properties.Slug.rich_text.length;
+        })
+        .map((page: any, m) => {
+            return {
+                params: {
+                    slug: page.properties.Slug.rich_text[0]?.text.content
+                },
+                locale: 'en'
+            };
+        });
 
     return [...notionESPaths, ...notionENPaths];
 };
@@ -182,7 +212,9 @@ export const getNotionPostPage = async (slug: string, locale = 'en'): Promise<Bl
     // https://developers.notion.com/docs/working-with-page-content#reading-nested-blocks
     const childBlocks = await Promise.all(
         blocks.results
-            .filter((block) => block.has_children)
+            .filter((block) => {
+                return block.has_children;
+            })
             .map(async (block) => {
                 return {
                     id: block.id,
@@ -190,13 +222,42 @@ export const getNotionPostPage = async (slug: string, locale = 'en'): Promise<Bl
                 };
             })
     );
-    const blocksWithChildren = blocks.results.map((block) => {
-        // Add child blocks if the block should contain children but none exists
-        if (block.has_children && !block[block.type].children) {
-            block[block.type]['children'] = childBlocks.find((x) => x.id === block.id)?.children;
-        }
-        return block;
-    });
+
+    const blocksWithChildren = blocks.results
+        .map((block) => {
+            // Add child blocks if the block should contain children but none exists
+            if (block.has_children && !block[block.type].children) {
+                block[block.type]['children'] = childBlocks.find(
+                    (x) => x.id === block.id
+                )?.children;
+            }
+            return block;
+        })
+        .reduce((acc, item: any) => {
+            const isListItem =
+                item.type === 'bulleted_list_item' || item.type === 'numbered_list_item';
+
+            if (isListItem) {
+                const lastItem = acc[acc.length - 1];
+
+                if (lastItem?.type === 'bulleted_list' || lastItem?.type === 'numbered_list') {
+                    lastItem[lastItem.type].children.results.push(item);
+                    return acc;
+                }
+
+                const type = item.type === 'bulleted_list_item' ? 'bulleted_list' : 'numbered_list';
+                const newItem = {
+                    type,
+                    object: 'block',
+                    has_children: 'true',
+                    [type]: { children: { results: [item] } }
+                };
+
+                return [...acc, newItem];
+            }
+
+            return [...acc, item];
+        }, []);
 
     return {
         type: 'notion',
@@ -207,11 +268,11 @@ export const getNotionPostPage = async (slug: string, locale = 'en'): Promise<Bl
 
 export const getFrontMatter = (page: any): MatterContent => {
     return {
-        title: page.properties.Title.title[0].text.content,
-        date: page.properties.Date.date.start,
-        description: page.properties.Description.rich_text[0].text.content,
-        slug: page.properties.Slug.rich_text[0].text.content,
-        category: page.properties.Category.select.name,
+        title: page.properties.Title.title[0]?.text.content || '',
+        date: page.properties.Date.date?.start || null,
+        description: page.properties.Description.rich_text[0]?.text.content || '',
+        slug: page.properties.Slug.rich_text[0]?.text.content || '',
+        category: page.properties.Category.select?.name || '',
         // canonical_url: '',
         cover: page?.cover?.external?.url || ''
     };
