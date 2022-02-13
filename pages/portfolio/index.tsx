@@ -29,5 +29,10 @@ export const getStaticProps: GetStaticProps = async ({
 }: GetStaticPropsContext<ParsedUrlQuery>) => {
     const posts = await getContentSortedByDate(locale, 'portfolio');
 
-    return { props: { posts } };
+    return {
+        props: {
+            posts
+        },
+        revalidate: 10
+    };
 };

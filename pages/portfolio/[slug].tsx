@@ -95,6 +95,7 @@ export const getStaticProps: GetStaticProps = async ({
         props: {
             mdxSource,
             frontMatter
-        }
+        },
+        revalidate: 10
     };
 };
