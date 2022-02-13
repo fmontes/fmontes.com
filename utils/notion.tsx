@@ -144,7 +144,7 @@ export const renderBlock = (block): JSX.Element => {
             const caption = value.caption.length ? value.caption[0].plain_text : '';
             return (
                 <figure className="flex flex-col items-center gap-4">
-                    <div className="relative w-full" style={{ aspectRatio: '16/9' }}>
+                    <div className="relative w-full h-sixteen">
                         <Image alt={caption} layout="fill" objectFit="contain" src={src} />
                     </div>
                     {caption && <figcaption>{caption}</figcaption>}
@@ -202,7 +202,7 @@ export const getNotionPostsSlugs = async (): Promise<Slugs[]> => {
 export const getNotionPostPage = async (slug: string, locale = 'en'): Promise<BlogPost> => {
     const database = await getDatabase(locale);
     const { id } = database.results.find((item: any) => {
-        return item.properties.Slug.rich_text[0].text.content === slug;
+        return item.properties.Slug.rich_text[0]?.text.content === slug;
     });
 
     const page = await getPage(id);
