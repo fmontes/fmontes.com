@@ -1,4 +1,4 @@
-import { getPosts, MatterContent } from '@utils/content';
+import { getPosts } from '@utils/content';
 import { ParsedUrlQuery } from 'querystring';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 

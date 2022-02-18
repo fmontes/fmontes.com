@@ -10,7 +10,6 @@ import Date from '@components/Date';
 import MDXComponents from '@components/MDXComponents';
 import { getContent, getMDXPostsSlugs, MatterContent } from '@utils/content';
 import { getNotionPostPage, getNotionPostsSlugs, renderBlock } from '@utils/notion';
-import useTranslation from '@utils/i18n/hooks';
 import { MDXRemote } from 'next-mdx-remote';
 import Tweetme from '@components/Tweetme';
 
