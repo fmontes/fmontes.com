@@ -9,8 +9,7 @@ export default {
         talks: 'Talks',
         contact: 'Contact',
         latest_blog_posts: 'Latest Blog Posts',
-        post_blog_action:
-            'Thank your read this blog post. Any feedback or question hit me up on Twitter'
+        post_blog_action: `Thank your read this blog post. Any feedback or question hit me up on <a href="https://twitter.com/fmontes" target="_blank" class="underline text-blue-500" rel="noreferrer">Twitter</a>.`
     },
     es: {
         title: 'Freddy Montes - Frontend Developer and Diseñador. Aprendiendiendo, programando y enseñando',
@@ -22,7 +21,6 @@ export default {
         talks: 'Charlas',
         contact: 'Contacto',
         latest_blog_posts: 'Últimos Posts del Blog',
-        post_blog_action:
-            'Gracias por leer esta entrada del blog. Cualquier comentario o pregunta me puedes preguntarme en mi Twitter'
+        post_blog_action: `Gracias por leer esta entrada del blog. Cualquier comentario o pregunta llegame a mi <a href="https://twitter.com/fmontes" target="_blank" class="text-blue-500 underline" rel="noreferrer">Twitter</a>.`
     }
 };

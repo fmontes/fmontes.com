@@ -12,6 +12,7 @@ import { getContent, getMDXPostsSlugs, MatterContent } from '@utils/content';
 import { getNotionPostPage, getNotionPostsSlugs, renderBlock } from '@utils/notion';
 import useTranslation from '@utils/i18n/hooks';
 import { MDXRemote } from 'next-mdx-remote';
+import Tweetme from '@components/Tweetme';
 
 type MDXPost = {
     compiledSource: string;
@@ -35,7 +36,6 @@ interface Vars {
 }
 
 export default function Blog(props: BlogPost): JSX.Element {
-    const t = useTranslation();
     const { locale } = useRouter();
 
     const {
@@ -128,10 +128,11 @@ export default function Blog(props: BlogPost): JSX.Element {
                     ))
                 )}
 
-                <hr />
-                <blockquote>
+                <Tweetme />
+
+                {/* <blockquote>
                     {t('post_blog_action')}: <a href="https://twitter.com/fmontes">@fmontes</a>
-                </blockquote>
+                </blockquote> */}
             </main>
         </>
     );

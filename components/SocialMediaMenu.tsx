@@ -1,6 +1,8 @@
 import Link from 'next/link';
 
 function SocialMediaMenu(): JSX.Element {
+
+
     return (
         <div className="flex space-x-3">
             <Link href="https://instagram.com/fmontes">
