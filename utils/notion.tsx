@@ -1,8 +1,9 @@
 import { Fragment } from 'react';
 
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
+
 import { Client } from '@notionhq/client';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import {
     GetPageResponse,
     ListBlockChildrenResponse,
@@ -13,7 +14,13 @@ import {
 import { Text } from '@components/Text';
 import { MatterContent, Slugs } from './content';
 import { BlogPost } from 'pages/blog/[slug]';
-import { AsyncLocalStorage } from 'async_hooks';
+import { Code } from '../components/notion-blocks/Code';
+import { CodeProps } from '../components/notion-blocks/Code';
+
+const SyntaxHighlighter = dynamic<CodeProps>(
+    () => import('../components/notion-blocks/Code').then((m) => m.Code),
+    { ssr: false }
+);
 
 const notion = new Client({
     auth: process.env.NOTION_SECRET
@@ -151,11 +158,8 @@ export const renderBlock = (block): JSX.Element => {
                 </figure>
             );
         case 'code':
-            return (
-                <SyntaxHighlighter language={value.language} useInlineStyles={false}>
-                    {value.text[0].plain_text}
-                </SyntaxHighlighter>
-            );
+            return <SyntaxHighlighter code={value.text[0].plain_text} lang={value.language} />;
+            // return <Code code={value.text[0].plain_text} lang={value.language} />;
         default:
             return (
                 <p>
