@@ -34,11 +34,11 @@ module.exports = {
         const notionEN = await getDatabase('en');
 
         const siteMapES = notionES.results.map((page) => {
-            return `/es/blog/${page.properties.Slug.rich_text[0].text.content}`;
+            return `/es/blog/${page.properties.Slug.rich_text[0]?.text.content}`;
         });
 
         const siteMapEN = notionEN.results.map((page) => {
-            return `/blog/${page.properties.Slug.rich_text[0].text.content}`;
+            return `/blog/${page.properties.Slug.rich_text[0]?.text.content}`;
         });
 
         return [...siteMapES, ...siteMapEN];
