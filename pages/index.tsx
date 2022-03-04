@@ -17,11 +17,11 @@ export default function Home({ posts }: Props): JSX.Element {
             <h1 className="text-2xl font-bold sm:text-3xl tracking-tight sm:leading-tight mb-8">
                 {t('latest_blog_posts')}
             </h1>
-            <main className="grid gap-6 sm:grid-cols-2">
+            <section className="grid gap-6 sm:grid-cols-2">
                 {posts.map((post: BlogPost, i: number) => {
                     return <BlogItem key={i} {...post} />;
                 })}
-            </main>
+            </section>
         </main>
     );
 }
