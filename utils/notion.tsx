@@ -148,9 +148,11 @@ export const renderBlock = (block): JSX.Element => {
             const src = value.type === 'external' ? value.external.url : value.file.url;
             const caption = value.caption.length ? value.caption[0].plain_text : '';
             return (
-                <figure className="flex flex-col items-center gap-4">
+                <figure className="flex flex-col items-center gap-2 not-prose">
                     <img alt={caption} loading="lazy" src={src} />
-                    {caption && <figcaption>{caption}</figcaption>}
+                    {caption && (
+                        <figcaption className="text-sm leading-tight">{caption}</figcaption>
+                    )}
                 </figure>
             );
         case 'code':
