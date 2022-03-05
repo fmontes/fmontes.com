@@ -1,6 +1,5 @@
 import { Fragment } from 'react';
 
-import Image from 'next/image';
 import dynamic from 'next/dynamic';
 
 import { Client } from '@notionhq/client';
@@ -14,7 +13,6 @@ import {
 import { Text } from '@components/Text';
 import { MatterContent, Slugs } from './content';
 import { BlogPost } from 'pages/blog/[slug]';
-import { Code } from '../components/notion-blocks/Code';
 import { CodeProps } from '../components/notion-blocks/Code';
 
 const SyntaxHighlighter = dynamic<CodeProps>(
@@ -151,15 +149,12 @@ export const renderBlock = (block): JSX.Element => {
             const caption = value.caption.length ? value.caption[0].plain_text : '';
             return (
                 <figure className="flex flex-col items-center gap-4">
-                    <div className="relative w-full" style={{ aspectRatio: '16/9' }}>
-                        <Image alt={caption} layout="fill" objectFit="contain" src={src} />
-                    </div>
+                    <img alt={caption} loading="lazy" src={src} />
                     {caption && <figcaption>{caption}</figcaption>}
                 </figure>
             );
         case 'code':
             return <SyntaxHighlighter code={value.text[0].plain_text} lang={value.language} />;
-            // return <Code code={value.text[0].plain_text} lang={value.language} />;
         default:
             return (
                 <p>

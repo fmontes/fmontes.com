@@ -18,7 +18,7 @@ module.exports = {
     i18n: i18nConfig,
     webpack5: true,
     webpack: (config, { isServer }) => {
-        if (isServer) {
+        if (isServer && process.env.NODE_ENV === 'production') {
             require('./scripts/generate-sitemap');
         }
 
