@@ -157,10 +157,14 @@ export const renderBlock = (block): JSX.Element => {
             );
         case 'code':
             return <SyntaxHighlighter code={value.text[0].plain_text} lang={value.language} />;
+        case 'divider':
+            return <hr />;
+        case 'quote':
+            return <blockquote className="text-lg lg:mx-12">{value.text[0].plain_text}</blockquote>;
         default:
             return (
                 <p>
-                    ❌ Unsupported block
+                    ❌ Unsupported block{' '}
                     {type === 'unsupported' ? 'unsupported by Notion API' : type}
                 </p>
             );
