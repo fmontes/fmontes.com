@@ -31,5 +31,5 @@ export const getStaticProps: GetStaticProps = async ({
 }: GetStaticPropsContext<ParsedUrlQuery>) => {
     const posts = await getPosts(locale);
 
-    return { props: { posts } };
+    return { props: { posts }, revalidate: 10 };
 };
