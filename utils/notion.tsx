@@ -159,6 +159,10 @@ export const renderBlock = (block): JSX.Element => {
             return <SyntaxHighlighter code={value.text[0].plain_text} lang={value.language} />;
         case 'divider':
             return <hr />;
+        case 'bookmark':
+            console.log(value);
+
+            return <h1>Embeded</h1>;
         case 'quote':
             return <blockquote className="text-lg lg:mx-12">{value.text[0].plain_text}</blockquote>;
         default:
