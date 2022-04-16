@@ -164,7 +164,18 @@ export const renderBlock = (block): JSX.Element => {
 
             return <h1>Embeded</h1>;
         case 'quote':
-            return <blockquote className="text-lg lg:mx-12">{value.text[0].plain_text}</blockquote>;
+            return (
+                <blockquote className="text-xl lg:mx-12 leading-snug not-italic text-gray-700">
+                    {value.text[0].plain_text}
+                </blockquote>
+            );
+        case 'callout':
+            return (
+                <p className="bg-orange-100 rounded-lg py-4 px-6 flex gap-4 leading-snug items-center">
+                    <span className="text-xl">{value.icon.emoji}</span>
+                    <span>{value.text[0].plain_text}</span>
+                </p>
+            );
         default:
             return (
                 <p>
