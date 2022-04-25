@@ -51,7 +51,8 @@ class MyDocument extends Document {
                     <meta content="#ffffff" name="msapplication-TileColor" />
                     <meta content="/static/browserconfig.xml" name="msapplication-config" />
                 </Head>
-                <body>
+                {/* <body className="bg-fmontes-800"> */}
+                <body className="dark:bg-blue-800">
                     <Main />
                     <NextScript />
                 </body>

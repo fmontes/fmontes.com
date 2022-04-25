@@ -1,7 +1,6 @@
 module.exports = {
     corePlugins: {},
-    purge: ['./pages/**/*.tsx', './components/**/*.tsx', './data/**/*.mdx', './utils/notion.tsx'],
-    darkMode: false, // or 'media' or 'class'
+    content: ['./pages/**/*.tsx', './components/**/*.tsx', './data/**/*.mdx', './utils/notion.tsx'],
     theme: {
         container: false,
         fontFamily: {
@@ -65,20 +64,99 @@ module.exports = {
                 twelve: '18rem',
                 sixteen: '24rem'
             },
-            typography: {
-                DEFAULT: {
+            colors: {
+                'blue': {
+                    'DEFAULT': '#25B5D4',
+                    '50': '#BEE8F4',
+                    '100': '#ADE2F0',
+                    '200': '#8AD7EA',
+                    '300': '#67CCE4',
+                    '400': '#45C1DE',
+                    '500': '#25B5D4',
+                    '600': '#1C8AA0',
+                    '700': '#135E6C',
+                    '800': '#0A3138',
+                    '900': '#010404'
+                },
+                'gray': {
+                    'DEFAULT': '#6A898F',
+                    '50': '#D2DCDE',
+                    '100': '#C7D3D5',
+                    '200': '#AFC0C4',
+                    '300': '#98AEB3',
+                    '400': '#809CA1',
+                    '500': '#6A898F',
+                    '600': '#526A6F',
+                    '700': '#3A4B4F',
+                    '800': '#222C2E',
+                    '900': '#0A0D0E'
+                },
+                'yellow': {
+                    DEFAULT: '#E3CD41',
+                    '50': '#FBF7E1',
+                    '100': '#F8F2CF',
+                    '200': '#F3E9AC',
+                    '300': '#EDE088',
+                    '400': '#E8D665',
+                    '500': '#E3CD41',
+                    '600': '#CEB61E',
+                    '700': '#9D8B17',
+                    '800': '#6C5F10',
+                    '900': '#3B3409'
+                },
+            },
+            typography: ({ theme }) => ({
+                fmontes: {
                     css: {
-                        pre: {
-                            backgroundColor: '#f3f4f6',
-                            border: 'solid 1px #d1d5db',
-                            color: '#1f2937'
-                        },
-                        a: {
-                            color: '#1d4ed8'
-                        }
+                        '--tw-prose-body': theme('colors.gray[800]'),
+                        '--tw-prose-headings': theme('colors.gray[700]'),
+                        '--tw-prose-lead': theme('colors.gray[700]'),
+                        '--tw-prose-links': theme('colors.blue[500]'),
+                        '--tw-prose-bold': theme('colors.gray[900]'),
+                        '--tw-prose-counters': theme('colors.gray[600]'),
+                        '--tw-prose-bullets': theme('colors.gray[400]'),
+                        '--tw-prose-hr': theme('colors.gray[300]'),
+                        '--tw-prose-quotes': theme('colors.gray[900]'),
+                        '--tw-prose-quote-borders': theme('colors.gray[300]'),
+                        '--tw-prose-captions': theme('colors.gray[700]'),
+                        '--tw-prose-code': theme('colors.gray[900]'),
+                        '--tw-prose-pre-code': theme('colors.gray[100]'),
+                        '--tw-prose-pre-bg': theme('colors.gray[900]'),
+                        '--tw-prose-th-borders': theme('colors.gray[300]'),
+                        '--tw-prose-td-borders': theme('colors.gray[200]'),
+                        '--tw-prose-invert-body': theme('colors.blue[50]'),
+                        '--tw-prose-invert-headings': theme('colors.blue[200]'),
+                        '--tw-prose-invert-lead': theme('colors.gray[300]'),
+                        '--tw-prose-invert-links': theme('colors.yellow[500]'),
+                        '--tw-prose-invert-bold': theme('colors.white'),
+                        '--tw-prose-invert-counters': theme('colors.gray[400]'),
+                        '--tw-prose-invert-bullets': theme('colors.gray[600]'),
+                        '--tw-prose-invert-hr': theme('colors.gray[700]'),
+                        '--tw-prose-invert-quotes': theme('colors.gray[100]'),
+                        '--tw-prose-invert-quote-borders': theme('colors.gray[700]'),
+                        '--tw-prose-invert-captions': theme('colors.gray[400]'),
+                        '--tw-prose-invert-code': theme('colors.white'),
+                        '--tw-prose-invert-pre-code': theme('colors.gray[300]'),
+                        '--tw-prose-invert-pre-bg': 'rgb(0 0 0 / 50%)',
+                        '--tw-prose-invert-th-borders': theme('colors.gray[600]'),
+                        '--tw-prose-invert-td-borders': theme('colors.gray[700]'),
                     }
                 }
-            }
+            }),
+            // typography: {
+            //     DEFAULT: {
+            //         css: {
+            //             pre: {
+            //                 backgroundColor: '#f3f4f6',
+            //                 border: 'solid 1px #d1d5db',
+            //                 color: '#1f2937'
+            //             },
+            //             a: {
+            //                 color: '#1d4ed8'
+            //             }
+            //         }
+            //     }
+            // }
         }
     },
     variants: {

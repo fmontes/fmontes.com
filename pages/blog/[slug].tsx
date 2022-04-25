@@ -99,7 +99,7 @@ export default function Blog(props: BlogPost): JSX.Element {
                 url={url}
             />
 
-            <main className="prose lg:prose-md xl:prose-lg mt-12 mx-auto">
+            <main className="prose prose-fmontes lg:prose-md xl:prose-lg dark:prose-invert mt-12 mx-auto">
                 <h1>{title}</h1>
                 <p className="flex items-center">
                     <span className="flex items-center">
