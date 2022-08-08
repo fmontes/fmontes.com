@@ -38,20 +38,22 @@ function Ebooks(): JSX.Element {
             <h2 className="text-lg leading-tight mb-8 font-bold">Get my eBooks</h2>
 
             <div className="flex flex-col gap-6">
-                <Link href="/">
-                    <Book
-                        image="/images/books/99-cover.png"
-                        price="free"
-                        title="99 Tips para Web Development"
-                    />
+                <Link href="/99-tips-de-web-development">
+                    <a>
+                        <Book
+                            image="/images/books/99-cover.png"
+                            price="free"
+                            title="99 Tips para Web Development"
+                        />
+                    </a>
                 </Link>
-                <Link href="/">
+                <a href="https://99.tips" rel="noreferrer" target="_blank">
                     <Book
                         image="/images/books/99-questions-cover.png"
                         price="USD$ 9.99"
                         title="99 Preguntas de Entrevista para Desarrolladores Web"
                     />
-                </Link>
+                </a>
             </div>
         </section>
     );
