@@ -1,10 +1,12 @@
+import useTranslation from '@utils/i18n/hooks';
+
 function Subscribe() {
+    const t = useTranslation();
+
     return (
         <section className="bg-cyan text-cyan-900 rounded-xl p-8">
-            <h2 className="text-lg leading-tight mb-2 font-bold">Subscribe to my newsletter</h2>
-            <p className="mb-6">
-                Get emails about web development, tech, and early access to new articles.
-            </p>
+            <h2 className="text-lg leading-tight mb-2 font-bold">{t('newsletter_title')}</h2>
+            <p className="mb-6">{t('newsletter_desc')}</p>
 
             <form
                 action="https://www.getrevue.co/profile/fmontes/add_subscriber"
@@ -29,9 +31,7 @@ function Subscribe() {
                         type="submit"
                         value="Subscribe"
                     />
-                    <small className="md:text-base">
-                        Swear on the the that no spam will be send!
-                    </small>
+                    <small className="md:text-base">{t('newsletter_nospam')}</small>
                 </div>
             </form>
         </section>
