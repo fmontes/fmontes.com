@@ -11,30 +11,16 @@ function Header(): JSX.Element {
     return (
         <>
             <header>
-                <div className="sm:flex sm:justify-between sm:items-center">
+                <div className="lg:flex lg:justify-between lg:items-center">
                     <Logo />
-                    <Nav />
+
+                    <div className="flex flex-col gap-3 items-center fixed z-20 top-0 right-0 lg:flex-row lg:static lg:gap-6">
+                        <Nav />
+                        <Translate />
+                    </div>
                 </div>
 
                 <div className="my-3 sm:flex sm:justify-between sm:items-center">
-                    {/* <div className="flex items-center mb-3 sm:mb-0">
-                        <p className="text-blue-900 inline-flex items-center m-0 mr-3 pr-3 pl-1 text-sm bg-blue-100 rounded-full">
-                            <svg
-                                baseProfile="tiny"
-                                className="scale-75 transform"
-                                height="24"
-                                width="24"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    className="fill-current"
-                                    d="M10.368 19.102c.35 1.05 1.01 1.086 1.478.086l5.31-11.375c.467-1.002.034-1.434-.967-.967L4.812 12.154c-1 .467-.963 1.13.085 1.48L9 15l1.368 4.102z"
-                                />
-                            </svg>{' '}
-                            Costa Rica (GMT-6)
-                        </p>
-                        <Translate />
-                    </div> */}
                     <SocialMediaMenu />
                 </div>
             </header>

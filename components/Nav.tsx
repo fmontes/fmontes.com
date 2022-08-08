@@ -33,7 +33,7 @@ function Nav(): JSX.Element {
     return (
         <>
             <button
-                className="fixed z-20 top-0 right-0 bg-blue-800 rounded-none active:outline-none lg:hidden"
+                className="bg-blue-800 rounded-none active:outline-none lg:hidden"
                 onClick={() => {
                     setShow(!show);
                 }}

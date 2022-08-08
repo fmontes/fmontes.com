@@ -1,0 +1,24 @@
+<svg width="24" height="18" viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="23" height="17" rx="1.5" fill="white"/>
+<rect width="12" height="9" fill="#1C4DB8"/>
+<rect width="1" height="1" transform="translate(2 2)" fill="white"/>
+<rect width="1" height="1" transform="translate(2 4)" fill="white"/>
+<rect width="1" height="1" transform="translate(2 6)" fill="white"/>
+<rect width="1" height="1" transform="translate(4 2)" fill="white"/>
+<rect width="1" height="1" transform="translate(4 4)" fill="white"/>
+<rect width="1" height="1" transform="translate(4 6)" fill="white"/>
+<rect width="1" height="1" transform="translate(6 2)" fill="white"/>
+<rect width="1" height="1" transform="translate(6 4)" fill="white"/>
+<rect width="1" height="1" transform="translate(6 6)" fill="white"/>
+<rect width="1" height="1" transform="translate(8 2)" fill="white"/>
+<rect width="1" height="1" transform="translate(8 4)" fill="white"/>
+<rect width="1" height="1" transform="translate(8 6)" fill="white"/>
+<rect width="1" height="1" transform="translate(10 2)" fill="white"/>
+<rect width="1" height="1" transform="translate(10 4)" fill="white"/>
+<rect width="1" height="1" transform="translate(10 6)" fill="white"/>
+<rect width="11" height="2" transform="translate(12 3)" fill="#F03E28"/>
+<rect width="11" height="2" transform="translate(12 7)" fill="#F03E28"/>
+<rect width="22" height="2" transform="translate(1 11)" fill="#F03E28"/>
+<rect width="22" height="2" transform="translate(1 15)" fill="#F03E28"/>
+<rect x="0.5" y="0.5" width="23" height="17" rx="1.5" stroke="#0F292E"/>
+</svg>
