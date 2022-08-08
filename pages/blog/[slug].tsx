@@ -26,6 +26,7 @@ export type BlogPost = {
     content?: MDXPost | NotionBlocks[];
     frontMatter: MatterContent;
     type: 'notion' | 'mdx';
+    color?: string;
 };
 
 interface Vars {

@@ -23,7 +23,7 @@ export default function Blog({ mdxSource, frontMatter: { title } }: BlogPost): J
         <>
             <NextSeo description={t('bio')} title={t('title')} />
 
-            <main className="prose lg:prose-lg xl:prose-xl mt-12 mx-auto">
+            <main className="prose dark:prose-dark lg:prose-lg xl:prose-xl mt-12 mx-auto">
                 <h1>{title}</h1>
                 <MDXRemote {...mdxSource} components={MDXComponents} />
             </main>

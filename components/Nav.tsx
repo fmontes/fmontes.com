@@ -17,8 +17,8 @@ function NanLink({ children, href }: Props) {
         <Link href={href}>
             <a
                 className={`${
-                    active ? 'font-bold ' : ''
-                }block py-2 pl-5 pr-16 text-white no-underline sm:text-blue-700 sm:p-2 hover:underline`}
+                    active ? 'text-yellow ' : ''
+                }block py-2 pl-5 pr-16 no-underline lg:p-2 hover:underline`}
             >
                 {children}
             </a>
@@ -33,7 +33,7 @@ function Nav(): JSX.Element {
     return (
         <>
             <button
-                className="fixed z-20 top-0 right-0 bg-blue-800 rounded-none active:outline-none sm:hidden"
+                className="fixed z-20 top-0 right-0 bg-blue-800 rounded-none active:outline-none lg:hidden"
                 onClick={() => {
                     setShow(!show);
                 }}
@@ -47,7 +47,7 @@ function Nav(): JSX.Element {
             <nav
                 className={`${
                     show ? 'block' : 'hidden'
-                } fixed top-0 right-0 z-10 bg-blue-700 flex flex-col sm:flex-row sm:flex sm:static sm:bg-transparent`}
+                } fixed top-0 right-0 z-10 bg-blue-700 flex flex-col lg:flex-row lg:flex lg:static lg:bg-transparent prose dark:prose-dark`}
                 onClick={() => {
                     setShow(false);
                 }}

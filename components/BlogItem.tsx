@@ -13,7 +13,8 @@ const ImageFallback = ({ children }: { children: JSX.Element }) => (
 );
 
 function BlogItem({
-    frontMatter: { title, date, description, category, slug, cover },
+    frontMatter: { title, date, category, slug, cover },
+    color,
     type
 }: BlogPost): JSX.Element {
     const { locale } = useRouter();
@@ -21,12 +22,20 @@ function BlogItem({
     const isMDX = type === 'mdx';
     const imageUrl = isMDX ? `/images/blog/${cover}` : cover;
 
+    const colors = {
+        blue: 'from-[#0BCFF9] to-[#107389]',
+        green: 'from-[#0BF9CE] to-[#308910]',
+        yellow: 'from-[#F9D30B] to-[#F9D30B]'
+    };
+
     return (
-        <article className="border-gray-200 border-solid border-2 hover:bg-blue-50 duration-200 hover:shadow-lg transition-all transform hover:scale-105 hover:-translate-y-1">
+        <article
+            className={`bg-gradient-to-tr p-2 rounded-lg flex grow shrink-0 basis-72 ${colors[color]}`}
+        >
             <Link href={`/blog/${slug}`} locale={locale}>
-                <a className="block no-underline">
+                <a className="block no-underline bg-white dark:bg-blue-900 p-2 rounded-md flex-1">
                     {cover ? (
-                        <div className="relative h-48">
+                        <div className="relative h-48 rounded-sm overflow-hidden">
                             <Image layout="fill" objectFit="cover" src={imageUrl} />
                         </div>
                     ) : (
@@ -35,14 +44,10 @@ function BlogItem({
                         </ImageFallback>
                     )}
 
-                    <div className="p-6">
-                        <div className="flex justify-between items-center mb-4">
-                            <TechIcon type={category} />
-                            <Date date={date} />
-                        </div>
-                        <div className="prose">
+                    <div className="m-4">
+                        <div>
                             <h2 className="mt-0 mb-2 text-lg leading-9">{title}</h2>
-                            <p className="mt-2">{description}</p>
+                            <Date date={date} />
                         </div>
                     </div>
                 </a>
