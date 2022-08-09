@@ -21,7 +21,7 @@ export default function Home({ posts }: Props): JSX.Element {
         <main className="main mx-auto mt-5">
             <h1
                 dangerouslySetInnerHTML={{ __html: t('bio') }}
-                className="text-blue-700 dark:text-cyan text-lg sm:text-xl lg:text-2xl mt-16 mb-20 md:text-center font-normal leading-tight tracking-tight"
+                className="text-blue-700 dark:text-cyan text-xl lg:text-2xl my-16 sm:my-20 md:text-center font-normal leading-tight tracking-tight"
             />
 
             <div className="prose dark:prose-invert block max-w-full">

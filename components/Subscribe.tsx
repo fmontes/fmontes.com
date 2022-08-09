@@ -6,7 +6,7 @@ function Subscribe() {
     return (
         <section className="bg-cyan text-cyan-900 rounded-xl p-8">
             <h2 className="text-lg leading-tight mb-2 font-bold">{t('newsletter_title')}</h2>
-            <p className="mb-6">{t('newsletter_desc')}</p>
+            <p dangerouslySetInnerHTML={{ __html: t('newsletter_desc') }} className="mb-6" />
 
             <form
                 action="https://www.getrevue.co/profile/fmontes/add_subscriber"
@@ -29,7 +29,7 @@ function Subscribe() {
                         id="member_submit"
                         name="member[subscribe]"
                         type="submit"
-                        value="Subscribe"
+                        value={t('newsletter_subscribe')}
                     />
                     <small className="md:text-base">{t('newsletter_nospam')}</small>
                 </div>

@@ -19,7 +19,7 @@ export default function Home({ posts }: Props): JSX.Element {
 
     return (
         <main className="prose dark:prose-invert lg:prose-md xl:prose-lg mt-12 mx-auto max-w-4xl prose-h2:my-0 lg:prose-h2:my-0 xl:prose-h2:my-0 dark:prose-a:text-white prose-a:text-blue-900 dark:prose-h2:text-yellow">
-            <h1>{t('latest_blog_posts')}</h1>
+            <h1>{t('blog')}</h1>
 
             <section className="flex flex-col gap-12">
                 {posts.map(
