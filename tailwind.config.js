@@ -1,7 +1,6 @@
 module.exports = {
     corePlugins: {},
-    purge: ['./pages/**/*.tsx', './components/**/*.tsx', './data/**/*.mdx', './utils/notion.tsx'],
-    darkMode: false, // or 'media' or 'class'
+    content: ['./pages/**/*.tsx', './components/**/*.tsx', './data/**/*.mdx', './utils/notion.tsx'],
     theme: {
         container: false,
         fontFamily: {
@@ -65,20 +64,109 @@ module.exports = {
                 twelve: '18rem',
                 sixteen: '24rem'
             },
-            typography: {
+            colors: {
+                blue: {
+                    DEFAULT: '#3791a4',
+                    50: '#e4f3f6',
+                    100: '#bee2e9',
+                    200: '#98d1dd',
+                    300: '#71c0d0',
+                    400: '#4baec3',
+                    500: '#3791a4',
+                    600: '#2a6f7e',
+                    700: '#1d4e58',
+                    800: '#173d45',
+                    900: '#0f292e'
+                },
+                gray: {
+                    DEFAULT: '#6A898F',
+                    50: '#D2DCDE',
+                    100: '#C7D3D5',
+                    200: '#AFC0C4',
+                    300: '#98AEB3',
+                    400: '#809CA1',
+                    500: '#6A898F',
+                    600: '#526A6F',
+                    700: '#3A4B4F',
+                    800: '#222C2E',
+                    900: '#0A0D0E'
+                },
+                yellow: {
+                    DEFAULT: '#E3CD41',
+                    50: '#FBF7E1',
+                    100: '#F8F2CF',
+                    200: '#F3E9AC',
+                    300: '#EDE088',
+                    400: '#E8D665',
+                    500: '#E3CD41',
+                    600: '#CEB61E',
+                    700: '#9D8B17',
+                    800: '#6C5F10',
+                    900: '#3B3409'
+                },
+                cyan: {
+                    DEFAULT: '#06f9e4',
+                    50: '#ebfefd',
+                    100: '#ccfff8',
+                    200: '#9cfcf4',
+                    300: '#6afbef',
+                    400: '#38faea',
+                    500: '#06f9e4',
+                    600: '#05c7b7',
+                    700: '#049589',
+                    800: '#03635b',
+                    900: '#01322e'
+                }
+            },
+            typography: ({ theme }) => ({
                 DEFAULT: {
                     css: {
-                        pre: {
-                            backgroundColor: '#f3f4f6',
-                            border: 'solid 1px #d1d5db',
-                            color: '#1f2937'
-                        },
-                        a: {
-                            color: '#1d4ed8'
-                        }
+                        '--tw-prose-body': theme('colors.blue[900]'),
+                        '--tw-prose-headings': theme('colors.blue[700]'),
+                        '--tw-prose-lead': theme('colors.blue[700]'),
+                        '--tw-prose-links': theme('colors.blue[500]'),
+                        '--tw-prose-bold': theme('colors.blue[900]'),
+                        '--tw-prose-counters': theme('colors.blue[600]'),
+                        '--tw-prose-bullets': theme('colors.blue[400]'),
+                        '--tw-prose-hr': theme('colors.blue[300]'),
+                        '--tw-prose-quotes': theme('colors.blue[900]'),
+                        '--tw-prose-quote-borders': theme('colors.blue[300]'),
+                        '--tw-prose-captions': theme('colors.blue[700]'),
+                        '--tw-prose-code': theme('colors.blue[900]'),
+                        '--tw-prose-pre-code': theme('colors.blue[100]'),
+                        '--tw-prose-pre-bg': theme('colors.blue[900]'),
+                        '--tw-prose-th-borders': theme('colors.blue[300]'),
+                        '--tw-prose-td-borders': theme('colors.blue[200]'),
+                        '--tw-prose-invert-body': theme('colors.blue[50]'),
+                        '--tw-prose-invert-headings': theme('colors.blue[200]'),
+                        '--tw-prose-invert-lead': theme('colors.blue[300]'),
+                        '--tw-prose-invert-links': theme('colors.yellow[500]'),
+                        '--tw-prose-invert-bold': theme('colors.white'),
+                        '--tw-prose-invert-counters': theme('colors.blue[400]'),
+                        '--tw-prose-invert-bullets': theme('colors.blue[600]'),
+                        '--tw-prose-invert-hr': theme('colors.blue[700]'),
+                        '--tw-prose-invert-quotes': theme('colors.blue[100]'),
+                        '--tw-prose-invert-quote-borders': theme('colors.blue[700]'),
+                        '--tw-prose-invert-captions': theme('colors.blue[400]'),
+                        '--tw-prose-invert-code': theme('colors.white'),
+                        '--tw-prose-invert-pre-code': theme('colors.blue[300]'),
+                        '--tw-prose-invert-pre-bg': 'rgb(0 0 0 / 50%)',
+                        '--tw-prose-invert-th-borders': theme('colors.blue[600]'),
+                        '--tw-prose-invert-td-borders': theme('colors.blue[700]')
+                    }
+                },
+                invert: {
+                    css: {
+                        '--tw-prose-body': theme('colors.blue[50]'),
+                        '--tw-prose-headings': theme('colors.blue[200]'),
+                        '--tw-prose-links': theme('colors.cyan[500]'),
+                        '--tw-prose-bold': theme('colors.blue[50]'),
+                        '--tw-prose-counters': theme('colors.blue.dark'),
+                        '--tw-prose-quote-borders': theme('colors.blue[500]'),
+                        '--tw-prose-quotes': theme('colors.blue[400]')
                     }
                 }
-            }
+            })
         }
     },
     variants: {

@@ -11,6 +11,7 @@ import SEO from '../next-seo.config';
 import { pageview } from '@utils/google-analytics';
 
 import '../styles/global.css';
+import Footer from '@components/Footer';
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
     const { locale } = useRouter();
@@ -32,9 +33,10 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
                 <meta content="width=device-width, initial-scale=1" name="viewport" />
             </Head>
             <DefaultSeo {...seoDefault} />
-            <div className="container p-5 sm:py-10 antialiased">
+            <div className="container p-6 md:p-8 lg:px-0 antialiased">
                 <Header />
                 <Component {...pageProps} />
+                <Footer />
             </div>
         </MDXProvider>
     );

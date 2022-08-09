@@ -3,7 +3,15 @@ import { useRouter } from 'next/router';
 import { parseISO, format } from 'date-fns';
 import es from 'date-fns/locale/es';
 
-function Date({ date, locale }: { date: string; locale?: string }): JSX.Element {
+function Date({
+    date,
+    locale,
+    className
+}: {
+    date: string;
+    locale?: string;
+    className?: string;
+}): JSX.Element {
     const router = useRouter();
 
     if (!locale) {
@@ -15,7 +23,7 @@ function Date({ date, locale }: { date: string; locale?: string }): JSX.Element 
     }
 
     return (
-        <time>
+        <time className={className}>
             {format(
                 parseISO(date),
                 'MMMM dd, yyyy',
