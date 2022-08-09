@@ -17,7 +17,9 @@ function NanLink({ children, href }: Props) {
         <Link href={href}>
             <a
                 className={`${
-                    active ? 'dark:text-yellow text-blue-900 underline ' : 'dark:text-blue-50 text-blue-700'
+                    active
+                        ? 'dark:text-yellow text-blue-900 underline '
+                        : 'dark:text-blue-50 text-blue-700'
                 } block py-2 pl-5 pr-16 lg:p-2 hover:underline`}
             >
                 {children}
