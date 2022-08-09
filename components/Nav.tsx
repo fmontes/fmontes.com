@@ -17,8 +17,8 @@ function NanLink({ children, href }: Props) {
         <Link href={href}>
             <a
                 className={`${
-                    active ? 'text-yellow ' : ''
-                }block py-2 pl-5 pr-16 no-underline lg:p-2 hover:underline`}
+                    active ? 'dark:text-yellow text-blue-900 underline ' : 'dark:text-blue-50 text-blue-700'
+                } block py-2 pl-5 pr-16 lg:p-2 hover:underline`}
             >
                 {children}
             </a>
@@ -47,12 +47,13 @@ function Nav(): JSX.Element {
             <nav
                 className={`${
                     show ? 'block' : 'hidden'
-                } fixed top-0 right-0 z-10 bg-blue-700 flex flex-col lg:flex-row lg:flex lg:static lg:bg-transparent prose dark:prose-dark`}
+                } fixed top-0 right-0 z-10 bg-blue-700 flex flex-col lg:flex-row lg:flex lg:static lg:bg-transparent`}
                 onClick={() => {
                     setShow(false);
                 }}
             >
                 <NanLink href="/">{t('home')}</NanLink>
+                <NanLink href="/blog">{t('blog')}</NanLink>
                 <NanLink href="/about">{t('about')}</NanLink>
                 <NanLink href="/uses">{t('uses')}</NanLink>
                 <NanLink href="/portfolio">{t('portfolio')}</NanLink>

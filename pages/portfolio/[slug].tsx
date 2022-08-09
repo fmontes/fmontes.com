@@ -57,7 +57,7 @@ export default function Blog({
                 url={url}
             />
 
-            <main className="prose dark:prose-dark lg:prose-md xl:prose-lg mt-12 mx-auto">
+            <main className="prose dark:prose-invert lg:prose-md xl:prose-lg mt-12 mx-auto">
                 <h1>{title}</h1>
 
                 <p>

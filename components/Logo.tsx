@@ -16,7 +16,7 @@ function Logo(): JSX.Element {
                         width={AVATAR_SIZE}
                     />
                 </div>
-                <div className="flex flex-col dark:text-blue-50">
+                <div className="flex flex-col dark:text-blue-50 text-blue-800">
                     <h2 className="font-bold tracking-tight m-0 text-lg sm:text-xl leading-tight sm:leading-tight">
                         Freddy Montes
                     </h2>

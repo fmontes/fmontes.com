@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { MatterContent } from '@utils/content';
 
-function BlogItem({ title, description, slug }: MatterContent): JSX.Element {
+function PortfolioItem({ title, description, slug }: MatterContent): JSX.Element {
     const { locale } = useRouter();
 
     return (
@@ -23,4 +23,4 @@ function BlogItem({ title, description, slug }: MatterContent): JSX.Element {
     );
 }
 
-export default BlogItem;
+export default PortfolioItem;

@@ -4,7 +4,7 @@ import { GetStaticProps, GetStaticPropsContext } from 'next';
 
 import useTranslation from '@utils/i18n/hooks';
 import { BlogPost } from './blog/[slug]';
-import BlogItem from '@components/BlogItem';
+import HomeBlogItem from '@components/HomeBlogItem';
 import Subscribe from '@components/Subscribe';
 import Ebooks from '@components/Ebooks';
 
@@ -21,10 +21,10 @@ export default function Home({ posts }: Props): JSX.Element {
         <main className="main mx-auto mt-5">
             <h1
                 dangerouslySetInnerHTML={{ __html: t('bio') }}
-                className="text-cyan-900 dark:text-cyan text-lg sm:text-xl lg:text-2xl mt-16 mb-20 md:text-center font-normal leading-tight"
+                className="text-blue-700 dark:text-cyan text-lg sm:text-xl lg:text-2xl mt-16 mb-20 md:text-center font-normal leading-tight tracking-tight"
             />
 
-            <div className="prose dark:prose-dark block max-w-full">
+            <div className="prose dark:prose-invert block max-w-full">
                 <h2 className="text-2xl font-bold sm:text-3xl tracking-tight sm:leading-tight mb-6">
                     {t('latest_blog_posts')}
                 </h2>
@@ -32,7 +32,7 @@ export default function Home({ posts }: Props): JSX.Element {
                     {posts
                         .filter((_item, i) => i < 3)
                         .map((post: BlogPost, i: number) => (
-                            <BlogItem key={i} {...post} color={colors[i]} />
+                            <HomeBlogItem key={i} {...post} color={colors[i]} />
                         ))}
                 </section>
             </div>
