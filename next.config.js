@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const i18nConfig = require('./utils/i18n/config');
+/** @type {import('next').NextConfig} */
 
-module.exports = {
+const nextConfig = {
     async redirects() {
         return [
             {
@@ -13,15 +12,12 @@ module.exports = {
     },
     images: {
         domains: ['s3.us-west-2.amazonaws.com', 'res.cloudinary.com', 'images.unsplash.com'],
-        imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+        imageSizes: [16, 32, 48, 64, 96, 128, 256, 384]
     },
-    i18n: i18nConfig,
-    webpack5: true,
-    webpack: (config, { isServer }) => {
-        if (isServer && process.env.NODE_ENV === 'production') {
-            require('./scripts/generate-sitemap');
-        }
-
-        return config;
+    i18n: {
+        locales: ['en', 'es'],
+        defaultLocale: 'en'
     }
 };
+
+module.exports = nextConfig

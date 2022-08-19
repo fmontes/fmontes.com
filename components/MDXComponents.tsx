@@ -24,7 +24,7 @@ const CustomLink = (props: LinkProps): JSX.Element => {
 const CustomImage = (props: any): JSX.Element => {
     return (
         <div className="text-center">
-            <Image {...props} />
+            <Image {...props} alt={props.alt} />
         </div>
     );
 };

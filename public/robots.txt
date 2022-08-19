@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://fmontes.com
+
+# Sitemaps
+Sitemap: https://fmontes.com/sitemap.xml

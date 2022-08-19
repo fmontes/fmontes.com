@@ -1,4 +1,3 @@
-import useTranslation from '@utils/i18n/hooks';
 import Nav from './Nav';
 import Logo from './Logo';
 import Translate from './Translate';
@@ -6,8 +5,6 @@ import Translate from './Translate';
 import SocialMediaMenu from '@components/SocialMediaMenu';
 
 function Header(): JSX.Element {
-    const t = useTranslation();
-
     return (
         <>
             <header>
