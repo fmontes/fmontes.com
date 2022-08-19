@@ -15,13 +15,5 @@ module.exports = {
         domains: ['s3.us-west-2.amazonaws.com', 'res.cloudinary.com', 'images.unsplash.com'],
         imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     },
-    i18n: i18nConfig,
-    webpack5: true,
-    webpack: (config, { isServer }) => {
-        if (isServer && process.env.NODE_ENV === 'production') {
-            require('./scripts/generate-sitemap');
-        }
-
-        return config;
-    }
+    i18n: i18nConfig
 };

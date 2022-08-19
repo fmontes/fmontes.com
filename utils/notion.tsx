@@ -232,7 +232,7 @@ export const getNotionPostPage = async (slug: string, locale = 'en'): Promise<Bl
     // https://developers.notion.com/docs/working-with-page-content#reading-nested-blocks
     const childBlocks = await Promise.all(
         blocks.results
-            .filter((block) => {
+            .filter((block: any) => {
                 return block.has_children;
             })
             .map(async (block) => {
@@ -244,7 +244,7 @@ export const getNotionPostPage = async (slug: string, locale = 'en'): Promise<Bl
     );
 
     const blocksWithChildren = blocks.results
-        .map((block) => {
+        .map((block: any) => {
             // Add child blocks if the block should contain children but none exists
             if (block.has_children && !block[block.type].children) {
                 block[block.type]['children'] = childBlocks.find(

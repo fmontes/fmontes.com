@@ -1,6 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { GA_TRACKING_ID } from '@utils/google-analytics';
-import Footer from '@components/Footer';
 
 class MyDocument extends Document {
     render(): JSX.Element {
