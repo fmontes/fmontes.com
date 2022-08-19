@@ -21,11 +21,10 @@ const CustomLink = (props: LinkProps): JSX.Element => {
     return <a rel="noopener noreferrer" target="_blank" {...props} />;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CustomImage = (props: any): JSX.Element => {
     return (
         <div className="text-center">
-            <Image {...props} />
+            <Image {...props} alt={props.alt} />
         </div>
     );
 };

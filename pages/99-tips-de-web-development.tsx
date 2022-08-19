@@ -3,6 +3,7 @@ import FlayyerIO from '@flayyer/flayyer';
 import { NextSeo, ArticleJsonLd } from 'next-seo';
 import cover from '../public/images/99-tips/99-cover.png';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 
 export default function Book(): JSX.Element {
     const { locale } = useRouter();
@@ -72,7 +73,9 @@ export default function Book(): JSX.Element {
                         <span className="uppercase text-green-600 font-bold">¡gratis!</span>
                     </h2>
                 </header>
-                <script src="https://gumroad.com/js/gumroad-embed.js" />
+
+                <Script src="https://gumroad.com/js/gumroad-embed.js" />
+
                 <div className="gumroad-product-embed">
                     <a href="https://gumroad.com/l/ZYhCP">Cargando...</a>
                 </div>
