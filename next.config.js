@@ -1,7 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const i18nConfig = require('./utils/i18n/config');
-
-module.exports = {
+export default {
     async redirects() {
         return [
             {
@@ -13,7 +10,10 @@ module.exports = {
     },
     images: {
         domains: ['s3.us-west-2.amazonaws.com', 'res.cloudinary.com', 'images.unsplash.com'],
-        imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+        imageSizes: [16, 32, 48, 64, 96, 128, 256, 384]
     },
-    i18n: i18nConfig
+    i18n: {
+        locales: ['en', 'es'],
+        defaultLocale: 'en'
+    }
 };
