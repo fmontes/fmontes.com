@@ -31,24 +31,9 @@ function Nav(): JSX.Element {
 
     return (
         <>
-            <button
-                aria-label="Show menu"
-                className="bg-blue-800 rounded-none active:outline-none lg:hidden"
-                onClick={() => {
-                    setShow(!show);
-                }}
-            >
-                <Image
-                    width={32}
-                    height={32}
-                    alt="Menu"
-                    className="block p-2"
-                    src={`/images/${show ? 'close' : 'menu'}.svg`}
-                />
-            </button>
             <nav
                 className={`${show ? 'block' : 'hidden'
-                    } fixed top-0 right-0 z-10 bg-blue-700 flex flex-col lg:flex-row lg:flex lg:static lg:bg-transparent`}
+                    } fixed top-0 right-0 z-10 dark:bg-blue-700 bg-blue-100 flex flex-col lg:flex-row lg:flex lg:static lg:bg-transparent`}
                 onClick={() => {
                     setShow(false);
                 }}
@@ -63,6 +48,21 @@ function Nav(): JSX.Element {
                     {t('contact')}
                 </NanLink>
             </nav>
+            <button
+                aria-label="Show menu"
+                className="bg-blue-800 rounded-none active:outline-none lg:hidden z-10"
+                onClick={() => {
+                    setShow(!show);
+                }}
+            >
+                <Image
+                    width={32}
+                    height={32}
+                    alt={show ? 'Hide menu' : 'Show menu'}
+                    className="block p-2"
+                    src={`/images/${show ? 'close' : 'menu'}.svg`}
+                />
+            </button>
         </>
     );
 }
