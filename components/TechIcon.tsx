@@ -1,6 +1,8 @@
+import Image from 'next/image';
+
 type Props = {
     type: string;
-    size?: string | number;
+    size?: number;
     white?: boolean;
     // eslint-disable-next-line no-unused-vars
     fallback?: (type: string) => JSX.Element;
@@ -29,12 +31,12 @@ function TechIcon({ type, size, white, fallback }: Props): JSX.Element {
 
         return (
             <div className="not-prose">
-                <img
+                <Image
                     alt="Freddy Montes - Web Developer"
                     className={white ? 'brightness-0 invert' : ''}
-                    height={size || '32'}
+                    height={size || 32}
                     src={`/images/_logos/fmontes.svg`}
-                    width={size || '32'}
+                    width={size || 32}
                 />
             </div>
         );
@@ -42,7 +44,7 @@ function TechIcon({ type, size, white, fallback }: Props): JSX.Element {
 
     return (
         <div className="not-prose">
-            <img
+            <Image
                 alt={item}
                 className={white ? 'brightness-0 invert' : ''}
                 height={size || '32'}

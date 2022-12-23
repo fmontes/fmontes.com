@@ -34,24 +34,22 @@ export default function Home({ posts }: Props): JSX.Element {
                             key={i}
                             className="border-b-2 border-solid border-blue-100 dark:border-blue-800 pb-6"
                         >
-                            <Link href={`/blog/${slug}`} locale={locale}>
-                                <a className="flex flex-col gap-6 md:flex-row no-underline">
-                                    <BlogImage
-                                        category={category}
-                                        cover={cover}
-                                        type={type}
-                                        width="w-full md:w-72"
-                                    />
+                            <Link href={`/blog/${slug}`} locale={locale} className="flex flex-col gap-6 md:flex-row no-underline">
+                                <BlogImage
+                                    category={category}
+                                    cover={cover}
+                                    type={type}
+                                    width="w-full md:w-72"
+                                />
 
-                                    <div>
-                                        <h2>{title}</h2>
-                                        <Date
-                                            className="text-blue-500 dark:text-blue-500"
-                                            date={date}
-                                        />
-                                        <p>{description}</p>
-                                    </div>
-                                </a>
+                                <div>
+                                    <h2>{title}</h2>
+                                    <Date
+                                        className="text-blue-500 dark:text-blue-500"
+                                        date={date}
+                                    />
+                                    <p>{description}</p>
+                                </div>
                             </Link>
                         </article>
                     )

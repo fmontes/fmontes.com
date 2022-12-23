@@ -43,8 +43,8 @@ function BlogImage({
     return (
         <>
             {cover ? (
-                <div className={image.join(' ')}>
-                    <Image layout="fill" objectFit="cover" src={imageUrl} />
+                <div className={`${image.join(' ')} not-prose`}>
+                    <Image fill={true} src={imageUrl} alt="" />
                 </div>
             ) : (
                 <div className={fallback.join(' ')}>
