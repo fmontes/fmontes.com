@@ -4,6 +4,7 @@ import Date from './Date';
 
 type LinkProps = {
     href: string;
+    children: any
 };
 
 const CustomLink = (props: LinkProps): JSX.Element => {
@@ -12,8 +13,8 @@ const CustomLink = (props: LinkProps): JSX.Element => {
 
     if (isInternalLink) {
         return (
-            <Link href={href}>
-                <a {...props} />
+            <Link href={href} {...props}>
+                {props.children}
             </Link>
         );
     }

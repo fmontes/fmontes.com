@@ -34,7 +34,7 @@ function TechList({ tech }: { tech: string }): JSX.Element {
                         <div key={i} className="flex flex-col items-center">
                             <TechIcon
                                 fallback={(type) => <FallBack type={type} />}
-                                size="72"
+                                size={72}
                                 type={item}
                             />
                             <small className="uppercase mt-2">{item}</small>

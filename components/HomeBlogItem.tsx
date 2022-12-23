@@ -23,15 +23,13 @@ function HomeBlogItem(post: BlogPost): JSX.Element {
         <article
             className={`bg-gradient-to-tr p-2 rounded-lg flex grow shrink-0 basis-72 ${colors[color]}`}
         >
-            <Link href={`/blog/${slug}`} locale={locale}>
-                <a className="block no-underline bg-white dark:bg-blue-900 p-2 rounded-md flex-1">
-                    <BlogImage category={category} cover={cover} type={type} width={''} />
+            <Link href={`/blog/${slug}`} locale={locale} className="block no-underline bg-white dark:bg-blue-900 p-2 rounded-md flex-1">
+                <BlogImage category={category} cover={cover} type={type} width={''} />
 
-                    <div className="m-4">
-                        <h2 className="mt-0 mb-2 text-lg leading-9">{title}</h2>
-                        <Date date={date} />
-                    </div>
-                </a>
+                <div className="m-4">
+                    <h2 className="mt-0 mb-2 text-lg leading-9">{title}</h2>
+                    <Date date={date} />
+                </div>
             </Link>
         </article>
     );

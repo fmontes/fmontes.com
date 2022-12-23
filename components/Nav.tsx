@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 
 import useTranslation from '@utils/i18n/hooks';
 import Link from 'next/link';
+import Image from 'next/image';
 
 type Props = {
     children: ReactNode;
@@ -14,16 +15,12 @@ function NanLink({ children, href }: Props) {
     const active = pathname === href;
 
     return (
-        <Link href={href}>
-            <a
-                className={`${
-                    active
-                        ? 'dark:text-yellow text-blue-900 underline '
-                        : 'dark:text-blue-50 text-blue-700'
-                } block py-2 pl-5 pr-16 lg:p-2 hover:underline`}
-            >
-                {children}
-            </a>
+        <Link href={href} className={`${active
+            ? 'dark:text-yellow text-blue-900 underline '
+            : 'dark:text-blue-50 text-blue-700'
+            } block py-2 pl-5 pr-16 lg:p-2 hover:underline`}>
+
+            {children}
         </Link>
     );
 }
@@ -35,21 +32,23 @@ function Nav(): JSX.Element {
     return (
         <>
             <button
+                aria-label="Show menu"
                 className="bg-blue-800 rounded-none active:outline-none lg:hidden"
                 onClick={() => {
                     setShow(!show);
                 }}
             >
-                <img
+                <Image
+                    width={32}
+                    height={32}
                     alt="Menu"
                     className="block p-2"
                     src={`/images/${show ? 'close' : 'menu'}.svg`}
                 />
             </button>
             <nav
-                className={`${
-                    show ? 'block' : 'hidden'
-                } fixed top-0 right-0 z-10 bg-blue-700 flex flex-col lg:flex-row lg:flex lg:static lg:bg-transparent`}
+                className={`${show ? 'block' : 'hidden'
+                    } fixed top-0 right-0 z-10 bg-blue-700 flex flex-col lg:flex-row lg:flex lg:static lg:bg-transparent`}
                 onClick={() => {
                     setShow(false);
                 }}

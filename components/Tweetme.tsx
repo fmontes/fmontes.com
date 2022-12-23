@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 import useTranslation from '@utils/i18n/hooks';
 
 function Tweetme(): JSX.Element {
@@ -6,7 +8,7 @@ function Tweetme(): JSX.Element {
     return (
         <div className="not-prose border-2 border-blue-300 dark:border-blue-700 bg-blue-50 dark:bg-blue-800 p-6 rounded flex mt-16 ">
             <div className="flex gap-4 border-r-2 pr-6 mr-6 border-blue-300">
-                <img alt="Twitter" height="48" src="/images/social-icons/twitter.svg" width="48" />
+                <Image alt="Twitter" height="48" src="/images/social-icons/twitter.svg" width="48" />
                 <p
                     dangerouslySetInnerHTML={{ __html: t('post_blog_action') }}
                     className="leading-normal"

@@ -39,13 +39,11 @@ function Ebooks(): JSX.Element {
 
             <div className="flex flex-col gap-6">
                 <Link href="/99-tips-de-web-development">
-                    <a>
-                        <Book
-                            image="/images/books/99-cover.png"
-                            price="free"
-                            title="99 Tips para Web Development"
-                        />
-                    </a>
+                    <Book
+                        image="/images/books/99-cover.png"
+                        price="free"
+                        title="99 Tips para Web Development"
+                    />
                 </Link>
                 <a href="https://99.tips" rel="noreferrer" target="_blank">
                     <Book
