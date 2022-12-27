@@ -19,12 +19,15 @@ function HomeBlogItem(post: BlogPost): JSX.Element {
         yellow: 'from-[#F9D30B] to-[#F9D30B]'
     };
 
+    const isMDX = type === 'mdx';
+    const imageUrl = isMDX ? `/images/blog/${cover}` : cover;
+
     return (
         <article
             className={`bg-gradient-to-tr p-2 rounded-lg flex grow shrink-0 basis-72 ${colors[color]}`}
         >
             <Link href={`/blog/${slug}`} locale={locale} className="block no-underline bg-white dark:bg-blue-900 p-2 rounded-md flex-1">
-                <Thumbnail category={category} cover={cover} type={type} width={''} />
+                <Thumbnail category={category} imageUrl={imageUrl} width={''} />
 
                 <div className="m-4">
                     <h2 className="mt-0 mb-2 text-lg leading-9">{title}</h2>
