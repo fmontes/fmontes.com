@@ -1,4 +1,7 @@
+import Script from 'next/script';
+
 import useTranslation from '@utils/i18n/hooks';
+import Head from 'next/head';
 
 function Subscribe() {
     const t = useTranslation();
@@ -8,32 +11,57 @@ function Subscribe() {
             <h2 className="text-lg leading-tight mb-2 font-bold">{t('newsletter_title')}</h2>
             <p dangerouslySetInnerHTML={{ __html: t('newsletter_desc') }} className="mb-6" />
 
-            <form
-                action="https://www.getrevue.co/profile/fmontes/add_subscriber"
-                className="flex flex-col gap-4"
-                id="revue-form"
-                method="post"
-                name="revue-form"
-                target="_blank"
-            >
-                <input
-                    className="border-b-4 border-solid border-cyan-600 block w-full py-2 px-4 bg-cyan-200 text-lg font-bold placeholder:text-cyan-600 mb"
-                    id="member_email"
-                    name="member[email]"
-                    placeholder="Your email address..."
-                    type="email"
-                />
-                <div className="flex gap-6 items-center">
-                    <input
-                        className="bg-cyan-900 text-white text-md font-bold px-6 py-2 rounded-lg"
-                        id="member_submit"
-                        name="member[subscribe]"
-                        type="submit"
-                        value={t('newsletter_subscribe')}
-                    />
-                    <small className="md:text-base">{t('newsletter_nospam')}</small>
-                </div>
-            </form>
+            <div id="custom-substack-embed"></div>
+
+            <Script
+                id="substack"
+                dangerouslySetInnerHTML={{
+                    __html: `window.CustomSubstackWidget = {
+                    substackUrl: "fmontes.substack.com",
+                    placeholder: "example@gmail.com",
+                    buttonText: "Subscribe",
+                    theme: "custom",
+                    colors: {
+                        primary: "#02322e",
+                        input: "#9cfcf3",
+                        email: "#02322e",
+                        text: "#fff",
+                    }
+                }`
+                }}
+            />
+
+            <Script src="https://substackapi.com/widget.js" async></Script>
+
+            <style jsx global>{`
+                #custom-substack-embed form {
+                    max-width: initial !important;
+                    display: flex;
+                    flex-direction: column;
+                    border: none !important;
+                    align-items: baseline !important;
+                    gap: 0.73rem;
+                    height: auto !important;
+                    font-size: 1.25rem;
+                    font-weight: bold;
+                }
+
+                #custom-substack-embed input {
+                    border-bottom: solid 4px #03c7b7 !important;
+                    height: 64px !important;
+                }
+
+                #custom-substack-embed input::placeholder {
+                    color: #03c7b7 !important;
+                }
+
+                #custom-substack-embed button {
+                    height: 64px !important;
+                    font-size: 1.25rem !important;
+                    font-weight: bold;
+                    border-radius: 0.5rem;
+                }
+            `}</style>
         </section>
     );
 }
