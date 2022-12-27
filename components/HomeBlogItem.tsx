@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 import { BlogPost } from 'pages/blog/[slug]';
-import BlogImage from './BlogImage';
+import Thumbnail from './Thumbnail';
 import Date from './Date';
 
 function HomeBlogItem(post: BlogPost): JSX.Element {
@@ -24,7 +24,7 @@ function HomeBlogItem(post: BlogPost): JSX.Element {
             className={`bg-gradient-to-tr p-2 rounded-lg flex grow shrink-0 basis-72 ${colors[color]}`}
         >
             <Link href={`/blog/${slug}`} locale={locale} className="block no-underline bg-white dark:bg-blue-900 p-2 rounded-md flex-1">
-                <BlogImage category={category} cover={cover} type={type} width={''} />
+                <Thumbnail category={category} cover={cover} type={type} width={''} />
 
                 <div className="m-4">
                     <h2 className="mt-0 mb-2 text-lg leading-9">{title}</h2>

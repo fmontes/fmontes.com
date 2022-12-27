@@ -1,13 +1,11 @@
 import { ParsedUrlQuery } from 'querystring';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 import { getPosts } from '@utils/content';
 import useTranslation from '@utils/i18n/hooks';
 import { BlogPost } from './[slug]';
 import Date from '@components/Date';
-import BlogImage from '@components/BlogImage';
+import CardItem from '@components/CardItem';
 
 type Props = {
     posts: BlogPost[];
@@ -15,7 +13,6 @@ type Props = {
 
 export default function Home({ posts }: Props): JSX.Element {
     const t = useTranslation();
-    const { locale } = useRouter();
 
     return (
         <main className="prose dark:prose-invert lg:prose-md xl:prose-lg mt-12 mx-auto max-w-4xl prose-h2:my-0 lg:prose-h2:my-0 xl:prose-h2:my-0 dark:prose-a:text-white prose-a:text-blue-900 dark:prose-h2:text-yellow">
@@ -29,19 +26,17 @@ export default function Home({ posts }: Props): JSX.Element {
                             type
                         }: BlogPost,
                         i: number
-                    ) => (
-                        <article
-                            key={i}
-                            className="border-b-2 border-solid border-blue-100 dark:border-blue-800 pb-6"
-                        >
-                            <Link href={`/blog/${slug}`} locale={locale} className="flex flex-col gap-6 md:flex-row no-underline">
-                                <BlogImage
-                                    category={category}
-                                    cover={cover}
-                                    type={type}
-                                    width="w-full md:w-72"
-                                />
+                    ) => {
+                        const isMDX = type === 'mdx';
+                        const imageUrl = isMDX ? `/images/blog/${cover}` : cover;
 
+                        return <>
+                            <CardItem
+                                category={category}
+                                key={i}
+                                href={`/blog/${slug}`}
+                                imageUrl={imageUrl}
+                            >
                                 <div>
                                     <h2>{title}</h2>
                                     <Date
@@ -50,9 +45,9 @@ export default function Home({ posts }: Props): JSX.Element {
                                     />
                                     <p>{description}</p>
                                 </div>
-                            </Link>
-                        </article>
-                    )
+                            </CardItem>
+                        </>
+                    }
                 )}
             </section>
         </main>

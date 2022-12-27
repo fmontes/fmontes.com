@@ -2,21 +2,17 @@ import Image from 'next/image';
 
 import TechIcon from '@components/TechIcon';
 
-function BlogImage({
+function Thumbnail({
     category,
-    cover,
-    type,
+    imageUrl,
     width,
     height
 }: {
-    category: string;
-    cover: string;
-    type: string;
+    category?: string;
+    imageUrl: string;
     width: string;
     height?: string;
 }): JSX.Element {
-    const isMDX = type === 'mdx';
-    const imageUrl = isMDX ? `/images/blog/${cover}` : cover;
 
     const image = ['relative', 'rounded-sm', 'overflow-hidden', 'flex-shrink-0'];
     const fallback = [
@@ -42,7 +38,7 @@ function BlogImage({
 
     return (
         <>
-            {cover ? (
+            {imageUrl ? (
                 <div className={`${image.join(' ')} not-prose`}>
                     <Image fill={true} src={imageUrl} alt="" />
                 </div>
@@ -55,4 +51,4 @@ function BlogImage({
     );
 }
 
-export default BlogImage;
+export default Thumbnail;
