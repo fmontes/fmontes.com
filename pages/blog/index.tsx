@@ -27,8 +27,12 @@ export default function Home({ posts }: Props): JSX.Element {
                         }: BlogPost,
                         i: number
                     ) => {
-                        const isMDX = type === 'mdx';
-                        const imageUrl = isMDX ? `/images/blog/${cover}` : cover;
+                        let imageUrl = null;
+
+                        if (cover) {
+                            const isMDX = type === 'mdx';
+                            imageUrl = isMDX ? `/images/blog/${cover}` : cover;
+                        }
 
                         return <>
                             <CardItem
