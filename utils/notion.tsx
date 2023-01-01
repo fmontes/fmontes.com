@@ -174,6 +174,8 @@ export const renderBlock = (block): JSX.Element => {
             );
         case 'embed':
             if (block.embed.url) {
+                console.log(block.embed.url);
+
                 const codePenId = block.embed.url.split('/').at(-1);
                 return (
                     <iframe
