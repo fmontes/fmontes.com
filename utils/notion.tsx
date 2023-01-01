@@ -173,19 +173,22 @@ export const renderBlock = (block): JSX.Element => {
                 </p>
             );
         case 'embed':
-            const codePenId = block.embed.url.split('/').at(-1);
-            return (
-                <iframe
-                    height="300"
-                    style={{ width: '100%' }}
-                    scrolling="no"
-                    src={`https://codepen.io/fmontes/embed/preview/${codePenId}?default-tab=html%2Cresult`}
-                    frameBorder="no"
-                    loading="lazy"
-                    allowTransparency={true}
-                    allowFullScreen={true}
-                ></iframe>
-            );
+            if (block.embed.url) {
+                const codePenId = block.embed.url.split('/').at(-1);
+                return (
+                    <iframe
+                        height="300"
+                        style={{ width: '100%' }}
+                        scrolling="no"
+                        src={`https://codepen.io/fmontes/embed/preview/${codePenId}?default-tab=html%2Cresult`}
+                        frameBorder="no"
+                        loading="lazy"
+                        allowTransparency={true}
+                        allowFullScreen={true}
+                    ></iframe>
+                );
+            }
+            return null;
         default:
             return (
                 <p>
