@@ -159,10 +159,6 @@ export const renderBlock = (block): JSX.Element => {
             return <SyntaxHighlighter code={value.text[0].plain_text} lang={value.language} />;
         case 'divider':
             return <hr />;
-        case 'bookmark':
-            console.log(value);
-
-            return <h1>Embeded</h1>;
         case 'quote':
             return (
                 <blockquote className="text-xl lg:mx-12 leading-snug not-italic text-gray-700">
@@ -177,17 +173,17 @@ export const renderBlock = (block): JSX.Element => {
                 </p>
             );
         case 'embed':
-            const id = block.embed.url.split('/').at(-1);
+            const codePenId = block.embed.url.split('/').at(-1);
             return (
                 <iframe
                     height="300"
                     style={{ width: '100%' }}
                     scrolling="no"
-                    src={`https://codepen.io/fmontes/embed/preview/${id}?default-tab=html%2Cresult`}
-                    frameborder="no"
+                    src={`https://codepen.io/fmontes/embed/preview/${codePenId}?default-tab=html%2Cresult`}
+                    frameBorder="no"
                     loading="lazy"
-                    allowtransparency="true"
-                    allowfullscreen="true"
+                    allowTransparency={true}
+                    allowFullScreen={true}
                 ></iframe>
             );
         default:
