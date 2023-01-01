@@ -176,6 +176,20 @@ export const renderBlock = (block): JSX.Element => {
                     <span>{value.text[0].plain_text}</span>
                 </p>
             );
+        case 'embed':
+            const id = block.embed.url.split('/').at(-1);
+            return (
+                <iframe
+                    height="300"
+                    style={{ width: '100%' }}
+                    scrolling="no"
+                    src={`https://codepen.io/fmontes/embed/preview/${id}?default-tab=html%2Cresult`}
+                    frameborder="no"
+                    loading="lazy"
+                    allowtransparency="true"
+                    allowfullscreen="true"
+                ></iframe>
+            );
         default:
             return (
                 <p>

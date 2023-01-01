@@ -40,7 +40,7 @@ function Thumbnail({
         <>
             {imageUrl ? (
                 <div className={`${image.join(' ')} not-prose`}>
-                    <Image fill={true} src={imageUrl} alt="" />
+                    <Image fill src={imageUrl} alt="" style={{ objectFit: "cover" }} />
                 </div>
             ) : (
                 <div className={fallback.join(' ')}>

@@ -27,15 +27,15 @@
 }
 .token.doctype,
 .token.cdata {
-    @apply text-gray-700;
+    @apply text-gray-600;
 }
 
 .token.comment {
-    @apply text-gray-400;
+    @apply text-gray-300;
 }
 
 .token.punctuation {
-    @apply text-gray-700;
+    @apply text-gray-600;
 }
 
 .token.property,
@@ -45,7 +45,7 @@
 .token.constant,
 .token.symbol,
 .token.deleted {
-    @apply text-green-600;
+    @apply text-green-500;
 }
 
 .token.selector,
@@ -54,7 +54,7 @@
 .token.char,
 .token.builtin,
 .token.inserted {
-    @apply text-purple-500;
+    @apply text-purple-400;
 }
 
 .token.operator,
@@ -62,30 +62,30 @@
 .token.url,
 .language-css .token.string,
 .style .token.string {
-    @apply text-yellow-500;
+    @apply text-yellow-400;
 }
 
 .token.atrule,
 .token.attr-value,
 .token.keyword,
 .token.unit {
-    @apply text-blue-500;
+    @apply text-blue-400;
 }
 
 .token.function,
 .token.class-name {
-    @apply text-pink-500;
+    @apply text-pink-400;
 }
 
 .token.regex,
 .token.important,
 .token.variable {
-    @apply text-yellow-500;
+    @apply text-yellow-400;
 }
 
 code[class*='language-'],
 pre[class*='language-'] {
-    @apply text-gray-800;
+    @apply text-gray-700;
 }
 
 pre::-webkit-scrollbar {
