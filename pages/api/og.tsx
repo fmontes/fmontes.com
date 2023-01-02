@@ -30,15 +30,9 @@ export default async function handler(req: NextRequest) {
                             tw="absolute inset-0 w-full h-full"
                             src="https://fmontes.com/images/og-bg.png"
                         />
-                        <div tw="bg-[#07313A] absolute inset-0 bg-opacity-80"></div>
-                        <div tw="flex w-full h-full relative">
-                            <div tw="flex items-center justify-center w-full h-full">
-                                <div tw="text-[64px] text-white text-center mx-20">
-                                    {title}
-                                </div>
-                            </div>
-                            <div tw="flex absolute bottom-8 justify-center w-full">
-                                <img src="https://fmontes.com/images/badge.png" width="250px" />
+                        <div tw="flex items-center justify-center w-full h-full">
+                            <div tw="text-[64px] text-white text-center mx-20">
+                                {title}
                             </div>
                         </div>
                     </div>
