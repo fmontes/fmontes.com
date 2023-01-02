@@ -18,9 +18,6 @@ export default async function handler(req: NextRequest) {
             ? searchParams.get('title')
             : 'Freddy Montes - Frontend Developer';
 
-        const image =
-            searchParams.get("image") || 'https://fmontes.com/images/og-bg.png';
-
         const fontData = await font;
 
         return new ImageResponse(
@@ -31,7 +28,7 @@ export default async function handler(req: NextRequest) {
                             alt=""
                             style={{ objectFit: "cover" }}
                             tw="absolute inset-0 w-full h-full"
-                            src={image}
+                            src="https://fmontes.com/images/og-bg.png"
                         />
                         <div tw="bg-[#07313A] absolute inset-0 bg-opacity-80"></div>
                         <div tw="flex w-full h-full relative">

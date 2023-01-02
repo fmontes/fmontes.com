@@ -51,7 +51,7 @@ export default function Blog(props: BlogPost): JSX.Element {
 
     const isMDX = props.type === 'mdx';
 
-    let image = `https://fmontes.com/images/banner_${locale}/`
+    let image = `https://fmontes.com/images/banner_${locale}.png/`
 
     if (cover) {
         image = isMDX ? `https://fmontes.com/images/blog/${cover}` : cover;
@@ -70,7 +70,7 @@ export default function Blog(props: BlogPost): JSX.Element {
                     url,
                     title,
                     description: description,
-                    images: [{ url: `https://fmontes.com/api/og?title=${title}&image=${image}`, width: 1200, height: 620, alt: title }]
+                    images: [{ url: `https://fmontes.com/api/og?title=${encodeURI(title)}&image=${image}`, width: 1200, height: 620, alt: title }]
                 }}
                 title={`${title} – Freddy Montes`}
                 twitter={{
