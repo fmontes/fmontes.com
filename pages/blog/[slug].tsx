@@ -4,7 +4,6 @@ import { ParsedUrlQuery } from 'querystring';
 import { NextSeo, ArticleJsonLd } from 'next-seo';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { FlayyerIO } from '@flayyer/flayyer';
 
 import Date from '@components/Date';
 import MDXComponents from '@components/MDXComponents';
@@ -52,19 +51,11 @@ export default function Blog(props: BlogPost): JSX.Element {
 
     const isMDX = props.type === 'mdx';
 
-    if (cover) {
-        variables.image = isMDX ? `https://fmontes.com/images/blog/${cover}` : cover;
-    }
+    let image = `https://fmontes.com/images/banner_${locale}/`
 
-    const flayyer = new FlayyerIO({
-        tenant: 'fmontes-com',
-        deck: 'fmontes-flayyer',
-        template: 'main',
-        variables,
-        meta: {
-            id: slug
-        }
-    });
+    if (cover) {
+        image = isMDX ? `https://fmontes.com/images/blog/${cover}` : cover;
+    }
 
     return (
         <>
@@ -79,7 +70,7 @@ export default function Blog(props: BlogPost): JSX.Element {
                     url,
                     title,
                     description: description,
-                    images: [{ url: flayyer?.href() }]
+                    images: [{ url: `https://fmontes.com/api/og?title=${title}&image=${image}`, width: 1200, height: 620, alt: title }]
                 }}
                 title={`${title} – Freddy Montes`}
                 twitter={{
@@ -93,7 +84,7 @@ export default function Blog(props: BlogPost): JSX.Element {
                 dateModified={date}
                 datePublished={date}
                 description={description}
-                images={[flayyer?.href()]}
+                images={[]}
                 publisherLogo="/static/android-chrome-192x192.png"
                 publisherName="Freddy Montes"
                 title={title}

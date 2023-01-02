@@ -26,7 +26,9 @@ export default function Blog({
     const url = `https://fmontes.com${locale === 'es' ? '/es' : ''}/blog/${slug}`;
     const image = {
         url: `https://fmontes.com/static/images/banner_${locale}.png`,
-        alt: title
+        alt: title,
+        width: 1200,
+        height: 630
     };
 
     return (
