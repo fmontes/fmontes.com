@@ -26,7 +26,7 @@ export default function Book(): JSX.Element {
                     url,
                     title,
                     description: description,
-                    images: [{ url:  }]
+                    images: [{ url: 'https://fmontes.com/api/og?title=99 tips&image=https://fmontes.com/images/99-tips/99-cover.png' }]
                 }}
                 title={`${title} – Freddy Montes`}
                 twitter={{
