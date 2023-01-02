@@ -26,7 +26,7 @@ export default function Book(): JSX.Element {
                     url,
                     title,
                     description: description,
-                    images: [{ url: 'https://fmontes.com/api/og?title=99 tips&image=https://fmontes.com/images/99-tips/99-cover.png', width: 1200, height: 630, alt: title }]
+                    images: [{ url: `https://${process.env.VERCEL_URL}/api/og?title=99 tips&image=https://fmontes.com/images/99-tips/99-cover.png`, width: 1200, height: 630, alt: title }]
                 }}
                 title={`${title} – Freddy Montes`}
                 twitter={{
