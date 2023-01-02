@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import FlayyerIO from '@flayyer/flayyer';
 import { NextSeo, ArticleJsonLd } from 'next-seo';
 import cover from '../public/images/99-tips/99-cover.png';
 import { useRouter } from 'next/router';
@@ -14,18 +13,9 @@ export default function Book(): JSX.Element {
     const slug = '99-tips-de-web-development';
     const url = `https://fmontes.com/${locale}/${slug}`;
 
-    const flayyer = new FlayyerIO({
-        tenant: 'fmontes-com',
-        deck: 'fmontes-flayyer',
-        template: 'main',
-        variables: {
-            image: 'https://fmontes.com/images/99-tips/99-rrss.png',
-            title
-        },
-        meta: {
-            id: slug
-        }
-    });
+    // https://fmontes.com/images/99-tips/99-rrss.png
+
+
 
     return (
         <>
@@ -36,7 +26,7 @@ export default function Book(): JSX.Element {
                     url,
                     title,
                     description: description,
-                    images: [{ url: flayyer?.href() }]
+                    images: [{ url:  }]
                 }}
                 title={`${title} – Freddy Montes`}
                 twitter={{
@@ -50,7 +40,7 @@ export default function Book(): JSX.Element {
                 dateModified={date}
                 datePublished={date}
                 description={description}
-                images={[flayyer?.href()]}
+                images={[]}
                 publisherLogo="/static/android-chrome-192x192.png"
                 publisherName="Freddy Montes"
                 title={title}
