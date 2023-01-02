@@ -70,7 +70,7 @@ export default function Blog(props: BlogPost): JSX.Element {
                     url,
                     title,
                     description: description,
-                    images: [{ url: `https://fmontes.com/api/og?title=${encodeURI(title)}&image=${image}`, width: 1200, height: 620, alt: title }]
+                    images: [{ url: `https://fmontes.com/api/og?title=${encodeURI(title)}`, width: 1200, height: 620, alt: title }]
                 }}
                 title={`${title} – Freddy Montes`}
                 twitter={{
