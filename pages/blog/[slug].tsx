@@ -1,16 +1,16 @@
-import React, { Fragment } from 'react';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
-import { ParsedUrlQuery } from 'querystring';
-import { NextSeo, ArticleJsonLd } from 'next-seo';
-import { useRouter } from 'next/router';
+import { ArticleJsonLd, NextSeo } from 'next-seo';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { ParsedUrlQuery } from 'querystring';
+import { Fragment } from 'react';
 
 import Date from '@components/Date';
 import MDXComponents from '@components/MDXComponents';
+import Tweetme from '@components/Tweetme';
 import { getContent, getMDXPostsSlugs, MatterContent } from '@utils/content';
 import { getNotionPostPage, getNotionPostsSlugs, renderBlock } from '@utils/notion';
 import { MDXRemote } from 'next-mdx-remote';
-import Tweetme from '@components/Tweetme';
 
 type MDXPost = {
     compiledSource: string;
@@ -84,7 +84,7 @@ export default function Blog(props: BlogPost): JSX.Element {
                 dateModified={date}
                 datePublished={date}
                 description={description}
-                images={[]}
+                images={[`https://fmontes.com/api/og?title=${encodeURI(title)}`]}
                 publisherLogo="/static/android-chrome-192x192.png"
                 publisherName="Freddy Montes"
                 title={title}
@@ -92,24 +92,26 @@ export default function Blog(props: BlogPost): JSX.Element {
             />
 
             <main className="prose prose-fmontes lg:prose-md xl:prose-lg dark:prose-invert mt-12 mx-auto">
-                <h1>{title}</h1>
-                <p className="flex items-center">
-                    <span className="flex items-center">
-                        <Image
-                            alt="Freddy Montes - Frontend Developer, Designer and Teacher"
-                            className="rounded-full"
-                            height={32}
-                            src="/images/avatar.jpg"
-                            width={32}
-                        />
+                <header className="not-prose mb-10">
+                    <h1 className="text-3xl font-bold leading-none text-prose text-blue-700 dark:text-blue-200 mb-6">{title}</h1>
+                    <p className="flex items-center">
+                        <span className="flex items-center">
+                            <Image
+                                alt="Freddy Montes - Frontend Developer, Designer and Teacher"
+                                className="rounded-full m-0"
+                                height={32}
+                                src="/images/avatar.jpg"
+                                width={32}
+                            />
 
-                        <span className="ml-2">
-                            <a href="https://twitter.com/fmontes">Freddy Montes</a>
+                            <span className="ml-2">
+                                <a href="https://twitter.com/fmontes" className="underline text-blue-500 dark:text-cyan-500">Freddy Montes</a>
+                            </span>
                         </span>
-                    </span>
-                    <span className="mx-4 text-gray-300">|</span>
-                    <Date date={date} />
-                </p>
+                        <span className="mx-4 text-gray-300">|</span>
+                        <Date date={date} />
+                    </p>
+                </header>
 
                 {isMDX ? (
                     <MDXRemote {...(content as MDXPost)} components={MDXComponents} />
@@ -120,10 +122,6 @@ export default function Blog(props: BlogPost): JSX.Element {
                 )}
 
                 <Tweetme />
-
-                {/* <blockquote>
-                    {t('post_blog_action')}: <a href="https://twitter.com/fmontes">@fmontes</a>
-                </blockquote> */}
             </main>
         </>
     );

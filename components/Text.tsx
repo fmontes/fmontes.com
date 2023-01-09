@@ -34,7 +34,7 @@ export const Text = ({ text }: Props): JSX.Element => {
                         key={key}
                         className={[
                             bold ? 'font-bold' : '',
-                            code ? 'font-mono text-red-600 bg-gray-200 py-1 px-2 rounded' : '',
+                            code ? 'font-mono text-red-600 bg-slate-100 dark:bg-gray-800 py-1 px-2 rounded' : '',
                             italic ? 'italic' : '',
                             strikethrough ? 'line-through' : '',
                             underline ? 'underline' : ''
