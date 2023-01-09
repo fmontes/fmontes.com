@@ -93,7 +93,7 @@ export default function Blog(props: BlogPost): JSX.Element {
 
             <main className="prose prose-fmontes lg:prose-md xl:prose-lg dark:prose-invert mt-12 mx-auto">
                 <header className="not-prose mb-10">
-                    <h1 className="text-3xl font-bold leading-none text-prose text-blue-700 dark:text-blue-200 mb-6">{title}</h1>
+                    <h1 className="text-xl md:text-2xl lg:text-3xl font-bold leading-none md:leading-none lg:leading-none text-prose text-blue-700 dark:text-blue-200 mb-6">{title}</h1>
                     <p className="flex items-center">
                         <span className="flex items-center">
                             <Image
