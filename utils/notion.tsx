@@ -161,13 +161,13 @@ export const renderBlock = (block): JSX.Element => {
             return <hr />;
         case 'quote':
             return (
-                <blockquote className="text-xl lg:mx-12 leading-snug not-italic text-gray-700">
+                <blockquote className="text-xl lg:mx-12 leading-snug not-italic text-gray-700 dark:text-cyan-400">
                     {value.text[0].plain_text}
                 </blockquote>
             );
         case 'callout':
             return (
-                <p className="bg-orange-100 rounded-lg py-4 px-6 flex gap-4 leading-snug items-center">
+                <p className="bg-orange-100 dark:bg-yellow-900 rounded-lg py-4 px-6 flex gap-4 leading-snug items-center">
                     <span className="text-xl">{value.icon.emoji}</span>
                     <span>{value.text[0].plain_text}</span>
                 </p>
