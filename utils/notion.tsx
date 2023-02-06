@@ -192,7 +192,7 @@ export const renderBlock = (block): JSX.Element => {
         default:
             return (
                 <p>
-                    ❌ Unsupported block{' '}
+                    ❌ Unsupported block {' '}
                     {type === 'unsupported' ? 'unsupported by Notion API' : type}
                 </p>
             );
