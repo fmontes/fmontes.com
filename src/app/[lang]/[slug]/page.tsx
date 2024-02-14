@@ -1,14 +1,8 @@
 import { getContent } from "@/utils/content";
 
 export default async function Page({ params }) {
-  const [slug] = params.slug;
-
-  if (!slug) {
-    return null;
-  }
-
   const data = await getContent({
-    slug,
+    slug: params.slug,
     locale: params.lang,
     type: 'pages'
   })
