@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@formatjs/intl-localematcher": "^0.5.4",
     "@mdx-js/loader": "^3.0.1",
     "@mdx-js/react": "^3.0.1",
     "@next/mdx": "^14.1.0",
     "@types/mdx": "^2.0.10",
+    "negotiator": "^0.6.3",
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18",
