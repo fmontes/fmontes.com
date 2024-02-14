@@ -69,27 +69,27 @@ type ContentProps = {
 //     return filteredList;
 // };
 
-// export const getContentSortedByDate = (locale: string, type: ContentType): MatterContent[] => {
-//     if (!FOLDERS[type]) {
-//         throw new Error(
-//             `You need to create folder "/data/${type}" and add it to the "FOLDERS" object`
-//         );
-//     }
+export const getContentSortedByDate = (locale: string, type: ContentType): MatterContent[] => {
+    if (!FOLDERS[type]) {
+        throw new Error(
+            `You need to create folder "/data/${type}" and add it to the "FOLDERS" object`
+        );
+    }
 
-//     const fullPath = path.join(FOLDERS[type], `${locale}/`);
+    const fullPath = path.join(FOLDERS[type], `${locale}/`);
 
-//     if (!fs.existsSync(fullPath)) {
-//         return [];
-//     }
-//     const allPosts = fs.readdirSync(fullPath).map((itemPath) => {
-//         const content = fs.readFileSync(path.join(fullPath, itemPath), 'utf8');
-//         const frontMatter = matter(content).data;
-//         const slug = itemPath.replace(/\.mdx/, '');
-//         return { ...frontMatter, slug };
-//     });
+    if (!fs.existsSync(fullPath)) {
+        return [];
+    }
+    const allPosts = fs.readdirSync(fullPath).map((itemPath) => {
+        const content = fs.readFileSync(path.join(fullPath, itemPath), 'utf8');
+        const frontMatter = matter(content).data;
+        const slug = itemPath.replace(/\.mdx/, '');
+        return { ...frontMatter, slug };
+    });
 
-//     return (allPosts as MatterContent[]).sort((postA, postB) => (postA.date < postB.date ? 1 : -1));
-// };
+    return (allPosts as MatterContent[]).sort((postA, postB) => (postA.date < postB.date ? 1 : -1));
+};
 
 // export const getSlugs = (type: ContentType): Slugs[] => {
 //     if (!FOLDERS[type]) {
@@ -132,32 +132,14 @@ export const getContent = async ({ slug, locale, type }: ContentProps): Promise<
     return { mdxSource, frontMatter: { ...data, slug } };
 };
 
-// export const getPosts = async (locale: string): Promise<BlogPost[]> => {
-//     // Get Notion posts
-//     const notion = await getDatabase(locale);
-//     const notionPosts: BlogPost[] = notion.results.map((item: any) => {
-//         return {
-//             frontMatter: getFrontMatter(item),
-//             type: 'notion'
-//         };
-//     });
+export const getPosts = async (locale: string): Promise<unknown[]> => {
 
-//     // Get MDX posts
-//     const mdxContent = await getContentSortedByDate(locale, 'posts');
-//     const mdxPosts: BlogPost[] = mdxContent.map((item: MatterContent) => {
-//         return {
-//             frontMatter: item,
-//             type: 'mdx'
-//         };
-//     });
+    // Get MDX posts
+    const mdxContent = await getContentSortedByDate(locale, 'posts');
 
-//     // Sort and merge posts
-//     return [...mdxPosts, ...notionPosts].sort((a: BlogPost, b: BlogPost) => {
-//         const dateA = new Date(a.frontMatter.date).getTime();
-//         const dateB = new Date(b.frontMatter.date).getTime();
-//         return dateA < dateB ? 1 : -1; // ? -1 : 1 for ascending/increasing order
-//     });
-// };
+    return mdxContent;
+
+};
 
 // export const getMDXPostsSlugs = async (): Promise<Slugs[]> => {
 //     return getSlugs('posts');
