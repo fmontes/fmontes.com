@@ -159,7 +159,7 @@ $ gatsby develop
 
 Si todo ha ido bien deberías ver
 
-<Image src="/images/blog/building-a-website-with-gatsby-and-a-headless-cms-part-2/gatsby-done.png" width="435" height="61" alt="Gatsby Done Alert" />
+<Image src="/static/images/blog/building-a-website-with-gatsby-and-a-headless-cms-part-2/gatsby-done.png" width="435" height="61" alt="Gatsby Done Alert" />
 
 ### Consulta de datos de DotCMS con GraphQL
 
@@ -167,7 +167,7 @@ Cada vez que ejecutas `$ gatsby develop` obtienes esto:
 
 Si vas a http://localhost:8000/___graphql_ en tu navegador, obtendrás una aplicación web que te permite ejecutar consultas [GraphQL](https://graphql.org/) y asegurarte de que todo el contenido de DotCMS está ahí. Tendrá el siguiente aspecto:
 
-<Image src="/images/blog/building-a-website-with-gatsby-and-a-headless-cms-part-2/graphql.png" width="815" height="482" alt="GraphiQL" />
+<Image src="/static/images/blog/building-a-website-with-gatsby-and-a-headless-cms-part-2/graphql.png" width="815" height="482" alt="GraphiQL" />
 
 ## Cómo generar páginas
 
@@ -205,7 +205,7 @@ Para ver esta página, ve a tu terminal y ejecuta
 
 Y luego abre tu navegador a _http://localhost:8000/news_ y deberías ver:
 
-<Image src="/images/blog/building-a-website-with-gatsby-and-a-headless-cms-part-2/gatsby-default-starter.png" width="815" height="712" alt="Gatsby Default Starter" />
+<Image src="/static/images/blog/building-a-website-with-gatsby-and-a-headless-cms-part-2/gatsby-default-starter.png" width="815" height="712" alt="Gatsby Default Starter" />
 
 ### Bring the dotCMS Contentlets
 
@@ -297,7 +297,7 @@ export const query = graphql`
 
 En este caso, la "magia" para conseguir los datos es una simple consulta GraphQL para obtener todos los elementos de dotCMS News. En este caso, has pedido el campo: lead, title y urlTitle. Si todo ha ido bien, deberías ver algo como:
 
-<Image src="/images/blog/building-a-website-with-gatsby-and-a-headless-cms-part-2/gatsby-default-starter-2.png" alt="Gatsby Default Starter" width="815" height="748" />
+<Image src="/static/images/blog/building-a-website-with-gatsby-and-a-headless-cms-part-2/gatsby-default-starter-2.png" alt="Gatsby Default Starter" width="815" height="748" />
 
 ### Creación de páginas de detalles de noticias
 
@@ -480,7 +480,7 @@ $ gatsby develop
 
 Ahora mismo no tienes enlaces a los enlaces creados recientemente, pero puedes usar el campo `urlTitle` del contentlet. Vaya a: _http://localhost:8080/news/the-gas-price-rollercoaster_ y debería ver:
 
-<Image src="/images/blog/building-a-website-with-gatsby-and-a-headless-cms-part-2/gatsby-rollercoaster.png" alt="dotCMS Gatsby News Detail" width="815" height="808" />
+<Image src="/static/images/blog/building-a-website-with-gatsby-and-a-headless-cms-part-2/gatsby-rollercoaster.png" alt="dotCMS Gatsby News Detail" width="815" height="808" />
 
 ## Toques finales: Añadiendo enlaces a nuestra página de anuncios
 
@@ -506,7 +506,7 @@ Con:
 
 En el navegador ve a _http://localhost:8080/news_ y deberías ver:
 
-<Image src="/images/blog/building-a-website-with-gatsby-and-a-headless-cms-part-2/gatsby-default-starter-news.png" alt="dotCMS Gatsby News Results" width="815" height="731" />
+<Image src="/static/images/blog/building-a-website-with-gatsby-and-a-headless-cms-part-2/gatsby-default-starter-news.png" alt="dotCMS Gatsby News Results" width="815" height="731" />
 
 Ahora los elementos de la lista de noticias están vinculados a la página de detalles que has creado dinámicamente con Gatsby.
 

@@ -16,10 +16,10 @@ He [visto](https://noahgilmore.com/blog/easy-gatsby-image-components/) [algunas]
 Este método funciona a las mil maravillas cuando no tienes muchas imágenes, pero, en mi caso, había ~800. Como Gatsby guarda todas las consultas GraphQL que resultan en un archivo `page-data.json`, puede ser realmente grande. Por ejemplo, aquí hay una comparación de un archivo con ~800 imágenes y sin imágenes:
 
 ### Archivo JSON de Gatsby con ~800 imágenes
-<Image src="/images/blog/dynamic-gatsby-images-an-ternative/page-data-compare-01.jpg" alt="page-data-compare-01" width="904" height="106" />
+<Image src="/static/images/blog/dynamic-gatsby-images-an-ternative/page-data-compare-01.jpg" alt="page-data-compare-01" width="904" height="106" />
 
 ### No hay imágenes
-<Image src="/images/blog/dynamic-gatsby-images-an-anternative/page-data-compare-02.jpg" alt="page-data-compare-02" width="904" height="106" />
+<Image src="/static/images/blog/dynamic-gatsby-images-an-anternative/page-data-compare-02.jpg" alt="page-data-compare-02" width="904" height="106" />
 
 ### Mi solución
 Aunque probé todo lo que se me ocurrió para usar imágenes locales en Gatsby, no conseguí una solución aceptable para mi caso, así que decidí tomar otro camino, un servicio de alojamiento de imágenes, y elegí Cloudinary.
