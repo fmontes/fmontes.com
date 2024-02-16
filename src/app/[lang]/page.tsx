@@ -1,7 +1,4 @@
-import fs from 'fs';
-import matter from 'gray-matter';
-import path from 'path';
-
+import { getPosts } from '@/utils/content';
 import Link from 'next/link';
 
 export default function Home({
@@ -14,21 +11,7 @@ export default function Home({
 }) {
   if (params.slug === '/sw.js') return null;
 
-  const FOLDER = path.resolve(process.cwd(), 'src/data/posts');
-  const fullPath = path.join(FOLDER, `${params.lang}`);
-  const files = fs.readdirSync(fullPath, 'utf-8');
-
-  const posts = files
-    .map((itemPath) => {
-      const content = fs.readFileSync(path.join(fullPath, itemPath), 'utf8');
-      return {
-        ...matter(content).data,
-        slug: itemPath.replace('.mdx', ''),
-      };
-    })
-    .sort((postA, postB) => {
-      return new Date(postA.date) < new Date(postB.date) ? 1 : -1;
-    });
+  const posts = getPosts(params.lang);
 
   return (
     <main className="main mx-auto mt-5">
