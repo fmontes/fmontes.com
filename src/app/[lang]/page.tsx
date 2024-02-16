@@ -18,10 +18,10 @@ export default function Home({
       <h1
         // dangerouslySetInnerHTML={{ __html: t('bio') }}
         className="text-blue-700 dark:text-cyan text-xl lg:text-2xl my-16 sm:my-20 md:text-center font-normal leading-tight tracking-tight">
-        Hello
+
       </h1>
 
-      <div className="prose dark:prose-invert block max-w-full">
+      <div className="prose lg:prose-xl mx-auto">
         <h2 className="text-2xl font-bold sm:text-3xl tracking-tight sm:leading-tight mb-6">
           {/* {t('latest_blog_posts')} */}
         </h2>
