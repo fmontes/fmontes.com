@@ -9,7 +9,7 @@ export default function Home({
     lang: string;
   };
 }) {
-  if (params.slug === '/sw.js') return null;
+  if (params.lang === 'sw.js') return null;
 
   const posts = getPosts(params.lang);
 
@@ -29,7 +29,9 @@ export default function Home({
           {posts.map((post, i: number) => {
             return (
               <div key={i}>
-                <p><Link href={`/${params.lang}/blog/${post.slug}`}>{post.title}</Link></p>
+                <p>
+                  <Link href={`/${params.lang}/blog/${post.slug}`}>{post.title}</Link>
+                </p>
                 <p>{post.date}</p>
               </div>
             );

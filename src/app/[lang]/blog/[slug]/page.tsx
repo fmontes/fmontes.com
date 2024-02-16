@@ -4,7 +4,6 @@ import Image from 'next/image'
 
 
 export default function Blog({ params }: { params: { slug: string, lang: string } }) {
-
   const post = getPostBySlug(params.lang, params.slug);
 
   return <>
