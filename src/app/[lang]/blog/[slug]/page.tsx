@@ -4,6 +4,14 @@ import Image from 'next/image';
 import { getPostBySlug } from '@/utils/content';
 import { Date } from '@/components/Date';
 
+export async function generateMetadata({ params }) {
+  const post = getPostBySlug(params.lang, params.slug);
+
+  return {
+    title: post.title,
+  }
+}
+
 export default function Blog({ params }: { params: { slug: string; lang: string } }) {
   const post = getPostBySlug(params.lang, params.slug);
 
