@@ -23,7 +23,7 @@ export default function Home({
 
       </h1>
 
-      <div className="prose lg:prose-xl mx-auto">
+      <div className="prose lg:prose-xl dark:prose-invert mx-auto">
         <h2 className="text-2xl font-bold sm:text-3xl tracking-tight sm:leading-tight mb-6">
           {/* {t('latest_blog_posts')} */}
         </h2>

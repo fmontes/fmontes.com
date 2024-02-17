@@ -8,7 +8,7 @@ export default function Blog({ params }: { params: { slug: string; lang: string 
   const post = getPostBySlug(params.lang, params.slug);
 
   return (
-    <main className="prose lg:prose-xl mx-auto">
+    <main className="prose lg:prose-xl dark:prose-invert mx-auto">
       <p><Date date={post.date} locale={params.lang} /></p>
       <h1>{post.title}</h1>
       <MDXRemote
