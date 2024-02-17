@@ -3,11 +3,7 @@ import type { NextRequest } from 'next/server';
 
 import { match as matchLocale } from '@formatjs/intl-localematcher';
 import Negotiator from 'negotiator';
-
-const i18n = {
-  defaultLocale: 'en',
-  locales: ['en', 'es'],
-} as const;
+import { i18n } from './utils/i18n/config';
 
 function getLocale(request: NextRequest): string | undefined {
   const negotiatorHeaders: Record<string, string> = {};

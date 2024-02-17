@@ -12,7 +12,7 @@ export function Header(): JSX.Element {
           <Logo />
 
           <div className="flex flex-col gap-3 items-center fixed z-20 top-0 right-0 lg:flex-row lg:static lg:gap-6">
-            {/* <Nav /> */}
+            <Nav />
             {/* <Translate /> */}
           </div>
         </div>

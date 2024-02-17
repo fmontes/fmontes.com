@@ -1,4 +1,4 @@
-export default {
+export const translations ={
     en: {
         title: 'Freddy Montes - Frontend Developer and Designer. Learning, coding and teaching',
         bio: `I develop digital products and <b>teach you</b> how to do it`,

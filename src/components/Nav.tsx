@@ -1,17 +1,19 @@
-import { ReactNode, useState } from 'react';
-import { useRouter } from 'next/router';
+'use client';
 
-import useTranslation from '@utils/i18n/hooks';
+import { ReactNode, useState } from 'react';
+import { usePathname } from 'next/navigation';
+
 import Link from 'next/link';
 import Image from 'next/image';
+import useTranslation from '@/utils/i18n/hooks';
 
 type Props = {
     children: ReactNode;
     href: string;
 };
 
-function NanLink({ children, href }: Props) {
-    const { pathname } = useRouter();
+function NavLink({ children, href }: Props) {
+    const pathname = usePathname();
     const active = pathname === href;
 
     return (
@@ -33,20 +35,19 @@ export function Nav(): JSX.Element {
         <>
             <nav
                 className={`${show ? 'block' : 'hidden'
-                    } fixed top-0 right-0 z-10 dark:bg-blue-700 bg-blue-100 flex flex-col lg:flex-row lg:flex lg:static lg:bg-transparent`}
+                    } fixed top-0 right-0 z-10 flex flex-col lg:flex-row lg:flex lg:static lg:bg-transparent`}
                 onClick={() => {
                     setShow(false);
                 }}
             >
-                <NanLink href="/">{t('home')}</NanLink>
-                <NanLink href="/blog">{t('blog')}</NanLink>
-                <NanLink href="/about">{t('about')}</NanLink>
-                <NanLink href="/uses">{t('uses')}</NanLink>
-                <NanLink href="/portfolio">{t('portfolio')}</NanLink>
-                <NanLink href="/talks">{t('talks')}</NanLink>
-                <NanLink href="mailto:me@fmontes.com?subject=Hello from your website">
+                <NavLink href="/">{t('home')}</NavLink>
+                <NavLink href="/blog">{t('blog')}</NavLink>
+                <NavLink href="/about">{t('about')}</NavLink>
+                <NavLink href="/uses">{t('uses')}</NavLink>
+                <NavLink href="/talks">{t('talks')}</NavLink>
+                <NavLink href="mailto:me@fmontes.com?subject=Hello from your website">
                     {t('contact')}
-                </NanLink>
+                </NavLink>
             </nav>
             <button
                 aria-label="Show menu"
