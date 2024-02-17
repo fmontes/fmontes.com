@@ -1,5 +1,6 @@
 import { getPosts } from '@/utils/content';
 import Link from 'next/link';
+import { Date } from '@/components/Date';
 
 export default function Home({
   params,
@@ -32,7 +33,7 @@ export default function Home({
                 <p>
                   <Link href={`/${params.lang}/blog/${post.slug}`}>{post.title}</Link>
                 </p>
-                <p>{post.date}</p>
+                <p><Date date={post.date} locale={params.lang} /></p>
               </div>
             );
           })}
