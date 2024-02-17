@@ -14,9 +14,9 @@ export default async function Page({ params }: {
   const { data, content } = matter(fileContents);
 
   return (
-    <div>
+    <main className="prose lg:prose-xl dark:prose-invert mx-auto">
       <h1>{data.title}</h1>
       <MDXRemote source={content} />
-    </div>
+    </main>
   );
 }
