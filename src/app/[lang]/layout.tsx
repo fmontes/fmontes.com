@@ -11,12 +11,18 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  children,
+  params,
+  children
 }: Readonly<{
+  params: {
+    lang: string;
+    slug: string;
+  };
   children: React.ReactNode;
 }>) {
+  
   return (
-    <html lang="en">
+    <html lang={params.lang}>
       <body className={`${inter.className} dark:bg-blue-900`}>
         <div className="container p-6 md:p-8 lg:px-0 antialiased mx-auto">
           <Header />
