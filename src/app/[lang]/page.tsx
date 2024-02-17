@@ -1,5 +1,6 @@
-import { getPosts } from '@/utils/content';
 import Link from 'next/link';
+
+import { getPosts } from '@/utils/content';
 import { Date } from '@/components/Date';
 
 export default function Home({
