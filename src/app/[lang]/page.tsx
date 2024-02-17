@@ -16,11 +16,10 @@ export default function Home({
   const posts = getPosts(params.lang);
 
   return (
-    <main className="main mx-auto mt-5">
+    <main className="mx-auto mt-5">
       <h1
         // dangerouslySetInnerHTML={{ __html: t('bio') }}
         className="text-blue-700 dark:text-cyan text-xl lg:text-2xl my-16 sm:my-20 md:text-center font-normal leading-tight tracking-tight">
-
       </h1>
 
       <div className="prose lg:prose-xl dark:prose-invert mx-auto">
