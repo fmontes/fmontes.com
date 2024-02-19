@@ -1,6 +1,7 @@
 import { getPosts } from '@/utils/content';
 import { HomeBlogItem } from '@/components/HomeBlogItem';
 import { getDictionary } from './dictionaries'
+import Ebooks from '@/components/Ebooks';
 
 export default async function Home({
   params,
@@ -35,10 +36,7 @@ export default async function Home({
         </section>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-6">
-        <div className="flex flex-1"></div>
-        <div className="flex-1"></div>
-      </div>
+      <Ebooks />
     </main>
   );
 }

@@ -51,7 +51,7 @@ export default async function RootLayout({
         <meta content="/static/browserconfig.xml" name="msapplication-config" />
       </head>
       <body className={`${inter.className} dark:bg-blue-900`}>
-        <div className="container p-6 md:p-8 lg:px-0 antialiased mx-auto">
+        <div className="container p-6 md:p-8 lg:px-0 antialiased mx-auto max-w-[64rem]">
           <DictionaryProvider dictionary={dictionary}>
             <Header />
             {children}
