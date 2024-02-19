@@ -12,12 +12,8 @@ export default async function Home({
   };
 }) {
   if ((params.lang as any) === 'sw.js') return null;
-
-  console.log(params.lang);
   
-
   const dict = await getDictionary(params.lang)
-
   const posts = getPosts(params.lang);
 
   return (
