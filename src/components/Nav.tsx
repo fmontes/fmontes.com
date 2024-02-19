@@ -4,22 +4,22 @@ import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 import Image from 'next/image';
-import useTranslation from '@/utils/i18n/hooks';
 import { NavLink } from './NavLink';
+import { useDictionary } from '@/providers/dictionary-provider';
 
-export function Nav(): JSX.Element {
+export async function Nav() {
     const pathname = usePathname();
+    const dictionary = useDictionary()
 
-    const t = useTranslation();
     const [show, setShow] = useState(false);
 
     const items = [
-        { label: 'home', href: '/' },
-        { label: 'blog', href: '/blog' },
-        { label: 'about', href: '/about' },
-        { label: 'uses', href: '/uses' },
-        { label: 'talks', href: '/talks' },
-        { label: 'contact', href: 'mailto:me@fmontes.com?subject=Hello from your website' },
+        { label: dictionary.nav.home, href: '/' },
+        { label: dictionary.nav.blog, href: '/blog' },
+        { label: dictionary.nav.about, href: '/about' },
+        { label: dictionary.nav.uses, href: '/uses' },
+        { label: dictionary.nav.talks, href: '/talks' },
+        { label: dictionary.nav.contact, href: 'mailto:me@fmontes.com?subject=Hello from your website' },
     ]
 
     return (
@@ -37,7 +37,7 @@ export function Nav(): JSX.Element {
 
                     return (
                         <NavLink className={className} key={i} href={item.href}>
-                            {t(item.label)}
+                            {item.label}
                         </NavLink>
                     );
                 })}
