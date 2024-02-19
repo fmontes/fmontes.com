@@ -1,35 +1,26 @@
 'use client';
 
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 
-import Link from 'next/link';
 import Image from 'next/image';
 import useTranslation from '@/utils/i18n/hooks';
-import { i18n } from '@/utils/i18n/config';
-
-type Props = {
-    children: ReactNode;
-    href: string;
-};
-
-function NavLink({ children, href }: Props) {
-    const pathname = usePathname();
-    const active = pathname === href;
-    const lang = pathname.split('/')[1];
-    const locale = i18n.locales.find((l) => l === lang) || i18n.defaultLocale;
-    const cassName = active ? 'dark:text-yellow text-blue-900 underline' : 'dark:text-blue-50 text-blue-700';
-
-    return (
-        <Link href={`/${locale}/${href}`} className={`${cassName} block py-2 pl-5 pr-16 lg:p-2 hover:underline`}>
-            {children}
-        </Link>
-    );
-}
+import { NavLink } from './NavLink';
 
 export function Nav(): JSX.Element {
+    const pathname = usePathname();
+
     const t = useTranslation();
     const [show, setShow] = useState(false);
+
+    const items = [
+        { label: 'home', href: '/' },
+        { label: 'blog', href: '/blog' },
+        { label: 'about', href: '/about' },
+        { label: 'uses', href: '/uses' },
+        { label: 'talks', href: '/talks' },
+        { label: 'contact', href: 'mailto:me@fmontes.com?subject=Hello from your website' },
+    ]
 
     return (
         <>
@@ -39,12 +30,17 @@ export function Nav(): JSX.Element {
                 onClick={() => {
                     setShow(false);
                 }}>
-                <NavLink href="/">{t('home')}</NavLink>
-                <NavLink href="/blog">{t('blog')}</NavLink>
-                <NavLink href="/about">{t('about')}</NavLink>
-                <NavLink href="/uses">{t('uses')}</NavLink>
-                <NavLink href="/talks">{t('talks')}</NavLink>
-                <NavLink href="mailto:me@fmontes.com?subject=Hello from your website">{t('contact')}</NavLink>
+                {items.map((item, i) => {
+                    // TODO: active not working with /lang
+                    const active = pathname === item.href;
+                    const className = `${active ? 'dark:text-yellow text-blue-900 underline' : 'dark:text-blue-50 text-blue-700'} block py-2 pl-5 pr-16 lg:p-2 hover:underline`;
+
+                    return (
+                        <NavLink className={className} key={i} href={item.href}>
+                            {t(item.label)}
+                        </NavLink>
+                    );
+                })}
             </nav>
             <button
                 aria-label="Show menu"

@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { getPosts } from '@/utils/content';
 import { Date } from '@/components/Date';
+import { HomeBlogItem } from '@/components/HomeBlogItem';
 
 export default function Home({
   params,
@@ -22,21 +23,12 @@ export default function Home({
         className="text-blue-700 dark:text-cyan text-xl lg:text-2xl my-16 sm:my-20 md:text-center font-normal leading-tight tracking-tight">
       </h1>
 
-      <div className="prose lg:prose-xl dark:prose-invert mx-auto">
+      <div className="prose dark:prose-invert block max-w-full">
         <h2 className="text-2xl font-bold sm:text-3xl tracking-tight sm:leading-tight mb-6">
           {/* {t('latest_blog_posts')} */}
         </h2>
-        <section className=" gap-6 mb-16">
-          {posts.map((post, i: number) => {
-            return (
-              <div key={i}>
-                <p>
-                  <Link href={`/${params.lang}/blog/${post.slug}`}>{post.title}</Link>
-                </p>
-                <p><Date date={post.date} locale={params.lang} /></p>
-              </div>
-            );
-          })}
+        <section className="flex flex-wrap gap-6 mb-16">
+          {posts.slice(0, 3).map((post, i: number) => <HomeBlogItem key={i} {...post} />)}
         </section>
       </div>
 
