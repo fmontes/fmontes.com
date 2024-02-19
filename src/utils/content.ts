@@ -6,6 +6,9 @@ interface BlogData {
   title: string;
   date: string;
   slug: string;
+  category: string;
+  description: string;
+  cover: string;
 }
 
 interface Blog extends BlogData {

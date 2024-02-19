@@ -2,36 +2,45 @@ import Link from 'next/link';
 
 import { getPosts } from '@/utils/content';
 import { Date } from '@/components/Date';
+import { getDictionary } from '../dictionaries';
+import CardItem from '@/components/CardItem';
 
-export default function Home({
+export default async function Home({
   params,
 }: {
   params: {
     slug: string;
-    lang: string;
+    lang: 'en' | 'es'
   };
 }) {
-  if (params.lang === 'sw.js') return null;
+  if (params.lang as any === 'sw.js') return null;
 
+  const dict = await getDictionary(params.lang)
   const posts = getPosts(params.lang);
 
   return (
-    <main className="prose lg:prose-xl dark:prose-invert mx-auto">
-      <h2 className="text-2xl font-bold sm:text-3xl tracking-tight sm:leading-tight mb-6">
-        {/* {t('latest_blog_posts')} */}
-      </h2>
-      <section className=" gap-6 mb-16">
+    <main className="prose dark:prose-invert lg:prose-md xl:prose-lg mt-12 mx-auto max-w-4xl prose-h2:my-0 lg:prose-h2:my-0 xl:prose-h2:my-0 prose-h2:mb-4 lg:prose-h2:mb-4 xl:prose-h2:mb-4 dark:prose-a:text-white prose-a:text-blue-900 dark:prose-h2:text-yellow">
+      <h1>{dict.nav.blog}</h1>
+
+      <section className="flex flex-col gap-12">
         {posts.map((post, i: number) => {
-          return (
-            <div key={i}>
-              <p>
-                <Link href={`/${params.lang}/blog/${post.slug}`}>{post.title}</Link>
-              </p>
-              <p>
-                <Date date={post.date} locale={params.lang} />
-              </p>
+          const { title, date, slug, category, cover, description } = post;
+
+          return <CardItem
+            category={category}
+            key={i}
+            href={`/blog/${slug}`}
+            imageUrl={cover}
+          >
+            <div>
+              <Date
+                className="text-blue-500 dark:text-blue-500"
+                date={date}
+              />
+              <h2>{title}</h2>
+              <p>{description}</p>
             </div>
-          );
+          </CardItem>;
         })}
       </section>
     </main>
