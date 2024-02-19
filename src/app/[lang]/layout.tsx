@@ -4,6 +4,7 @@ import { Header } from "@/components/Header";
 import { getDictionary } from "./dictionaries";
 import DictionaryProvider from "@/providers/dictionary-provider";
 import "./global.css"
+import { Footer } from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -55,6 +56,7 @@ export default async function RootLayout({
           <DictionaryProvider dictionary={dictionary}>
             <Header />
             {children}
+            <Footer />
           </DictionaryProvider>
         </div>
       </body>
