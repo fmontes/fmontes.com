@@ -5,4 +5,10 @@ const dictionaries = {
   es: () => import('../../utils/i18n/dictionaries/es.json').then((module) => module.default),
 }
  
-export const getDictionary = async (locale: 'en' | 'es') => dictionaries[locale]()
+export const getDictionary = async (locale: 'en' | 'es') => {
+  if (!dictionaries[locale]) {
+    return await dictionaries['en']()
+  }
+
+  return await dictionaries[locale]()
+}

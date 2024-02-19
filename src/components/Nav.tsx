@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { NavLink } from './NavLink';
 import { useDictionary } from '@/providers/dictionary-provider';
 
-export async function Nav() {
+export function Nav() {
     const pathname = usePathname();
     const dictionary = useDictionary()
 
