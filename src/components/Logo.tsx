@@ -20,7 +20,7 @@ export function Logo(): JSX.Element {
                     Freddy Montes
                 </h2>
                 <p className="text-sm sm:text-md leading-tight sm:leading-tight">
-                    Frontend Developer and UX Engineer
+                    Technical Product Manager
                 </p>
             </div>
         </Link>
