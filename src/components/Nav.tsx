@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { NavLink } from './NavLink';
 import { useDictionary } from '@/providers/dictionary-provider';
+import { getFirstFolderLevel } from '@/utils/i18n/config';
 
 export function Nav() {
     const pathname = usePathname();
@@ -31,8 +32,11 @@ export function Nav() {
                     setShow(false);
                 }}>
                 {items.map((item, i) => {
-                    // TODO: active not working with /lang
-                    const active = pathname === item.href;
+                    const folder = getFirstFolderLevel(pathname);
+                    console.log({pathname, folder});
+                    
+                    
+                    const active = folder === item.href;
                     const className = `${active ? 'dark:text-yellow text-blue-900 underline' : 'dark:text-blue-50 text-blue-700'} block py-2 pl-5 pr-16 lg:p-2 hover:underline`;
 
                     return (
