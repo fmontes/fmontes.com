@@ -13,12 +13,9 @@ export const getLocaleFromPathname = (pathname: string): 'en' | 'es' => {
 };
 
 export const getFirstFolderLevel = (pathname: string): string => {
-  // Remove trailing and leading slashes
   pathname = pathname.replace(/^\/|\/$/g, '');
 
   const localeExists = i18n.locales.includes(pathname.split('/')[0] as 'en' | 'es');
-
-  console.log({ localeExists });
 
   if (localeExists) {
     return `/${pathname.split('/')[1]}`;
