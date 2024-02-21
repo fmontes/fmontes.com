@@ -16,8 +16,8 @@ export default function Blog({ params }: { params: { slug: string; lang: string 
   const post = getPostBySlug(params.lang, params.slug);
 
   return (
-    <main className="prose lg:prose-xl dark:prose-invert mx-auto">
-      <p><Date date={post.date} locale={params.lang} /></p>
+    <main className="prose dark:prose-invert lg:prose-xl mt-12 mx-auto dark:prose-h1:text-yellow">
+      <p className="not-prose dark:text-blue-500"><Date date={post.date} locale={params.lang} /></p>
       <h1>{post.title}</h1>
       <MDXRemote
         source={post.content}
