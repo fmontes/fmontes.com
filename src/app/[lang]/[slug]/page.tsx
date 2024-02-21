@@ -3,6 +3,8 @@ import matter from 'gray-matter';
 import path from 'path';
 import { MDXRemote } from 'next-mdx-remote/rsc'
 
+import { Date } from '@/components/Date';
+
 function getPage(params) {
   const FOLDER = path.resolve(process.cwd(), 'src/data/pages')
   const fullPath = path.join(FOLDER, `${params.lang}/${params.slug}.mdx`);
@@ -28,7 +30,9 @@ export default async function Page({ params }: {
   return (
     <main className="prose dark:prose-invert lg:prose-md xl:prose-lg mt-12 mx-auto max-w-4xl">
       <h1>{data.title}</h1>
-      <MDXRemote source={content} />
+      <MDXRemote components={{
+        Date
+      }} source={content} />
     </main>
   );
 }
