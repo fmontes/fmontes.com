@@ -26,7 +26,7 @@ export default async function Page({ params }: {
   const { data, content } = getPage(params);
 
   return (
-    <main className="prose lg:prose-xl dark:prose-invert mx-auto">
+    <main className="prose dark:prose-invert lg:prose-lg xl:prose-xl mt-12 mx-auto">
       <h1>{data.title}</h1>
       <MDXRemote source={content} />
     </main>
