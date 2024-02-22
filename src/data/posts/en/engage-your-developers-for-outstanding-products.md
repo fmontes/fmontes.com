@@ -1,7 +1,7 @@
 ---
 title: "Engage your developers for outstanding products"
 description: "Lack of communication between development teams, design teams and product management teams results in a poor quality product and problems."
-date: '2023-01-29'
+date: "2023-01-29"
 category: product
 ---
 

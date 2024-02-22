@@ -1,7 +1,7 @@
 ---
 title: "10 consejos para diseñar mejores interfaces de UI"
 description: ""
-date: '2021-12-27'
+date: "2021-12-27"
 category: ui
 ---
 

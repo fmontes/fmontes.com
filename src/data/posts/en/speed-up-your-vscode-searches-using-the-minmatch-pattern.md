@@ -1,7 +1,7 @@
 ---
 title: "Speed up your VSCode searches using the minmatch pattern"
 description: "You have probably come across the mitmatch pattern without knowing it, today I will explain how it works and how to get the best out of it."
-date: '2023-01-14'
+date: "2023-01-14"
 category: code
 ---
 

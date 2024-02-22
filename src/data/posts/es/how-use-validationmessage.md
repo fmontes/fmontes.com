@@ -1,7 +1,7 @@
 ---
 title: "Cómo usar validationMessage"
 description: "La propiedad HTMLObjectElement.validationMessage representa un mensaje de error que se muestra si un elemento de objeto no es válido, o una cadena vacía si es válido. Se utiliza para implementar mensajes de error personalizados para la validación de formularios."
-date: '2023-01-01'
+date: "2023-01-01"
 category: javascript
 ---
 

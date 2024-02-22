@@ -1,7 +1,7 @@
 ---
 title: "APIs del navegador para crear aplicaciones web progresivas"
 description: "Vamos a explicar las API más importantes disponibles para crear aplicaciones web progresivas y publicarlas en las tiendas de aplicaciones."
-date: '2023-01-21'
+date: "2023-01-21"
 category: web
 ---
 

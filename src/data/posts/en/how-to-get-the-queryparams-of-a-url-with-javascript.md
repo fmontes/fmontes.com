@@ -1,7 +1,7 @@
 ---
 title: "How to get the queryparams of a URL with JavaScript"
 description: "Query params or URLSearchParams are the final part of the URL and are used to send additional data to the server."
-date: '2023-02-17'
+date: "2023-02-17"
 category: javascript
 ---
 

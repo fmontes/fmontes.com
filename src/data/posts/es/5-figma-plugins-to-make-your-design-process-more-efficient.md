@@ -1,7 +1,7 @@
 ---
 title: "5 complementos de Figma para hacer tu proceso de diseño más eficiente"
 description: "Figma es una increíble herramienta de software que podemos mejorar aún más utilizando los complementos que la comunidad crea y pone a disposición de todos."
-date: '2022-01-25'
+date: "2022-01-25"
 category: ui,figma
 ---
 

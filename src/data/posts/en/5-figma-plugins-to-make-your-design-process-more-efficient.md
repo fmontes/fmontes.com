@@ -1,7 +1,7 @@
 ---
 title: "5 Figma plugins to make your design process more efficient"
 description: "Figma is an amazing piece of software that we can make even better using plugins that the community creates and makes available to everyone."
-date: '2022-01-25'
+date: "2022-01-25"
 category: ui,figma
 ---
 

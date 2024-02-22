@@ -1,7 +1,7 @@
 ---
 title: "How to use CSS grids to create the layout of a web page"
 description: "CSS grids is the easiest and most efficient way to create layouts for your web pages and applications. I explain you how to create a common layout easily."
-date: '2021-12-09'
+date: "2021-12-09"
 category: css
 ---
 

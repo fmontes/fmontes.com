@@ -1,7 +1,7 @@
 ---
 title: "Usando colores de marca en formularios con accent-color"
 description: "accent-color es la propiedad CSS que te permite cambiar el color de los campos de formulario en tus sitios web."
-date: '2022-02-13'
+date: "2022-02-13"
 category: css
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Involucra a tus desarrolladores para obtener productos sobresalientes"
 description: "La falta de comunicación entre los equipos de desarrollo, los equipos de diseño y los equipos de gestión de productos resulta en un producto de baja calidad y problemas."
-date: '2023-01-29'
+date: "2023-01-29"
 category: product
 ---
 

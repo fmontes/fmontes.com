@@ -1,7 +1,7 @@
 ---
 title: "Cómo mejoré la velocidad de carga de esta página en un 20%."
 description: "Desde que desarrollé este sitio, sabía que había ciertos problemas de rendimiento y que en algún momento tenía que solucionarlo, ese momento fue ayer."
-date: '2022-03-19'
+date: "2022-03-19"
 category: web,css,javascript
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Cómo utilizar CSS grids para crear el diseño de una página web"
 description: "CSS grids es la forma más fácil y eficiente de crear diseños para tus páginas web y aplicaciones. Te explico cómo crear un diseño común fácilmente."
-date: '2021-12-09'
+date: "2021-12-09"
 category: css
 ---
 

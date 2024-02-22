@@ -2,7 +2,7 @@
 external: false
 title: "What is 1rem?"
 description: "Just like px or %, it is a CSS unit that allows you to set lengths on your website, but this length is dependent on the root element, hence its name."
-date: '2023-02-06'
+date: "2023-02-06"
 category: css
 ---
 

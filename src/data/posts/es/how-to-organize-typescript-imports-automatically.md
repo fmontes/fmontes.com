@@ -1,7 +1,7 @@
 ---
 title: "Cómo organizar automáticamente las importaciones en TypeScript"
 description: "Las importaciones al inicio de los archivos de TypeScript pueden volverse rápidamente inmanejables, pero con VSCode y un paquete npm puedes mantenerlas bien organizadas."
-date: '2023-01-08'
+date: "2023-01-08"
 category: typescript
 ---
 

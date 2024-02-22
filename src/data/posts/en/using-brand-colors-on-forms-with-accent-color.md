@@ -1,7 +1,7 @@
 ---
 title: "Using brand colors on forms with accent-color"
 description: "accent-color is the css property that allows you to change the color of form fields on your Web sites."
-date: '2022-02-13'
+date: "2022-02-13"
 category: css
 ---
 

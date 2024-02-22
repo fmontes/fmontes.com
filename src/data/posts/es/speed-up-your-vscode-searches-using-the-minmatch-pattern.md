@@ -1,7 +1,7 @@
 ---
 title: "Acelera tus búsquedas en VSCode utilizando el patrón minmatch"
 description: "Probablemente te hayas encontrado con el patrón minmatch sin saberlo, hoy te explicaré cómo funciona y cómo sacarle el máximo provecho."
-date: '2023-01-14'
+date: "2023-01-14"
 category: code
 ---
 
