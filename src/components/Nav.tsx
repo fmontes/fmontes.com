@@ -33,7 +33,6 @@ export function Nav() {
                 }}>
                 {items.map((item, i) => {
                     const folder = getFirstFolderLevel(pathname);
-                    console.log({pathname, folder});
                     
                     
                     const active = folder === item.href;
