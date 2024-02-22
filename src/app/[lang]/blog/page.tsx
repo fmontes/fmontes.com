@@ -24,7 +24,7 @@ export default async function Home({
 
       <section className="flex flex-col gap-12">
         {posts.map((post, i: number) => {
-          const { title, date, slug, category, cover, description } = post;
+          const { title, date, slug, category, cover, description } = post;          
 
           return <CardItem
             category={category}

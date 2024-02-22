@@ -22,7 +22,6 @@ export function getPosts(lang: string): BlogData[] {
 
   return files
     .map((itemPath) => {
-      console.log({itemPath})
       const content = fs.readFileSync(path.join(fullPath, itemPath), 'utf8');
       return {
         ...(matter(content).data as Pick<BlogData, 'title' | 'date'>),

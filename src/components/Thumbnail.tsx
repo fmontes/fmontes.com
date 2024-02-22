@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import TechIcon from './TechIcon';
 
 // import TechIcon from '@components/TechIcon';
 
@@ -9,7 +10,7 @@ export function Thumbnail({
     height
 }: {
     category?: string;
-    imageUrl: string;
+    imageUrl: string | null;
     width: string;
     height?: string;
 }): JSX.Element {
@@ -44,7 +45,7 @@ export function Thumbnail({
                 </div>
             ) : (
                 <div className={fallback.join(' ')}>
-                    {/* <TechIcon size={64} type={category} white={true} /> */}
+                    <TechIcon size={64} type={category} white={true} />
                 </div>
             )}
         </>
