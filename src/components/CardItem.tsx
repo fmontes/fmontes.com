@@ -7,13 +7,12 @@ import { NavLink } from './NavLink';
 
 type Props = {
   children: ReactNode;
-  imageUrl: string;
+  imageUrl: string | null;
   category: string;
   href: string;
 };
 
 function CardItem({ href, children, imageUrl, category }: Props): JSX.Element {
-  imageUrl = imageUrl ? `/static/images/blog/${imageUrl}` : null;
 
   return <article
     className="border-b-2 border-solid border-blue-100 dark:border-blue-800 pb-6"

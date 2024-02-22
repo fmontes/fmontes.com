@@ -7,7 +7,16 @@ export function HomeBlogItem(post): JSX.Element {
 
   const className = `bg-gradient-to-tr p-2 rounded-lg flex grow shrink-0 basis-72 bg-gradient-to-r from-yellow-200 to-yellow-500`;
 
-  const imageUrl = cover ? `/static/images/blog/${cover}` : null;
+  let imageUrl
+
+  if (cover) {
+    try {
+      new URL(cover);
+      imageUrl = cover;
+    } catch (error) {
+      imageUrl = `/static/images/blog/${cover}`;
+    }
+  }
 
   return (
     <article className={className}>

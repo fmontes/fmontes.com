@@ -3,6 +3,7 @@ title: "How to compare two equal dates in JavaScript"
 description: "The `Date` object in JavaScript is quite robust for working with dates, it allows you to compare if a date is greater or smaller than another, but when trying to compare if it is equal it fails."
 date: "2023-02-20"
 category: javascript
+cover: https://images.unsplash.com/photo-1506784365847-bbad939e9335
 ---
 
 

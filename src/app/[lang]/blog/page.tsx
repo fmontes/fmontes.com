@@ -24,13 +24,24 @@ export default async function Home({
 
       <section className="flex flex-col gap-12">
         {posts.map((post, i: number) => {
-          const { title, date, slug, category, cover, description } = post;          
+          const { title, date, slug, category, cover, description } = post;
 
+          let imageUrl
+
+          if (cover) {
+            try {
+              new URL(cover);
+              imageUrl = cover;
+            } catch (error) {
+              imageUrl = `/static/images/blog/${cover}`;
+            }
+          }
+          
           return <CardItem
             category={category}
             key={i}
             href={`/blog/${slug}`}
-            imageUrl={cover}
+            imageUrl={imageUrl}
           >
             <div>
               <Date

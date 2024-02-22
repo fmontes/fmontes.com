@@ -20,10 +20,7 @@ const map = {
 };
 
 function TechIcon({ type, size, white, fallback }: Props): JSX.Element {
-    const item = map[type?.toLowerCase()];
-
-    console.log(item, type?.toLowerCase());
-    
+    const item = map[type?.toLowerCase()];    
 
     if (!item) {
         if (fallback) {

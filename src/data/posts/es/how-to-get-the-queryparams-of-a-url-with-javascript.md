@@ -3,6 +3,7 @@ title: "Cómo obtener los queryparams de una URL con JavaScript"
 description: "Los query params o URLSearchParams son la parte final de la URL y se utilizan para enviar datos adicionales al servidor."
 date: "2023-02-17"
 category: javascript
+cover: https://images.unsplash.com/photo-1554696468-19f8c7a71ad5
 ---
 
 Los query params o **URLSearchParams** son la parte final de la URL y se utilizan para enviar datos adicionales al servidor.
