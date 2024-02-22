@@ -4,6 +4,10 @@ import Image from 'next/image';
 import { getPostBySlug } from '@/utils/content';
 import { Date } from '@/components/Date';
 
+import rehypeHighlight from 'rehype-highlight';
+
+import "../../github-dark.min.css";
+
 export async function generateMetadata({ params }) {
   const post = getPostBySlug(params.lang, params.slug);
 
@@ -20,6 +24,12 @@ export default function Blog({ params }: { params: { slug: string; lang: string 
       <p className="not-prose dark:text-blue-500"><Date date={post.date} locale={params.lang} /></p>
       <h1>{post.title}</h1>
       <MDXRemote
+        options={{
+          mdxOptions: {
+            remarkPlugins: [],
+            rehypePlugins: [rehypeHighlight],
+          }
+        }}
         source={post.content}
         components={{
           Image: (props) => <Image {...props} />,
