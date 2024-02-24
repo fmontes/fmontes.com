@@ -1,5 +1,5 @@
 import { Thumbnail } from './Thumbnail';
-import { Date } from './Date';
+import { DateText } from './Date';
 import { NavLink } from './NavLink';
 import { BlogData } from '@/utils/content';
 
@@ -25,7 +25,7 @@ export default function HomeBlogItem(post: BlogData): JSX.Element {
         <Thumbnail category={category} imageUrl={imageUrl} width={''} />
 
         <div className="m-4">
-          <Date date={date} />
+          <DateText date={date} />
           <h2 className="mt-0 mb-2 text-lg leading-9 line-clamp-3">{title}</h2>
         </div>
       </NavLink>

@@ -3,7 +3,7 @@ import matter from 'gray-matter';
 import path from 'path';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 
-import { Date } from '@/components/Date';
+import { DateText } from '@/components/Date';
 import { PageParams, getDefaultOpenGraph } from '@/utils/content';
 import { SITE } from '@/utils/const';
 import { getDictionary } from '../dictionaries';
@@ -47,7 +47,7 @@ export default async function Page({ params }: { params: PageParams }) {
       <h1>{data.title}</h1>
       <MDXRemote
         components={{
-          Date,
+          Date: DateText,
         }}
         source={content}
       />

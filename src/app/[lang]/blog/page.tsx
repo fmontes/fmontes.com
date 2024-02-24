@@ -1,5 +1,5 @@
 import { PageParams, getDefaultOpenGraph, getPosts } from '@/utils/content';
-import { Date } from '@/components/Date';
+import { DateText } from '@/components/Date';
 import { getDictionary } from '../dictionaries';
 import CardItem from '@/components/CardItem';
 import { SITE } from '@/utils/const';
@@ -54,7 +54,7 @@ export default async function Home({ params }: { params: PageParams }) {
           return (
             <CardItem category={category} key={i} href={`/blog/${slug}`} imageUrl={imageUrl}>
               <div>
-                <Date className="text-blue-500 dark:text-blue-500" date={date} />
+                <DateText className="text-blue-500 dark:text-blue-500" date={date} />
                 <h2>{title}</h2>
                 <p>{description}</p>
               </div>

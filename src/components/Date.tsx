@@ -1,4 +1,4 @@
-export function Date({
+export function DateText({
   date,
   locale,
   className,
@@ -11,5 +11,9 @@ export function Date({
     return null;
   }
 
-  return <time className={className}>{date}</time>;
+  const options: Intl.DateTimeFormatOptions = { month: "long", day: "numeric", year: "numeric" };
+
+  const finalDate = new Intl.DateTimeFormat(`${locale}-US`, options).format(new Date(date));
+
+  return <time className={className}>{finalDate}</time>;
 }

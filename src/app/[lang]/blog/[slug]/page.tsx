@@ -3,7 +3,7 @@ import rehypeHighlight from 'rehype-highlight';
 import Image from 'next/image';
 
 import { PageParams, getDefaultOpenGraph, getPostBySlug } from '@/utils/content';
-import { Date } from '@/components/Date';
+import { DateText } from '@/components/Date';
 import { SITE } from '@/utils/const';
 
 import '../../github-dark.min.css';
@@ -46,7 +46,7 @@ export default function Blog({ params }: { params: PageParams }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <main className="mx-auto mt-12 prose dark:prose-invert lg:prose-xl dark:prose-h1:text-yellow">
         <p className="not-prose dark:text-blue-500">
-          <Date date={post.date} locale={params.lang} />
+          <DateText date={post.date} locale={params.lang} />
         </p>
         <h1>{post.title}</h1>
         <MDXRemote
