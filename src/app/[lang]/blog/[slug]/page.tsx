@@ -6,13 +6,13 @@ import { getDefaultOpenGraph, getPostBySlug } from '@/utils/content';
 import { Date } from '@/components/Date';
 import { SITE } from '@/utils/const';
 
-import "../../github-dark.min.css";
+import '../../github-dark.min.css';
 
 export async function generateMetadata({ params }) {
   const post = getPostBySlug(params.lang, params.slug);
   const defaultOpenGraph = await getDefaultOpenGraph({
-    lang: params.lang
-  })
+    lang: params.lang,
+  });
 
   return {
     title: post.title,
@@ -21,30 +21,49 @@ export async function generateMetadata({ params }) {
       ...defaultOpenGraph,
       title: post.title,
       description: post.description,
-      url: `${SITE}/${params.lang}/blog/${params.slug}`
+      url: `${SITE}/${params.lang}/blog/${params.slug}`,
     },
-  }
+  };
 }
 
 export default function Blog({ params }: { params: { slug: string; lang: string } }) {
   const post = getPostBySlug(params.lang, params.slug);
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    'headline': post.title,
+    'description': post.description,
+    'datePublished': post.date,
+    'dateModified': post.date,
+    'author': { '@type': 'Person', 'name': 'Freddy Montes' },
+    'publisher': {
+      '@type': 'Person',
+      'name': 'Freddy Montes',
+    },
+  };
+
   return (
-    <main className="mx-auto mt-12 prose dark:prose-invert lg:prose-xl dark:prose-h1:text-yellow">
-      <p className="not-prose dark:text-blue-500"><Date date={post.date} locale={params.lang} /></p>
-      <h1>{post.title}</h1>
-      <MDXRemote
-        options={{
-          mdxOptions: {
-            remarkPlugins: [],
-            rehypePlugins: [rehypeHighlight],
-          }
-        }}
-        source={post.content}
-        components={{
-          Image: (props) => <Image {...props} />,
-        }}
-      />
-    </main>
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <main className="mx-auto mt-12 prose dark:prose-invert lg:prose-xl dark:prose-h1:text-yellow">
+        <p className="not-prose dark:text-blue-500">
+          <Date date={post.date} locale={params.lang} />
+        </p>
+        <h1>{post.title}</h1>
+        <MDXRemote
+          options={{
+            mdxOptions: {
+              remarkPlugins: [],
+              rehypePlugins: [rehypeHighlight],
+            },
+          }}
+          source={post.content}
+          components={{
+            Image: (props) => <Image {...props} />,
+          }}
+        />
+      </main>
+    </>
   );
 }
