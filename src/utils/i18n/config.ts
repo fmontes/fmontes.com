@@ -12,7 +12,9 @@ export const getLocaleFromPathname = (pathname: string): 'en' | 'es' => {
   return i18n.defaultLocale;
 };
 
-export const getFirstFolderLevel = (pathname: string): string => {
+export const getFirstFolderLevel = (pathname: string | null): string => {
+  if (!pathname) return '/';
+
   pathname = pathname.replace(/^\/|\/$/g, '');
 
   const localeExists = i18n.locales.includes(pathname.split('/')[0] as 'en' | 'es');

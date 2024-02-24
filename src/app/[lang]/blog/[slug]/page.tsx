@@ -2,17 +2,15 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import rehypeHighlight from 'rehype-highlight';
 import Image from 'next/image';
 
-import { getDefaultOpenGraph, getPostBySlug } from '@/utils/content';
+import { PageParams, getDefaultOpenGraph, getPostBySlug } from '@/utils/content';
 import { Date } from '@/components/Date';
 import { SITE } from '@/utils/const';
 
 import '../../github-dark.min.css';
 
-export async function generateMetadata({ params }) {
-  const post = getPostBySlug(params.lang, params.slug);
-  const defaultOpenGraph = await getDefaultOpenGraph({
-    lang: params.lang,
-  });
+export async function generateMetadata({ params }: { params: PageParams }) {
+  const post = getPostBySlug(params);
+  const defaultOpenGraph = await getDefaultOpenGraph(params.lang);
 
   return {
     title: post.title,
@@ -26,8 +24,8 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default function Blog({ params }: { params: { slug: string; lang: string } }) {
-  const post = getPostBySlug(params.lang, params.slug);
+export default function Blog({ params }: { params: PageParams }) {
+  const post = getPostBySlug(params);
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -55,7 +53,7 @@ export default function Blog({ params }: { params: { slug: string; lang: string 
           options={{
             mdxOptions: {
               remarkPlugins: [],
-              rehypePlugins: [rehypeHighlight],
+              rehypePlugins: [[rehypeHighlight as any]],
             },
           }}
           source={post.content}

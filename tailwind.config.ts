@@ -87,7 +87,7 @@ const config: Config = {
           900: '#01322e',
         },
       },
-      typography: ({ theme }) => ({
+      typography: ({ theme }: { theme: any }) => ({
         DEFAULT: {
           css: {
             '--tw-prose-body': theme('colors.blue[900]'),

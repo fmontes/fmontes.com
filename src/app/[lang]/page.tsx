@@ -1,34 +1,28 @@
-import { getPosts } from '@/utils/content';
-import { HomeBlogItem } from '@/components/HomeBlogItem';
-import { getDictionary } from './dictionaries'
+import { PageParams, getPosts } from '@/utils/content';
+import HomeBlogItem from '@/components/HomeBlogItem';
+import { getDictionary } from './dictionaries';
 import Ebooks from '@/components/Ebooks';
 
-export default async function Home({
-  params,
-}: {
-  params: {
-    slug: string;
-    lang: 'en' | 'es';
-  };
-}) {
+export default async function Home({ params }: { params: PageParams }) {
   if ((params.lang as any) === 'sw.js') return null;
-  
-  const dict = await getDictionary(params.lang)
+
+  const dict = await getDictionary(params.lang);
   const posts = getPosts(params.lang);
 
   return (
     <main className="mx-auto mt-5">
       <h1
         dangerouslySetInnerHTML={{ __html: dict.bio }}
-        className="text-blue-700 dark:text-cyan text-xl lg:text-2xl my-16 sm:my-20 md:text-center font-normal leading-tight tracking-tight">
-      </h1>
+        className="my-16 text-xl font-normal leading-tight tracking-tight text-blue-700 dark:text-cyan lg:text-2xl sm:my-20 md:text-center"></h1>
 
-      <div className="prose dark:prose-invert block max-w-full">
-        <h2 className="text-2xl font-bold sm:text-3xl tracking-tight sm:leading-tight mb-6">
+      <div className="block max-w-full prose dark:prose-invert">
+        <h2 className="mb-6 text-2xl font-bold tracking-tight sm:text-3xl sm:leading-tight">
           {dict.latest_blog_posts}
         </h2>
         <section className="flex flex-wrap gap-6 mb-16">
-          {posts.slice(0, 3).map((post, i: number) => <HomeBlogItem key={i} {...post} />)}
+          {posts.slice(0, 3).map((post, i: number) => (
+            <HomeBlogItem key={i} {...post} />
+          ))}
         </section>
       </div>
 

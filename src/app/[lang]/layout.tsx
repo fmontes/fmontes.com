@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import DictionaryProvider from "@/providers/dictionary-provider";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { getDefaultOpenGraph } from "@/utils/content";
+import { PageParams, getDefaultOpenGraph } from "@/utils/content";
 import { getDictionary } from "./dictionaries";
 
 import "./global.css"
@@ -11,11 +11,9 @@ import { SITE } from "@/utils/const";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export async function generateMetadata({ params }: { params: any }) {
+export async function generateMetadata({ params }: { params: PageParams }) {
   const dictionary = await getDictionary(params.lang)
-  const defaultOpenGraph = await getDefaultOpenGraph({
-    lang: params.lang
-  })
+  const defaultOpenGraph = await getDefaultOpenGraph(params.lang)
 
   return {
     metadataBase: new URL(SITE),
@@ -34,10 +32,7 @@ export default async function RootLayout({
   params,
   children
 }: Readonly<{
-  params: {
-    lang: 'en' | 'es';
-    slug: string;
-  };
+  params: PageParams;
   children: React.ReactNode;
 }>) {
 

@@ -1,14 +1,12 @@
-import { getDefaultOpenGraph, getPosts } from '@/utils/content';
+import { PageParams, getDefaultOpenGraph, getPosts } from '@/utils/content';
 import { Date } from '@/components/Date';
 import { getDictionary } from '../dictionaries';
 import CardItem from '@/components/CardItem';
 import { SITE } from '@/utils/const';
 
-export async function generateMetadata({ params }: { params: any }) {
+export async function generateMetadata({ params }: { params: PageParams }) {
   const dictionary = await getDictionary(params.lang);
-  const defaultOpenGraph = await getDefaultOpenGraph({
-    lang: params.lang
-  });
+  const defaultOpenGraph = await getDefaultOpenGraph(params.lang);
 
   return {
     title: 'Freddy Montes - Blog',
@@ -22,23 +20,16 @@ export async function generateMetadata({ params }: { params: any }) {
           alt: `${dictionary.title} - ${dictionary.description}`,
           width: 1200,
           height: 630,
-        }
-      ]
-    }
+        },
+      ],
+    },
   };
 }
 
-export default async function Home({
-  params,
-}: {
-  params: {
-    slug: string;
-    lang: 'en' | 'es'
-  };
-}) {
-  if (params.lang as any === 'sw.js') return null;
+export default async function Home({ params }: { params: PageParams }) {
+  if ((params.lang as any) === 'sw.js') return null;
 
-  const dictionary = await getDictionary(params.lang)
+  const dictionary = await getDictionary(params.lang);
   const posts = getPosts(params.lang);
 
   return (
@@ -49,7 +40,7 @@ export default async function Home({
         {posts.map((post, i: number) => {
           const { title, date, slug, category, cover, description } = post;
 
-          let imageUrl
+          let imageUrl = null;
 
           if (cover) {
             try {
@@ -59,22 +50,16 @@ export default async function Home({
               imageUrl = `/static/images/blog/${cover}`;
             }
           }
-          
-          return <CardItem
-            category={category}
-            key={i}
-            href={`/blog/${slug}`}
-            imageUrl={imageUrl}
-          >
-            <div>
-              <Date
-                className="text-blue-500 dark:text-blue-500"
-                date={date}
-              />
-              <h2>{title}</h2>
-              <p>{description}</p>
-            </div>
-          </CardItem>;
+
+          return (
+            <CardItem category={category} key={i} href={`/blog/${slug}`} imageUrl={imageUrl}>
+              <div>
+                <Date className="text-blue-500 dark:text-blue-500" date={date} />
+                <h2>{title}</h2>
+                <p>{description}</p>
+              </div>
+            </CardItem>
+          );
         })}
       </section>
     </main>

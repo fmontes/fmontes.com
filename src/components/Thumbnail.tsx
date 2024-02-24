@@ -4,7 +4,7 @@ import TechIcon from './TechIcon';
 // import TechIcon from '@components/TechIcon';
 
 export function Thumbnail({
-    category,
+    category = '',
     imageUrl,
     width,
     height

@@ -12,7 +12,7 @@ type Props = {
 
 export function NavLink({ children, href, className }: Props) {
   const pathname = usePathname();
-  const lang = pathname.split('/')[1];
+  const lang = (pathname as string).split('/')[1];
   const locale = i18n.locales.find((l) => l === lang) || i18n.defaultLocale;
   const finalHref = locale === i18n.defaultLocale ? href : `/${locale}${href}`;
 
