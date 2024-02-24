@@ -3,21 +3,22 @@ import { Inter } from "next/font/google";
 import DictionaryProvider from "@/providers/dictionary-provider";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { SITE, getDefaultOpenGraph } from "@/utils/content";
+import { getDefaultOpenGraph } from "@/utils/content";
 import { getDictionary } from "./dictionaries";
 
 import "./global.css"
+import { SITE } from "@/utils/const";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export async function generateMetadata({ params }: { params: any }) {
   const dictionary = await getDictionary(params.lang)
-
   const defaultOpenGraph = await getDefaultOpenGraph({
     lang: params.lang
   })
 
   return {
+    metadataBase: new URL(SITE),
     title: dictionary.title,
     description: dictionary.description,
     openGraph: {

@@ -2,8 +2,9 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import rehypeHighlight from 'rehype-highlight';
 import Image from 'next/image';
 
-import { SITE, getDefaultOpenGraph, getPostBySlug } from '@/utils/content';
+import { getDefaultOpenGraph, getPostBySlug } from '@/utils/content';
 import { Date } from '@/components/Date';
+import { SITE } from '@/utils/const';
 
 import "../../github-dark.min.css";
 

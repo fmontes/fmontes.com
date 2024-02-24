@@ -2,6 +2,7 @@ import { getDictionary } from '@/app/[lang]/dictionaries';
 import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
+import { SITE } from './const';
 
 interface BlogData {
   title: string;
@@ -15,9 +16,6 @@ interface BlogData {
 interface Blog extends BlogData {
   content: string;
 }
-
-export const SITE = process.env.NODE_ENV === 'production' ? 'https://fmontes.com' : 'http://localhost:3000';
-export const TWITTER_HANDLE = '@fmontes';
 
 export function getPosts(lang: string): BlogData[] {
   const FOLDER = path.resolve(process.cwd(), 'src/data/posts');
@@ -51,19 +49,9 @@ export function getPostBySlug(lang: string, slug: string): Blog {
 }
 
 export async function getDefaultOpenGraph({ lang }) {
-  const dictionary = await getDictionary(lang);
-
   return {
     siteName: 'Freddy Montes',
     locale: lang,
     type: 'website',
-    images: [
-      {
-        url: `${SITE}/static/images/banner_${lang}.png`,
-        alt: `${dictionary.title} - ${dictionary.description}`,
-        width: 1200,
-        height: 630,
-      },
-    ],
   };
 }

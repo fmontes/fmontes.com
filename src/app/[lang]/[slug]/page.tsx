@@ -4,7 +4,9 @@ import path from 'path';
 import { MDXRemote } from 'next-mdx-remote/rsc'
 
 import { Date } from '@/components/Date';
-import { SITE, getDefaultOpenGraph } from '@/utils/content';
+import { getDefaultOpenGraph } from '@/utils/content';
+import { SITE } from '@/utils/const';
+import { getDictionary } from '../dictionaries';
 
 function getPage(params) {
   const FOLDER = path.resolve(process.cwd(), 'src/data/pages')
@@ -14,6 +16,7 @@ function getPage(params) {
 }
 
 export async function generateMetadata({ params }: { params: any }) {
+  const dictionary = await getDictionary(params.lang)
   const { data } = getPage(params);
 
   const defaultOpenGraph = await getDefaultOpenGraph({
@@ -25,7 +28,15 @@ export async function generateMetadata({ params }: { params: any }) {
     openGraph: {
       ...defaultOpenGraph,
       title: `Freddy Montes - ${data.title}`,
-      url: `${SITE}/${params.lang}/${params.slug}`
+      url: `${SITE}/${params.lang}/${params.slug}`,
+      images: [
+        {
+          url: `${SITE}/static/images/banner_${params.lang}.png`,
+          alt: `${dictionary.title} - ${dictionary.description}`,
+          width: 1200,
+          height: 630,
+        },
+      ],
     }
   };
 }
