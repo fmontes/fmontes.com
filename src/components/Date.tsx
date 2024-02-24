@@ -13,7 +13,8 @@ export function DateText({
 
   const options: Intl.DateTimeFormatOptions = { month: "long", day: "numeric", year: "numeric" };
 
-  const finalDate = new Intl.DateTimeFormat(`${locale}-US`, options).format(new Date(date));
+
+  const finalDate = new Intl.DateTimeFormat(`${locale || 'en'}-US`, options).format(new Date(date));
 
   return <time className={className}>{finalDate}</time>;
 }
