@@ -37,7 +37,7 @@ function Ebooks(): JSX.Element {
     <section className="bg-yellow text-blue-900 rounded-xl p-10">
       <h2 className="text-lg leading-tight mb-8 font-bold">Get my eBooks</h2>
 
-      <div className="flex gap-10">
+      <div className="flex flex-col gap-10 sm:flex-row">
         <Link className="block flex-1" href="/99-tips-de-web-development">
           <Book
             image="/static/images/books/99-cover.png"
