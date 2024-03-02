@@ -1,0 +1,36 @@
+---
+title: DotCMS Content Type Fields Library
+description: We needed to create reusable UI components for each field, and we need them to be framework agnostic so we did.
+tech: StencilJS, Web Components, SASS
+date: "2019-06-01"
+---
+
+DotCMS helps you manage and deliver content across all channels, devices, and platforms. 
+
+As a CMS, in DotCMS, you can create content types and add fields to them. There are around 24 types of fields users can create in a DotCMS content type.
+
+### Challenge
+We needed to create reusable UI components for each field, and we need them to be framework agnostic.
+
+### Solution
+Web Components are the native solution to create reusable UI components.  
+
+You can create Custom Elements with Angular, Vue, and other Javascript frameworks. We went with StencilJS because is aimed specifically for this purpose and in our proof of concepts works well. Some of its features are:
+
+* Asynchronous rendering pipeline
+* TypeScript support
+* One-way Data Binding
+* Component pre-rendering
+* JSX support
+
+### Benefits
+The team and I were able to pick up into this tech quickly, it works similar to ReactJS, and the tooling is terrific. StencilJS allows us to have a v1 in about 2 months of work, all with units and e2s tests.
+
+### Results
+Is not released yet, but our internal testing has shown excellent results:
+
+* Fast rendering
+* Easy to scale
+* Native support
+* Work perfectly with Angular and ReactJS
+* CSS stylable

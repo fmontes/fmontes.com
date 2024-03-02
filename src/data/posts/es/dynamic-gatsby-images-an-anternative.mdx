@@ -1,0 +1,61 @@
+---
+title: 'Cómo tratar las imágenes dinámicas en Gatsby'
+date: "2020-05-04"
+description: "Cuando necesitas mostrar imágenes del sistema de archivos de forma dinámica, necesitas ser inteligente, y a veces los archivos del sistema no son suficientes."
+category: "gatsby"
+---
+
+> Gatsby lanzó un nuevo component de imagenes que soluciona este problema. [Más Informacion](https://gatsbyjs.com/docs/how-to/images-and-media/using-gatsby-plugin-image/).
+
+Mostrar imágenes desde el sistema de archivos Gatsby es muy fácil con una combinación de GraphQL y [gatsby-image](https://www.gatsbyjs.org/packages/gatsby-image/), pero... hay una trampa.
+
+El problema es cuando obtienes los nombres de las imágenes dinámicamente desde una fuente de datos o CMS, y no puedes saber de antemano (tiempo de construcción) el nombre para hacer las consultas en GraphQL porque no puedes interpolar variables en las consultas GraphQL en Gatsby [ahora mismo](https://github.com/gatsbyjs/gatsby/issues/5069).
+
+He [visto](https://noahgilmore.com/blog/easy-gatsby-image-components/) [algunas](https://stackoverflow.com/a/56508865) [soluciones](https://codebushi.com/using-gatsby-image/) que básicamente consisten en consultar TODOS los archivos y luego dentro del componente hacer coincidir el nombre del que quieres mostrar.
+
+Este método funciona a las mil maravillas cuando no tienes muchas imágenes, pero, en mi caso, había ~800. Como Gatsby guarda todas las consultas GraphQL que resultan en un archivo `page-data.json`, puede ser realmente grande. Por ejemplo, aquí hay una comparación de un archivo con ~800 imágenes y sin imágenes:
+
+### Archivo JSON de Gatsby con ~800 imágenes
+<Image src="/static/images/blog/dynamic-gatsby-images-an-ternative/page-data-compare-01.jpg" alt="page-data-compare-01" width="904" height="106" />
+
+### No hay imágenes
+<Image src="/static/images/blog/dynamic-gatsby-images-an-anternative/page-data-compare-02.jpg" alt="page-data-compare-02" width="904" height="106" />
+
+### Mi solución
+Aunque probé todo lo que se me ocurrió para usar imágenes locales en Gatsby, no conseguí una solución aceptable para mi caso, así que decidí tomar otro camino, un servicio de alojamiento de imágenes, y elegí Cloudinary.
+
+Cloudinary es un servicio para alojar medios, pero no puedes aplicar transformaciones como redimensionar, recortar, e incluso cambiar el formato cuando las sirves; todo esto construyendo una URL con parámetros.
+
+Subí todas las imágenes a Cloudinary usando su interfaz web, arrastrando y soltando, y ya estaba en marcha con mi estructura de carpetas personalizada.
+
+Después de eso, creé un simple componente React que toma: nombre, categoría y tamaño de la imagen, y construyó la URL de Cloudinary y el último toque: LazyLoad, nunca te olvides de hacer LazyLoad a tus imágenes, para esto solo usé [react-lazy-load-image-component](https://www.npmjs.com/package/react-lazy-load-image-component), el código final:
+
+```javascript
+import React from 'react'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+
+const getCloudinaryImageUrl = ({ category, name, size }) =>
+    `https://res.cloudinary.com/CLOUDINARY_CLOUD/image/upload/f_auto,q_auto,c_pad,w_${size},h_${size}/lapulpe/${category}/${name}`
+
+const CloudinaryImage = ({ categoría, nombre, tamaño }) => {
+    const url = getCloudinaryImageUrl({ categoría, nombre, tamaño })
+    return (
+        <LazyLoadImage
+            style={{ marginBottom: '0' }}
+            alt={nombre}
+            height={tamaño}
+            src={url}
+            width={tamaño}
+        />
+    )
+}
+
+export default CloudinaryImage
+```
+
+### El resultado
+
+1. Menos tiempo de construcción ya que Gatsby no tiene que procesar las imágenes
+2. Un paquete JSON mucho más pequeño
+3. No hay consultas GraphQL adicionales
+4. Poder publicar nuevas imágenes sin tener que reconstruirlas

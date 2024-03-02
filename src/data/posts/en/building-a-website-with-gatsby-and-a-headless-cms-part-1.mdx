@@ -1,0 +1,448 @@
+---
+title: Building a Website With Gatsby and a Headless CMS - Part 1
+date: "2019-01-09"
+description: "This article will walk you through the process of using Gatsby alongside a headless CMS."
+category: "gatsby"
+---
+
+**This is a two part series blog post, [here is the second part](/blog/building-a-website-with-gatsby-and-a-headless-cms-part-2).**
+
+If you're looking to launch a small, static, and speedy website, micro-site, or landing page, you may be considering a static-site generator like Gatsby.
+
+This article will walk you through the process of using Gatsby alongside dotCMS, a Java-based open-source headless CMS, to build a static website that uses API calls to pull content that's created, stored, and managed in dotCMS, and presented by Gatsby.
+
+## What You Need:
+
+1. [Node.js and NPM](https://nodejs.org/en/)
+2. [React.js](https://reactjs.org/) knowledge
+3. [GraphQL](https://graphql.org/) knowledge (not required but you are going to use it. You can copy + paste)
+
+## What is Gatsby?
+
+Gatsby defines themselves as "a blazing fast, modern site generator for React" and yes, the generated sites are fast out of the box.
+
+Gatsby's rich data plugin ecosystem lets you build sites with the data you want from one or many sources:
+
+Pull data from headless CMSs (like [dotCMS](https://dotcms.com)), SaaS services, APIs (like the [dotCMS content API](https://dotcms.com/docs/latest/content-api)) and the allows you to bring the data into your page using [GraphQL](https://graphql.org/).
+
+## Static-Site Generator Benefits
+
+### Security
+
+No databases, and the code injection threat is close to none.
+
+### Reliability
+
+You can serve HTML files everywhere.
+
+### Speed
+
+Regular static sites are fast (again, no database or backend), and with Gatsby + React they are even faster.
+
+### Scalability
+
+Server as static websites with HTML files can be easily scaled up by increasing the bandwidth.
+
+## Static-Site Generator Limitations
+
+Fetching data for a Gatsby site happens at build time, meaning that if new content is created in dotCMS, it will be not available into your site until the next build, or the next time you "run" your static-site generator CMS which is Gatsby in today's case.
+
+### But... There Are Solutions for This Too
+
+1. You can create a cronjob that runs every _n_ minutes to build and deploy your site.
+2. [Hybrid app pages](https://www.gatsbyjs.org/docs/building-apps-with-gatsby/#hybrid-app-pages) to the rescue! Remember Gatsby have React.js in his core which means you can make network request to APIs and get new data into your components.
+
+## How to Create a Gatsby Site
+
+### Install Gatsby
+
+Gatsby have this amazing CLI tool to create, manage and run Gatsby projects, to install it, go to your terminal and run:
+
+```bash
+$ npm install --global gatsby-cli
+```
+
+If everything went well, you can type:
+
+```bash
+$ gatsby -v
+```
+
+And get 2.4.3 or a similar version:
+
+<Image src="/static/images/blog/building-a-website-with-gatsby-and-a-headless-cms-part-1/gatsby-1.png" width="815" height="364" alt="Gatsby install" />
+
+## Create a Gatsby Site
+
+Now let's use the Gatsby CLI tool to create a site:
+
+```bash
+$ gatsby new dotcms-site
+```
+
+Note: You can replace "dotcms-site" with the name you want for your project.
+
+### The command you just ran:
+
+1. Created a new site with the Gatsby default starter.
+2. Created a folder with the name of the project (dotcms-site).
+3. Install all the npm packages that need to run the site.
+4. Made your life easier!
+
+### Let's Run Our New Gatsby Site:
+
+```bash
+$ cd dotcms-site
+```
+
+Browse into the folder of your project.
+
+```bash
+$ gatsby develop
+```
+
+This command starts a development server. You will be able to see and interact with your new site in a development environment. It has also live reload, so any changes you make in your files you can see immediately in your site.
+
+Now open a browser and go to _http://localhost:8000_ and if everything went well, you should something like:
+
+<Image src="/static/images/blog/building-a-website-with-gatsby-and-a-headless-cms-part-1/gatsby-starter-site-hi-people.png" width="800" height="767" alt="Gatsby Hello World" />
+
+## To Get Data, You Need a Source Plugin
+
+Gatsby has a plugin system. In order to get data, you need what they call a "Source Plugin." Source plugins "source" data from remote or local locations into what Gatsby calls [nodes](https://www.gatsbyjs.org/docs/node-interface/).
+
+Think of a node as the exact equivalent of a [contentlet in dotCMS](https://dotcms.com/docs/latest/content). So if you are showing products, every product object you pull from your headless CMS is a Gatsby node.
+
+You're going to write a Gatsby source plugin that fetches all the contentlets in a dotCMS instance and turns them into Gatsby nodes that you can later display in our pages by querying with GraphQL.
+
+<Image src="/static/images/blog/building-a-website-with-gatsby-and-a-headless-cms-part-1/gatsby-blog-graphic.png" width="800" height="200" alt="dotCMS to Gatsby Page Diagram" />
+
+Before you start, if you would like to read more about Gatsby Source plugin their [documentation](https://www.gatsbyjs.org/docs/create-source-plugin/) and [tutorial](https://www.gatsbyjs.org/docs/source-plugin-tutorial/) are really good.
+
+### Create gatsby-source-dotcms Plugin
+
+The bare essentials of a plugin are: directory named after your plugin, which contains a package.json file and a gatsby-node.js file:
+
+```
+|-- plugins
+|-- gatsby-source-dotcms
+    |-- gatsby-node.js
+        |-- package.json
+```
+
+Start by creating the directory and changing into it:
+
+```bash
+$ mkdir plugins
+$ mkdir plugins/gatsby-source-dotcms
+$ cd plugins/gatsby-source-dotcms
+```
+
+#### Create a package.json File
+
+Now create a package.json file. This describes your plugin and any third-party code it might depend on. npm has a command to create this file for you. Run
+
+```bash
+$ npm init --yes
+```
+
+to create the file using default options.
+
+NOTE: You can omit `--yes` if you'd like to specify the options yourself.
+
+With the set up done, move on to adding the plugin's functionality.
+
+#### Create a gatsby-node.js File
+
+Create a new file called gatsby-node.js in your gatsby-source-dotcms directory. Open the file in your favorite code editor and add the following:
+
+```javascript
+exports.sourceNodes = ({ actions, createNodeId, createContentDigest }, configOptions) => {
+    const { createNode } = actions
+    // Gatsby adds a configOption that's not needed for this plugin, delete it
+    delete configOptions.plugins
+
+    // plugin code goes here...
+    console.log('Testing my DotCMS plugin', configOptions)
+}
+```
+
+#### What Did You Do by Adding This Code?
+
+You implemented Gatsby's sourceNodes API which Gatsby will run as part of its bootstrap process. When Gatsby calls sourceNodes, it'll pass in some helper functions (actions, createNodeId, and createContentDigest) along with any config options that are provided in your project's `gatsby-config.js` file:
+
+```javascript
+exports.sourceNodes = ({ actions, createNodeId, createContentDigest }, configOptions) => {...}
+```
+
+You do some initial setup:
+
+```javascript
+const { createNode } = actions
+
+// Gatsby adds a configOption that's not needed for this plugin, delete it
+delete configOptions.plugins
+```
+
+And finally add a placeholder message:
+
+```javascript
+console.log('Testing my DotCMS plugin', configOptions)
+```
+
+## How to Add the dotCMS Plugin to Your Gatsby Site
+
+The skeleton of your plugin is in place, which means you can add it to your project and check your progress so far.
+
+Open `gatsby-config.js` from the root directory of your tutorial site, and add the gatsby-source-dotcms plugin:
+
+```javascript
+module.exports = {
+    siteMetadata: {
+        title: 'Gatsby Default Starter',
+    },
+
+    plugins: [
+        {
+            resolve: 'gatsby-source-dotcms',
+            options: {},
+        },
+    ],
+}
+```
+
+Open a new terminal in the root directory of your tutorial site, then start Gatsby's development mode:
+
+```bash
+$ gatsby develop
+```
+
+Check the lines after success on PreBootstrap; you should see your "Testing my plugin" message along with an empty object from the options your `gatsby-config.js` file:
+
+<Image src="/static/images/blog/building-a-website-with-gatsby-and-a-headless-cms-part-1/testing-my-plugin.png" width="815" height="511" alt="Gatsby and dotCMS Plugin Node" />
+
+Note that Gatsby is warning you that your plugin is not generating any Gatsby nodes. Time to fix that.
+
+### Getting the Data From DotCMS
+
+Like I mentioned before, you need to get ALL the contentlets from the dotCMS instance and turn them into Gatsby nodes.
+
+#### The Action Plan
+
+In order to create a GraphQL node that you can query by content type, you need two things from dotCMS:
+
+1.  The contentlet.
+2.  The content type of each contentlet.
+
+In [dotCMS](https://dotcms.com/), you need to use the new [content types REST endpoint](https://dotcms.com/docs/latest/content-type-api) to get all the content types variables and then use the Content API endpoint to get all the contentlets for each content type in the instance.
+
+You'll combine the results from the two requests together to create a big collection of contentlets with an extra property of contentType.
+
+#### Add Dependencies
+
+From your plugin folder (/plugins/gatsby-source-dotcms) run:
+
+```bash
+$ npm install node-fetch --save
+```
+
+Open your package.json file and you'll see node-fetch have been added to a dependencies section at the end:
+
+```json
+"dependencies": {
+    "node-fetch": "^2.2.0"
+}
+```
+
+[node-fetch](https://github.com/bitinn/node-fetch) is a light-weight module that brings [window.fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) to Node.js so you can use fetch to do the request to dotCMS endpoints.
+
+#### Create a dotCMS JavaScript Library
+
+To create the dotCMS library to get all the contentlets and content types you going to use:
+
+1. [ES6 Classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)
+2. [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+3. [Async](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)/[Await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await)
+
+I'm assuming that you are familiar with these technologies, so I'm not going to explain how they work in this tutorial in too much detail.
+
+To begin, create a dotcms-api.js file inside the /plugins/gatsby-source-dotcms folder, open the file, and add the following code:
+
+```javascript
+const fetch = require('node-fetch')
+
+class DotCMSApi {
+    constructor(options) {
+        this.options = options
+    }
+
+    getBaseUrl() {
+        return `${this.options.host.protocol}://${this.options.host.url}`
+    }
+
+    getContentletsByContentType(contentType) {
+        const getUrl = () => {
+            return `${this.getBaseUrl()}/api/content/render/false/query/+contentType:${contentType}%20+(conhost:${this.options.host.identifier}%20conhost:SYSTEM_HOST)%20+languageId:1%20+deleted:false%20+working:true/orderby/modDate%20desc`
+        }
+
+        return fetch(getUrl())
+            .then((data) => data.json())
+            .then((data) => data.contentlets)
+            .then((contentlets) => {
+                contentlets.forEach((contentlet) => {
+                    contentlet.contentType = contentType
+                })
+                return contentlets
+            })
+    }
+
+    async getContentTypesVariables() {
+        const getUrl = () => {
+            return `${this.getBaseUrl()}/api/v1/contenttype?per_page=100`
+        }
+
+        return fetch(getUrl(), {
+            headers: {
+                DOTAUTH: Buffer.from(
+                    `${this.options.credentials.email}:${this.options.credentials.password}`
+                ).toString('base64'),
+            },
+        })
+            .then((data) => data.json())
+            .then((contentTypes) => contentTypes.entity.map((contentType) => contentType.variable))
+    }
+
+    async getData() {
+        const contentlets = await this.getContentTypesVariables().then((variables) => {
+            return variables.map(async (variable) => {
+                const data = await this.getContentletsByContentType(variable)
+                return data
+            })
+        })
+        return Promise.all(contentlets)
+    }
+}
+
+exports.getContentlets = async (configOptions) => {
+    const dotCMSApi = new DotCMSApi(configOptions)
+
+    return dotCMSApi.getData().then((contentTypesContentlets) => {
+        // Flatten nested array
+        return [].concat.apply([], contentTypesContentlets)
+    })
+}
+```
+
+#### What is all this code doing?
+
+```javascript
+const fetch = require('node-fetch')
+```
+
+You imported the npm module, node-fetch, and it will be used to do the requests to the dotCMS instance and get the data you need.
+
+```javascript
+class DotCMSLibrary {
+    constructor(options) {
+        this.options = options
+    }
+}
+```
+
+Then you created a class that contains the methods you use to get the data you need (contentlets and content types). When you create an instance of this class you pass the options that you'll add to the `gatsby-config.js` file.
+
+```javascript
+getBaseUrl() {
+    return `${this.options.host.protocol}://${this.options.host.url}`
+}
+```
+
+These simple methods are use to get the dotCMS instance URL.
+
+```javascript
+getContentletsByContentType(contentType) {
+    const getUrl = () => {
+        return `${this.getBaseUrl()}/api/content/render/false/query/+contentType:${contentType}%20+(conhost:${this.options.host.identifier}%20conhost:SYSTEM_HOST)%20+languageId:1%20+deleted:false%20+working:true/orderby/modDate%20desc`;
+    };
+
+    return fetch(getUrl())
+        .then((data) => data.json())
+        .then((data) => data.contentlets)
+        .then((contentlets) => {
+            contentlets.forEach((contentlet) => {
+                contentlet.contentType = contentType;
+            });
+            return contentlets;
+        });
+}
+```
+
+In this method, you do the request to get all the contentlets of the specific content type you'll pass as a parameter, and to each contentlet you add the `contentType` property that will be used to query data. This method is called several times, once for each content type in the dotCMS instance.
+
+```javascript
+async getContentTypesVariables() {
+    const getUrl = () => {
+        return `${this.getBaseUrl()}/api/v1/contenttype?per_page=100`;
+    };
+
+    return fetch(getUrl(), {
+        headers: {
+            DOTAUTH: Buffer.from(
+                `${this.options.credentials.email}:${this.options.credentials.password}`
+            ).toString('base64')
+        }
+    })
+        .then((data) => data.json())
+        .then((contentTypes) => contentTypes.entity.map((contentType) => contentType.variable));
+}
+```
+
+This method will get an array of content type variables using the new Content Types API and then map the result to an array of variables.
+
+NOTE: make sure you pass the query param per_page=100 at the URL with the full amount (or more) of content types in your instance.
+
+```javascript
+async getData() {
+    const contentlets = await this.getContentTypesVariables().then((variables) => {
+        return variables.map(async (variable) => {
+            const data = await this.getContentletsByContentType(variable);
+            return data;
+        });
+    });
+    return Promise.all(contentlets);
+}
+```
+
+And finally you used `getContentTypesVariables` and `getContentletsByContentType` to get all the contentlets in the dotCMS instance. First, you get an array of content types variables and for each one of them you do a request to the dotCMS Content API to get the all contentlets for each content type. Remember that this code runs on build time which means it not going to be a performance issue doing so many requests.
+
+The constant contentlets results in an array of Promises of contentlets so you have to use `Promise.all` to return a single Promise that resolves when all of the contentlet promises have resolved.
+
+```javascript
+exports.getContentlets = async (configOptions) => {
+    const dotCMSApi = new DotCMSApi(configOptions)
+
+    return dotCMSApi.getData().then((contentTypesContentlets) => {
+        // Flatten nested array
+        return [].concat.apply([], contentTypesContentlets)
+    })
+}
+```
+
+Finally, you export one method from this library, where you initialize the DotCMS API with the config options from the `gatsby-config.js` file get all the contentlets in the dotCMS instance and flatten it into one big collection of contentlets with an extra property of content type. The result will be like:
+
+```json
+[
+    {
+        "contentType": "newsItem",
+        "owner": "dotcms.org.1",
+        "identifier": "f60ed48b-1f5f-4a7b-b4b0-f5a857b41e6a",
+        "inode": "734944ff-6f02-4337-b9fe-aef3c372dad8",
+        "title": "This is a new item",
+        "expire": "2020-01-02 02:19:00.0",
+        "tags": "oil,investment,gas,prices,retiree:persona"
+    },
+    {...}
+]
+```
+
+The appended `contentType` property in this collection of contentlets is key, because we'll be using that to do our GraphQL queries.

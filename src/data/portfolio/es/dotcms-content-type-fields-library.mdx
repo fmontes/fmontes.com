@@ -1,0 +1,36 @@
+---
+title: Biblioteca de campos de tipo de contenido DotCMS
+description: Necesitábamos crear componentes de interfaz de usuario reutilizables para cada campo, y necesitábamos que fueran agnósticos en cuanto al marco de trabajo, así que lo hicimos.
+tech: StencilJS, Web Components, SASS
+date: "2019-06-01"
+---
+
+DotCMS le ayuda a gestionar y entregar contenido en todos los canales, dispositivos y plataformas. 
+
+Como un CMS, en DotCMS, puede crear tipos de contenido y agregar campos a ellos. Hay alrededor de 24 tipos de campos que los usuarios pueden crear en un tipo de contenido DotCMS.
+
+### Reto
+Necesitábamos crear componentes de interfaz de usuario reutilizables para cada campo, y necesitamos que sean agnósticos al framework.
+
+### Solución
+Los Web Components son la solución nativa para crear componentes de interfaz de usuario reutilizables.  
+
+Puedes crear elementos personalizados con Angular, Vue y otros frameworks de Javascript. Nos decantamos por StencilJS porque está orientado específicamente a este propósito y en nuestra prueba de conceptos funciona bien. Algunas de sus características son:
+
+* Pipeline de renderizado asíncrono
+* Soporte de TypeScript
+* Vinculación de datos unidireccional
+* Pre-representación de componentes
+* Soporte de JSX
+
+### Beneficios
+El equipo y yo fuimos capaces de coger esta tecnología rápidamente, funciona de forma similar a ReactJS, y las herramientas son estupendas. StencilJS nos permite tener una v1 en unos 2 meses de trabajo, todo con unidades y pruebas e2s.
+
+### Resultados
+Todavía no está liberado, pero nuestras pruebas internas han mostrado excelentes resultados:
+
+* Renderizado rápido
+* Fácil de escalar
+* Soporte nativo
+* Funciona perfectamente con Angular y ReactJS
+* Estilizable con CSS

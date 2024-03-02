@@ -1,0 +1,107 @@
+---
+title: 'Cómo he construido mi cartera con Gatsby y ReactJS'
+date: "2019-07-09"
+description: "Necesitaba un sitio rapidísimo para el portafolio de mi blog, así que lo construí con Gatsby, ReactJS y alojado en Netlify. 🚀"
+category: "gatsby"
+---
+
+Mi sitio personal necesita un poco de amor desde hace un tiempo, [el último commit en él fue el 3 de abril de 2016](https://github.com/fmontes/fmontes/commit/23fd6abd645d9afb67497528c933672c9624431a). Así que necesito un nuevo sitio, y lo necesito rápido, y ahí es precisamente donde Gatsby me ayuda.
+
+## Lo que quiero
+1. Un sitio rapidísimo
+2. Facilidad para publicar una entrada en el blog con código destacado
+3. Muestra repos de GitHub específicos
+4. Escalable y fácil de mantener actualizado
+
+## Crear un sitio Gatsby
+
+Sólo necesitas dos comandos:
+
+```shell
+npm install -g gatsby-cli
+gatsby new site-name https://github.com/gatsbyjs/gatsby-starter-blog
+```
+
+Con Gatsby puedes poner en marcha un sitio en poco tiempo. Como tiene el concepto de [starters](https://www.gatsbyjs.org/starters/) puedes elegir entre cientos el que se ajuste a tu proyecto. En mi caso fue [gatsby-starter-blog](https://www.gatsbyjs.org/starters/gatsbyjs/gatsby-starter-blog/).
+
+## gatsby-starter-blog
+
+Este starter tiene algunos plugins importantes instalados, así que fuera de la caja, tengo:
+
+1. [Blog con archivos markdown](https://www.gatsbyjs.org/packages/gatsby-transformer-remark/)
+2. [Soporte offline](https://www.gatsbyjs.org/packages/gatsby-plugin-offline)
+3. [Aplicación web progresiva lista](https://www.gatsbyjs.org/packages/gatsby-plugin-manifest/)
+4. [Mejoras en el SEO](https://www.gatsbyjs.org/packages/gatsby-plugin-react-helmet/)
+5. [Imágenes responsivas](https://www.gatsbyjs.org/packages/gatsby-image/)
+6. [Google Analytics](https://www.gatsbyjs.org/packages/gatsby-plugin-google-analytics/)
+7. [Tipografía de ritmo vertical](https://www.gatsbyjs.org/docs/typography-js/)
+8. [prismjs](https://prismjs.com/) para resaltar la sintaxis del código
+
+## Lo que he añadido
+1. [Componentes con estilo](https://www.gatsbyjs.org/docs/styled-components/)
+2. Carga perezosa de imágenes dentro de archivos markdown con [gatsby-remark-lazy-load](https://www.gatsbyjs.org/packages/gatsby-remark-lazy-load/) y [lazines](https://www.npmjs.com/package/lazysizes) **(esto es imprescindible para el rendimiento)**.
+3. Github Repo Showcase con [gatsby-source-github-api](https://www.gatsbyjs.org/packages/gatsby-source-github-api) y este GraphQL Query:
+
+```graphql
+    {
+        search(query: "fmonteslab user:fmontes", type: REPOSITORY, first: 100) {
+            edges {
+                node {
+                    ... on Repository {
+                        name
+                        url
+                        homepageUrl
+                        description
+                        createdAt
+                        pushedAt
+                        primaryLanguage {
+                            id
+                            name
+                        }
+                        repositoryTopics(first: 100) {
+                            edges {
+                                node {
+                                    topic {
+                                        name
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+```
+
+## Oublicar en Netlify
+Netlify es uno de los mejores (si no el mejor) lugar para desplegar tu sitio Gatsby. Y es super fácil de hacer, sigue [estos pasos](https://www.gatsbyjs.org/docs/deploying-to-netlify/).
+
+## Lo que obtuve
+
+### Sitio rápido
+Gatsby se encarga de todo, caché, minificación, lazy load de tus imágenes, etc. Tuve que hacer algunos trabajos para mejorar el SEO, como zonas de golpeo y etiquetas aria en algunos botones para mejorar la puntuación:
+
+<Image src="/static/images/blog/how-i-built-my-portfolio-with-gatsby-and-reactjs/lighthouse.png" alt="Lighthouse performance score" width="587" height="143" />
+
+<Image src="/static/images/blog/how-i-built-my-portfolio-with-gatsby-and-reactjs/gtmetrix.png" alt="GTMextris performance score" width="612" height="181" />
+
+### Entradas de blog fáciles de publicar
+Sólo tengo que crear un archivo markdown en mi carpeta `/content/blog`, hacer commit, push, y Netlify desplegará el sitio con el nuevo post.
+
+### Mis repos de GitHub
+Cuando etiqueto uno de mis repos con `#fmonteslab`, vuelvo a desplegar mi sitio y se publicará.
+
+<Image src="/static/images/blog/how-i-built-my-portfolio-with-gatsby-and-reactjs/repos.png" alt="Repos" width="651" height="323" />
+
+### Scalable
+Con Gatsby, puedo crear nuevas páginas, extraer contenido de todas partes y añadir rápidamente contenido y características.
+
+## Más por venir
+1. Trabajo de SEO
+2. Publicar y publicar más
+3. Conectar con la API de Linked In para crear un currículum dinámico
+4. El cielo es el límite
+
+## Conclusión
+Estoy muy contento con los resultados de mi sitio. Lo mantendré actualizado y lo conseguiré. Por favor, ve y comprueba el código: https://github.com/fmontes/fmontes-gatsby, haz un fork, úsalo, construye el tuyo propio.
