@@ -28,7 +28,7 @@ export function Nav() {
         <>
             <nav
                 className={`${show ? 'block' : 'hidden'
-                    } fixed top-0 right-0 z-10 flex flex-col lg:flex-row lg:flex lg:static lg:bg-transparent`}
+                    } fixed top-0 right-0 z-10 flex flex-col lg:flex-row lg:flex lg:static bg-blue-800 lg:bg-transparent`}
                 onClick={() => {
                     setShow(false);
                 }}>
@@ -47,7 +47,7 @@ export function Nav() {
             </nav>
             <button
                 aria-label="Show menu"
-                className="z-10 bg-blue-800 rounded-none active:outline-none lg:hidden"
+                className="z-10 bg-blue-800 flex justify-center items-center w-10 h-10 rounded-none active:outline-none lg:hidden"
                 onClick={() => {
                     setShow(!show);
                 }}>
