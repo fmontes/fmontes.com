@@ -2,14 +2,14 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import rehypeHighlight from 'rehype-highlight';
 import Image from 'next/image';
 
-import { PageParams, getDefaultOpenGraph, getPostBySlug } from '@/utils/content';
+import { PageParams, getDefaultOpenGraph, getTipBySlug } from '@/utils/content';
 import { DateText } from '@/components/Date';
 import { SITE } from '@/utils/const';
 
 import '../../github-dark.min.css';
 
 export async function generateMetadata({ params }: { params: PageParams }) {
-  const post = getPostBySlug(params);
+  const post = getTipBySlug(params);
   const defaultOpenGraph = await getDefaultOpenGraph(params.lang);
 
   return {
@@ -19,13 +19,13 @@ export async function generateMetadata({ params }: { params: PageParams }) {
       ...defaultOpenGraph,
       title: post.title,
       description: post.description,
-      url: `${SITE}/${params.lang}/blog/${params.slug}`,
+      url: `${SITE}/${params.lang}/tips/${params.slug}`,
     },
   };
 }
 
-export default function Blog({ params }: { params: PageParams }) {
-  const post = getPostBySlug(params);
+export default function Tip({ params }: { params: PageParams }) {
+  const post = getTipBySlug(params);
 
   const jsonLd = {
     '@context': 'https://schema.org',

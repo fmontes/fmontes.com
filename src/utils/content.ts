@@ -70,6 +70,21 @@ export function getTips(lang: PageParams['lang']): BlogData[] {
     .sort((postA, postB) => (new Date(postA.date) < new Date(postB.date) ? 1 : -1));
 }
 
+export function getTipBySlug({lang, slug}: PageParams): Blog {
+  const FOLDER = path.resolve(process.cwd(), 'src/data/tips');
+  const fullPath = path.join(FOLDER, `${lang}/${slug}.mdx`);
+  const markdown = fs.readFileSync(fullPath, 'utf-8');
+  const { data, content } = matter(markdown);
+
+  return {
+    title: data.title,
+    date: data.date,
+    slug,
+    description: data.description,
+    content: content,
+  };
+}
+
 export async function getDefaultOpenGraph(lang: PageParams['lang']) {
   return {
     siteName: 'Freddy Montes',

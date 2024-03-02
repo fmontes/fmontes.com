@@ -42,7 +42,7 @@ export default async function Home({ params }: { params: PageParams }) {
           return (
             <div key={i} className="rounded-md bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-300 p-1 transition-transform hover:scale-105 hover:-rotate-2 hover:shadow-sm">
               <NavLink
-                href={slug}
+                href={`/tips/${slug}`}
                 className="rounded h-full w-full bg-black bg-opacity-80 unset flex flex-col justify-center space-y-2 p-8 no-underline"
                 style={{
                   containerType: 'inline-size'
