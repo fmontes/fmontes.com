@@ -15,7 +15,17 @@ export interface BlogData {
   cover: string;
 }
 
+export interface TipData {
+  title: string;
+  date: string;
+  slug: string;
+  description: string;
+}
+
 export interface Blog extends BlogData {
+  content: string;
+}
+export interface Tip extends TipData {
   content: string;
 }
 
@@ -53,7 +63,7 @@ export function getPostBySlug({lang, slug}: PageParams): Blog {
   };
 }
 
-export function getTips(lang: PageParams['lang']): BlogData[] {
+export function getTips(lang: PageParams['lang']): TipData[] {
   const FOLDER = path.resolve(process.cwd(), 'src/data/tips');
   const fullPath = path.join(FOLDER, `${lang}`);
   const files = fs.readdirSync(fullPath, 'utf-8');
@@ -63,14 +73,14 @@ export function getTips(lang: PageParams['lang']): BlogData[] {
       const content = fs.readFileSync(path.join(fullPath, itemPath), 'utf8');
 
       return {
-        ...(matter(content).data as Pick<BlogData, 'title' | 'date'>),
+        ...(matter(content).data as Pick<TipData, 'title' | 'date'>),
         slug: itemPath.replace('.mdx', ''),
-      } as BlogData;
+      } as TipData;
     })
     .sort((postA, postB) => (new Date(postA.date) < new Date(postB.date) ? 1 : -1));
 }
 
-export function getTipBySlug({lang, slug}: PageParams): Blog {
+export function getTipBySlug({lang, slug}: PageParams): Tip {
   const FOLDER = path.resolve(process.cwd(), 'src/data/tips');
   const fullPath = path.join(FOLDER, `${lang}/${slug}.mdx`);
   const markdown = fs.readFileSync(fullPath, 'utf-8');
