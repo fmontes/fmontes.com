@@ -36,7 +36,7 @@ export default async function Home({ params }: { params: PageParams }) {
     <main className="max-w-4xl mx-auto mt-12 prose dark:prose-invert lg:prose-md xl:prose-lg prose-h2:my-0 lg:prose-h2:my-0 xl:prose-h2:my-0 prose-h2:mb-4 lg:prose-h2:mb-4 xl:prose-h2:mb-4 dark:prose-a:text-white prose-a:text-blue-900 dark:prose-h2:text-yellow">
       <h1>{dictionary.nav.tips}</h1>
 
-      <section className="grid grid-flow-row gap-4 sm:grid-cols-1 md:grid-cols-2 mx-12">
+      <section className="grid grid-flow-row gap-4 sm:grid-cols-1 md:grid-cols-2 lg:mx-12">
         {posts.map(({ title, date, slug }, i: number) => {
 
           return (
