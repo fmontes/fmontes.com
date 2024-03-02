@@ -1,7 +1,4 @@
 import { ReactNode } from 'react';
-import { useRouter } from 'next/router';
-import Link from "next/link";
-
 import { Thumbnail } from "./Thumbnail";
 import { NavLink } from './NavLink';
 

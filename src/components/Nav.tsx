@@ -17,6 +17,7 @@ export function Nav() {
     const items = [
         { label: dictionary.nav.home, href: '/' },
         { label: dictionary.nav.blog, href: '/blog' },
+        { label: dictionary.nav.tips, href: '/tips' },
         { label: dictionary.nav.about, href: '/about' },
         { label: dictionary.nav.uses, href: '/uses' },
         { label: dictionary.nav.talks, href: '/talks' },

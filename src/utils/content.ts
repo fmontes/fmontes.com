@@ -53,6 +53,23 @@ export function getPostBySlug({lang, slug}: PageParams): Blog {
   };
 }
 
+export function getTips(lang: PageParams['lang']): BlogData[] {
+  const FOLDER = path.resolve(process.cwd(), 'src/data/tips');
+  const fullPath = path.join(FOLDER, `${lang}`);
+  const files = fs.readdirSync(fullPath, 'utf-8');
+
+  return files
+    .map((itemPath) => {
+      const content = fs.readFileSync(path.join(fullPath, itemPath), 'utf8');
+
+      return {
+        ...(matter(content).data as Pick<BlogData, 'title' | 'date'>),
+        slug: itemPath.replace('.mdx', ''),
+      } as BlogData;
+    })
+    .sort((postA, postB) => (new Date(postA.date) < new Date(postB.date) ? 1 : -1));
+}
+
 export async function getDefaultOpenGraph(lang: PageParams['lang']) {
   return {
     siteName: 'Freddy Montes',
