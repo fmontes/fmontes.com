@@ -9,7 +9,7 @@ export async function generateMetadata({ params }: { params: PageParams }) {
   const defaultOpenGraph = await getDefaultOpenGraph(params.lang);
 
   return {
-    title: 'Freddy Montes - Blog',
+    title: 'Freddy Montes - Frontend Tips',
     openGraph: {
       ...defaultOpenGraph,
       title: 'Freddy Montes - Frontend Tips',
