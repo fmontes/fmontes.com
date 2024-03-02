@@ -1,4 +1,5 @@
 import { Inter } from "next/font/google";
+import Script from 'next/script'
 
 import DictionaryProvider from "@/providers/dictionary-provider";
 import { Footer } from "@/components/Footer";
@@ -41,6 +42,19 @@ export default async function RootLayout({
   return (
     <html lang={params.lang}>
       <head>
+        <Script
+          strategy="lazyOnload"
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+        />
+
+        <Script id="google-analytics" strategy="lazyOnload">
+          {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
+          `}
+        </Script>
         <link href="/static/favicon.ico" rel="shortcut icon" />
         <link href="/static/site.webmanifest" rel="manifest" />
         <link
