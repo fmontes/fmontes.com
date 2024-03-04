@@ -36,7 +36,7 @@ export function Nav() {
                     const folder = getFirstFolderLevel(pathname);
 
                     const active = folder === item.href;
-                    const className = `${active ? 'dark:text-yellow text-blue-900 underline' : 'dark:text-blue-50 text-blue-700'} block py-2 pl-5 pr-16 lg:p-2 hover:underline`;
+                    const className = `${active ? 'dark:text-yellow text-yellow lg:text-blue-900 underline' : 'dark:text-blue-50 text-blue-50 lg:text-blue-700'} block py-2 pl-5 pr-16 lg:p-2 hover:underline`;
 
                     return (
                         <NavLink className={className} key={i} href={item.href}>
