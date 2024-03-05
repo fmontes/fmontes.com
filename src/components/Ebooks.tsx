@@ -38,7 +38,7 @@ function Ebooks(): JSX.Element {
       <h2 className="text-lg leading-tight mb-8 font-bold">Get my eBooks</h2>
 
       <div className="flex flex-col gap-10 sm:flex-row">
-        <Link className="block flex-1" href="/99-tips-de-web-development">
+        <Link className="block flex-1" href="https://fmontes.gumroad.com/l/99tips">
           <Book
             image="/static/images/books/99-cover.png"
             price="free"
