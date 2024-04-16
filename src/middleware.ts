@@ -18,6 +18,11 @@ function getLocale(request: NextRequest): string | undefined {
 }
 
 export function middleware(request: NextRequest) {
+  
+  if (request.nextUrl.pathname === '/99') {
+    return NextResponse.redirect(new URL('https://fmontes.gumroad.com/l/99tips'))
+  }
+
   const pathname = request.nextUrl.pathname;
   const pathnameIsMissingLocale = i18n.locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
