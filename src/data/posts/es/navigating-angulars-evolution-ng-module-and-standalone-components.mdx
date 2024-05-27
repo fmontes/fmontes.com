@@ -1,0 +1,129 @@
+---
+title: "Navegando la Evolución de Angular: @NgModule y Componentes Independientes"
+description: "El desarrollo de Angular ha evolucionado de usar @NgModule a componentes independientes más simples y eficientes. Aprende por qué los componentes independientes son ahora el método preferido para crear componentes autónomos en tus proyectos de Angular."
+date: "2024-05-27"
+category: angular
+cover: "https://images.unsplash.com/photo-1541692641319-981cc79ee10a"
+---
+
+Angular ofrece dos métodos para crear componentes autónomos que encapsulan todas sus dependencias (componentes, servicios, pipes y otros). Puedes usar `@NgModules` o componentes independientes. Entender ambos es vital para trabajar con todos los proyectos de Angular, antiguos y nuevos.
+
+## Antes: Usando `@NgModules`
+En el enfoque antiguo, las aplicaciones web de Angular se construían usando `@NgModules`, que funcionan como contenedores para agrupar dependencias que necesitan trabajar juntas para un propósito muy específico.
+
+Aquí tienes un ejemplo de un componente que usa servicios y otros componentes en el enfoque de `@NgModule`:
+
+```typescript
+// services/data.service.ts
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class DataService {
+  getData() {
+    return ['Data 1', 'Data 2', 'Data 3'];
+  }
+}
+```
+
+```typescript
+// components/display.component.ts
+import { Component, OnInit } from '@angular/core';
+import { DataService } from '../services/data.service';
+
+@Component({
+  selector: 'app-display',
+  template: `
+    <div *ngFor=\"let item of data\">{{ item }}</div>
+  `,
+})
+export class DisplayComponent implements OnInit {
+  data: string[];
+
+  constructor(private dataService: DataService) {}
+
+  ngOnInit() {
+    this.data = this.dataService.getData();
+  }
+}
+```
+
+```typescript
+// modules/display.component.module.ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { DisplayComponent } from './components/display.component';
+import { DataService } from './services/data.service';
+
+@NgModule({
+  declarations: [DisplayComponent],
+  imports: [BrowserModule],
+  providers: [DataService],
+  exports: [DisplayComponent],
+})
+export class DisplayComponentModule {}
+```
+
+### Por Qué Necesitábamos `@NgModules`
+Con este enfoque, puedes importar `DisplayComponentModule` en otros módulos y usar el `DisplayComponent` en la plantilla sin tener que importar el `DataService` cada vez.
+
+`@NgModule` era la solución para agrupar código relacionado, gestionar la inyección de dependencias y facilitar la carga perezosa. A los desarrolladores de Angular no les gustaba `@NgModule` porque era mucho código de plantilla, honestamente para mí no era un gran problema.
+
+**Nota:** La propiedad `exports` en el decorador `@NgModule` se usa para hacer que el `DisplayComponent` esté disponible para su uso en las plantillas de cualquier componente que sea parte de un `@NgModule`.
+
+## Después: Usando Componentes Independientes
+En Angular 14, se introdujeron [componentes independientes](https://blog.angular.dev/angular-v14-is-now-available-391a6db736af), que es una forma mucho más simple de crear componentes autónomos.
+
+Los componentes independientes ahora pueden **declarar sus propias dependencias** sin la necesidad de un archivo adicional para el `@NgModule`.
+
+Aquí tienes cómo se ve el mismo ejemplo con componentes independientes:
+
+```typescript
+// services/data.service.ts
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class DataService {
+  getData() {
+    return ['Data 1', 'Data 2', 'Data 3'];
+  }
+}
+```
+
+```typescript
+// components/display.component.ts
+import { Component, OnInit } from '@angular/core';
+import { DataService } from '../services/data.service';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  standalone: true,
+  imports: [CommonModule],
+  providers: [DataService],
+  selector: 'app-display',
+  template: `
+    <div *ngFor=\"let item of data\">{{ item }}</div>
+  `,
+})
+export class DisplayComponent implements OnInit {
+  data: string[];
+
+  constructor(private dataService: DataService) {}
+
+  ngOnInit() {
+    this.data = this.dataService.getData();
+  }
+}
+```
+
+Como puedes ver, el `DisplayComponent` ahora declara sus propias dependencias para `DataService` y usa la propiedad `standalone: true` que le dice a Angular que este componente es un componente independiente.
+
+Y ahora puedes importar el `DisplayComponent` directamente en el array de `imports` de otros componentes sin la necesidad de un archivo de módulo adicional.
+
+## Entendiendo Ambos Enfoques
+Ok Freddy, pero si ya no se necesita el `@NgModule`, ¿por qué necesito aprender o entender esto?
+
+1. Muchos proyectos existentes de Angular todavía usan el enfoque de `@NgModule`.
+2. Transición e Integración: Conocer ambos métodos te permite integrar nuevas funciones en proyectos antiguos gradualmente, facilitando transiciones más suaves sin reescrituras extensas.
+3. Conocimiento Integral: Entender la evolución de la arquitectura de Angular ayuda a comprender las decisiones de diseño detrás del framework, haciéndote un desarrollador más versátil y conocedor.
+
+En resumen, aunque los nuevos componentes independientes simplifican el desarrollo de Angular, entender tanto `@NgModules` como componentes independientes es esencial para un desarrollo efectivo en Angular.
