@@ -15,7 +15,7 @@ export const contentType = 'image/png';
 
 // Image generation
 export default async function Image({ params }: { params: PageParams }) {
-  
+
   const title = await fetch(`${SITE}/api/blog/${params.slug}`)
     .then((res) => res.json())
     .then((data) => data.message);
@@ -23,16 +23,17 @@ export default async function Image({ params }: { params: PageParams }) {
   return new ImageResponse(
     (
       // ImageResponse JSX element
-      <div tw="h-full w-full flex">
-        <div tw="flex h-full">
+      <div tw="h-full w-full flex items-start justify-start bg-white">
+        <div tw="flex items-start justify-start h-full">
           <img
-            alt=""
-            style={{ objectFit: 'cover' }}
+            style={{ objectFit: "cover" }}
             tw="absolute inset-0 w-full h-full"
             src={`${SITE}/static/images/og-bg.png`}
           />
-          <div tw="flex items-center justify-center w-full h-full">
-            <div tw="text-[64px] text-white text-center mx-20">{title}</div>
+          <div tw="flex items-center justify-center w-full h-full relative">
+            <div tw="text-[72px] text-white font-black text-center mx-20">
+              {title}
+            </div>
           </div>
         </div>
       </div>
