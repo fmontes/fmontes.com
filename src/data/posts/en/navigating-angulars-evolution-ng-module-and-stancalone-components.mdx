@@ -1,0 +1,130 @@
+---
+title: "Navigating Angular's Evolution: @NgModule and Stancalone Components"
+description: "Figma is an amazing piece of software that we can make even better using plugins that the community creates and makes available to everyone."
+date: "2024-05-27"
+category: angular
+cover: "https://images.unsplash.com/photo-1541692641319-981cc79ee10a"
+---
+
+Angular offers two methods for creating self-contained components those encapsulating all their dependencies (components, services, pipes and pthers). You can either use `@NgModules` or standalone components. Understanding both is vital for working with all Angular projects, old and new.
+
+
+## Before: Using `@NgModules`
+In the old approach, Angular webapps werw built using `@NgModules`, which works as containers to group dependencies that needs to work together for a very specific purpose. 
+
+Here's an example of a component that uses services and other components in the `@NgModule` approach:
+
+```typescript
+// services/data.service.ts
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class DataService {
+  getData() {
+    return ['Data 1', 'Data 2', 'Data 3'];
+  }
+}
+```
+
+```typescript
+// components/display.component.ts
+import { Component, OnInit } from '@angular/core';
+import { DataService } from '../services/data.service';
+
+@Component({
+  selector: 'app-display',
+  template: `
+    <div *ngFor="let item of data">{{ item }}</div>
+  `,
+})
+export class DisplayComponent implements OnInit {
+  data: string[];
+
+  constructor(private dataService: DataService) {}
+
+  ngOnInit() {
+    this.data = this.dataService.getData();
+  }
+}
+```
+
+```typescript
+// modules/display.component.module.ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { DisplayComponent } from './components/display.component';
+import { DataService } from './services/data.service';
+
+@NgModule({
+  declarations: [DisplayComponent],
+  imports: [BrowserModule],
+  providers: [DataService],
+  exports: [DisplayComponent],
+})
+export class DisplayComponentModule {}
+```
+
+### Why We Needed `@NgModules`
+With this approach, you can import `DisplayComponentModule` into other modules and use the `DisplayComponent` in the template without having to import the `DataService` every time.
+
+`@NgModule` was the solution to group related code, manage dependency injection and facilitate lazy loading. Angular developers hated `@NgModule` because it was a lot of boilerplate code, honestly it wasn't that big of a deal for me.
+
+**Note:** The `exports` property in the `@NgModule` decorator is used to make the `DisplayComponent` available for use in the templates of any component that is part of an `@NgModule`.
+
+## After: Using Standalone Components
+In Angular 14, [standalone components were introduced](https://blog.angular.dev/angular-v14-is-now-available-391a6db736af), which is a much simpler way to create self-contained components.
+
+Standalone components can now **declare their own dependencies** without the need of an extra file for the `@NgModule`. 
+
+Here's how the same example looks with standalone components:
+
+```typescript
+// services/data.service.ts
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class DataService {
+  getData() {
+    return ['Data 1', 'Data 2', 'Data 3'];
+  }
+}
+```
+
+```typescript
+// components/display.component.ts
+import { Component, OnInit } from '@angular/core';
+import { DataService } from '../services/data.service';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  standalone: true,
+  imports: [CommonModule],
+  providers: [DataService],
+  selector: 'app-display',
+  template: `
+    <div *ngFor="let item of data">{{ item }}</div>
+  `,
+})
+export class DisplayComponent implements OnInit {
+  data: string[];
+
+  constructor(private dataService: DataService) {}
+
+  ngOnInit() {
+    this.data = this.dataService.getData();
+  }
+}
+```
+
+As you can see, the `DisplayComponent` now declares its own dependencies for `DataService` and use the `standalone: true` property which tells Angular that this component is a standalone component.
+
+And now you can import the `DisplayComponent` directly into other components `imports` array without the need of an extra module file.
+
+## Understanding Both Approaches
+Ok Freddy, but if the `@NgModule` is no longer needed why do I need to learn or understand this?
+
+1. Many existing Angular projects still use the `@NgModule` approach.
+2. Transition and Integration: Knowing both methods allows you to integrate new features into older projects gradually, facilitating smoother transitions without extensive rewrites.
+3. Comprehensive Knowledge: Understanding the evolution of Angular's architecture helps in grasping the design decisions behind the framework, making you a more versatile and knowledgeable developer.
+
+In summary, while the new standalone components simplify Angular development, understand both `@NgModules` and standalone components is essential for effective Angular development.
