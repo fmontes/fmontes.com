@@ -29,7 +29,7 @@ export interface Tip extends TipData {
   content: string;
 }
 
-export function getPosts(lang: PageParams['lang']): BlogData[] {
+export function getPosts(lang: PageParams['lang'] = 'en'): BlogData[] {
   const FOLDER = path.resolve(process.cwd(), 'src/data/posts');
   const fullPath = path.join(FOLDER, `${lang}`);
   const files = fs.readdirSync(fullPath, 'utf-8');
