@@ -13,24 +13,28 @@ function getLocale(request: NextRequest): string | undefined {
   const locales: string[] = i18n.locales;
   const languages = new Negotiator({ headers: negotiatorHeaders }).languages();
 
-  let locale = ''
+  let locale = '';
 
   try {
-    locale = matchLocale(languages, locales, i18n.defaultLocale);  
+    locale = matchLocale(languages, locales, i18n.defaultLocale);
   } catch (error) {
     locale = i18n.defaultLocale;
   }
-  
+
   return locale;
 }
 
 export function middleware(request: NextRequest) {
-  if (request.nextUrl.pathname === '/sitemap.xml' || request.nextUrl.pathname === '/favicon.ico') {
-    return
-  }
+  console.log(request.nextUrl.pathname);
   
+  const excludedPaths = ['/sitemap.xml', '/favicon.ico', '/robots.txt', '/sw.js'];
+
+  if (excludedPaths.includes(request.nextUrl.pathname)) {
+    return;
+  }
+
   if (request.nextUrl.pathname === '/99') {
-    return NextResponse.redirect(new URL('https://fmontes.gumroad.com/l/99tips'))
+    return NextResponse.redirect(new URL('https://fmontes.gumroad.com/l/99tips'));
   }
 
   const pathname = request.nextUrl.pathname;
@@ -56,5 +60,5 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   // Matcher ignoring `/_next/` and `/api/`
-  matcher: ['/((?!api|_next/static|_next/image|sw.js|static).*)']
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|sw.js|static).*)'],
 };
