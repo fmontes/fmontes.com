@@ -25,8 +25,6 @@ function getLocale(request: NextRequest): string | undefined {
 }
 
 export function middleware(request: NextRequest) {
-  console.log(request.nextUrl.pathname);
-  
   const excludedPaths = ['/sitemap.xml', '/favicon.ico', '/robots.txt', '/sw.js'];
 
   if (excludedPaths.includes(request.nextUrl.pathname)) {
