@@ -25,6 +25,9 @@ function getLocale(request: NextRequest): string | undefined {
 }
 
 export function middleware(request: NextRequest) {
+  if (request.nextUrl.pathname === '/sitemap.xml') {
+    return
+  }
   
   if (request.nextUrl.pathname === '/99') {
     return NextResponse.redirect(new URL('https://fmontes.gumroad.com/l/99tips'))

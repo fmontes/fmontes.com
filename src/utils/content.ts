@@ -63,7 +63,7 @@ export function getPostBySlug({lang, slug}: PageParams): Blog {
   };
 }
 
-export function getTips(lang: PageParams['lang']): TipData[] {
+export function getTips(lang: PageParams['lang'] = 'en'): TipData[] {
   const FOLDER = path.resolve(process.cwd(), 'src/data/tips');
   const fullPath = path.join(FOLDER, `${lang}`);
   const files = fs.readdirSync(fullPath, 'utf-8');
