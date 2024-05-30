@@ -25,7 +25,7 @@ function getLocale(request: NextRequest): string | undefined {
 }
 
 export function middleware(request: NextRequest) {
-  if (request.nextUrl.pathname === '/sitemap.xml') {
+  if (request.nextUrl.pathname === '/sitemap.xml' || request.nextUrl.pathname === '/favicon.ico') {
     return
   }
   
@@ -56,5 +56,5 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   // Matcher ignoring `/_next/` and `/api/`
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|sw.js|static).*)']
+  matcher: ['/((?!api|_next/static|_next/image|sw.js|static).*)']
 };
