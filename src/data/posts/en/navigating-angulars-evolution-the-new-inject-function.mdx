@@ -1,0 +1,66 @@
+---
+title: "Navigating Angular's Evolution: The new inject function"
+description: "Angular services or injectables are one of the best features of Angular it allows to encapsulate reusable functionality, such as data fetching, logging, or authentication."
+date: "2024-06-10"
+category: angular
+cover: "https://images.unsplash.com/photo-1619008910533-cef6857716ac"
+---
+
+Angular services or "injectables" are one of the best features of Angular it allows to encapsulate reusable functionality, such as data fetching, logging, or authentication.
+
+Angular 14 introduced exciting features, including the `inject()` function that replace the traditional constructor injection.
+
+## Before: Using Constructor Injection
+
+The traditional method was that dependencies are injected via the constructor, making them available throughout the component's lifecycle.
+
+**Example: Without inject()**
+
+```typescript
+@Component({
+  selector: 'app-entity',
+  template: `<div>{{ entity$ | async }}</div>`
+})
+export class EntityComponent implements OnInit {
+  entity$ = this.http.get(`/api/entity/${this.route.snapshot.paramMap.get('id')}`);
+
+  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+
+  ngOnInit() {}
+}
+```
+
+## After: Using the inject() Function
+
+Angular's `inject()` function allows dependencies to be injected without constructor injection, which simplifies the component logic and keep pushing Angular to a more functional programming style.
+
+**Example: With inject()**
+
+```typescript
+const fetchEntity = () => {
+  const http = inject(HttpClient);
+  const route = inject(ActivatedRoute);
+  return http.get(`/api/entity/${route.snapshot.paramMap.get('id')}`);
+};
+
+@Component({
+  selector: 'app-entity',
+  template: `<div>{{ entity$ | async }}</div>`
+})
+export class EntityComponent {
+  entity$ = fetchEntity();
+}
+```
+
+### Understanding Both Approaches
+Ok Freddy, but if the constructor injector is no longer needed why do I need to learn or understand this?
+
+1. **Legacy Projects**: Many existing Angular projects use constructor injection.
+2. **Transition and Integration**: Knowing both methods helps integrate new features into older projects without extensive rewrites.
+3. **Comprehensive Knowledge**: Understanding the evolution of Angular's dependency injection improves your versatility as a developer.
+
+## Conclusion
+
+The `inject()` function offers a cleaner way to manage dependencies in Angular components, focusing on UI logic. However, understanding both constructor injection and the inject() function is crucial for maintaining and upgrading Angular applications effectively. 
+
+The `inject()` function's ability to be used in lifecycle methods, directives, and pipes makes it a powerful tool for modern Angular development.
