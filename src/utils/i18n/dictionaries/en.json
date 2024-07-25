@@ -12,6 +12,11 @@
     "tips": "Tips",
     "blog": "Blog"
   },
+  "error": {
+    "not_found": "Page not found",
+    "not_found_desc": "The page you are looking for does not exist.",
+    "back_home": "Back to home"
+  },
   "latest_blog_posts": "Popular Posts",
   "post_blog_action": "Thank your read this blog post. Any feedback or question hit me up on <a href=\"https://twitter.com/fmontes\" target=\"_blank\" class=\"underline text-blue-500 dark:text-cyan-500 dark:bg-cyan-500\" rel=\"noreferrer\">Twitter</a>.",
   "newsletter_title": "Subscribe to Pateando la Puerta",

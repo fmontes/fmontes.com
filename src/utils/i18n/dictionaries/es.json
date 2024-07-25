@@ -12,6 +12,11 @@
     "contact": "Contacto",
     "blog": "Blog"
   },
+  "error": {
+    "not_found": "Página no encontrada",
+    "not_found_desc": "La página que buscas no existe.",
+    "back_home": "Volver al inicio"
+  },
   "latest_blog_posts": "Post Populares",
   "post_blog_action": "Gracias por leer esta entrada del blog. Cualquier comentario o pregunta llegame a mi <a href=\"https://twitter.com/fmontes\" target=\"_blank\" class=\"text-blue-500 dark:text-cyan-500 dark:bg-cyan-500 underline\" rel=\"noreferrer\">Twitter</a>.",
   "newsletter_title": "Subscribete a Pateando la Puerta",

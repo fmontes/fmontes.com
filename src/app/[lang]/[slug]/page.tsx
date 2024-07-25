@@ -2,6 +2,7 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import { notFound } from 'next/navigation'
 
 import { DateText } from '@/components/Date';
 import { PageParams, getDefaultOpenGraph } from '@/utils/content';
@@ -9,15 +10,26 @@ import { SITE } from '@/utils/const';
 import { getDictionary } from '../dictionaries';
 
 function getPage(params: PageParams) {
-  const FOLDER = path.resolve(process.cwd(), 'src/data/pages');
-  const fullPath = path.join(FOLDER, `${params.lang}/${params.slug}.mdx`);
-  const fileContents = fs.readFileSync(fullPath, 'utf-8');
-  return matter(fileContents);
+  try {
+    const FOLDER = path.resolve(process.cwd(), 'src/data/pages');
+    const fullPath = path.join(FOLDER, `${params.lang}/${params.slug}.mdx`);
+    const fileContents = fs.readFileSync(fullPath, 'utf-8');
+    return matter(fileContents);
+  } catch (error) {
+    console.error(error);
+    return null
+  }
 }
 
 export async function generateMetadata({ params }: { params: PageParams }) {
   const dictionary = await getDictionary(params.lang);
-  const { data } = getPage(params);
+  const page = getPage(params);
+
+  if (!page) {
+    return;
+  }
+
+  const { data } = page;
 
   const defaultOpenGraph = await getDefaultOpenGraph(params.lang);
 
@@ -40,7 +52,13 @@ export async function generateMetadata({ params }: { params: PageParams }) {
 }
 
 export default async function Page({ params }: { params: PageParams }) {
-  const { data, content } = getPage(params);
+  const page = getPage(params);
+
+  if (!page) {
+    return notFound();
+  }
+
+  const { data, content } = page;
 
   return (
     <main className="max-w-4xl mx-auto mt-12 prose dark:prose-invert lg:prose-md xl:prose-lg">
