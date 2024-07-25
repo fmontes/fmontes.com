@@ -16,5 +16,10 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Respon
     lang: 'en',
   });
 
+  if (!post) {
+    res.status(404).json({ message: 'Not found' });
+    return 
+  }
+
   res.status(200).json({ message: post.title });
 }
