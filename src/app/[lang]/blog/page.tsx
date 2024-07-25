@@ -3,6 +3,7 @@ import { DateText } from '@/components/Date';
 import { getDictionary } from '../dictionaries';
 import CardItem from '@/components/CardItem';
 import { SITE } from '@/utils/const';
+import { notFound } from 'next/navigation';
 
 export async function generateMetadata({ params }: { params: PageParams }) {
   const dictionary = await getDictionary(params.lang);
@@ -27,6 +28,7 @@ export async function generateMetadata({ params }: { params: PageParams }) {
 }
 
 export default async function Home({ params }: { params: PageParams }) {
+
   if ((params.lang as any) === 'sw.js') return null;
 
   const dictionary = await getDictionary(params.lang);

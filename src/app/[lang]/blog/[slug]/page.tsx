@@ -1,3 +1,5 @@
+import { notFound } from 'next/navigation';
+
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import rehypeHighlight from 'rehype-highlight';
 import Image from 'next/image';
@@ -10,6 +12,11 @@ import '../../github-dark.min.css';
 
 export async function generateMetadata({ params }: { params: PageParams }) {
   const post = getPostBySlug(params);
+
+  if (!post) {
+    return null;
+  }
+
   const defaultOpenGraph = await getDefaultOpenGraph(params.lang);
 
   return {
@@ -26,6 +33,10 @@ export async function generateMetadata({ params }: { params: PageParams }) {
 
 export default function Blog({ params }: { params: PageParams }) {
   const post = getPostBySlug(params);
+
+  if (!post) {
+    notFound();
+  }
 
   const jsonLd = {
     '@context': 'https://schema.org',

@@ -1,4 +1,4 @@
-import { getDictionary } from '../dictionaries';
+import { getDictionary } from './dictionaries';
 import React from 'react';
 
 async function NotFoundPage() {

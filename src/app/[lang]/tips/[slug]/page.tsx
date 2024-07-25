@@ -7,9 +7,15 @@ import { DateText } from '@/components/Date';
 import { SITE } from '@/utils/const';
 
 import '../../github-dark.min.css';
+import { notFound } from 'next/navigation';
 
 export async function generateMetadata({ params }: { params: PageParams }) {
   const post = getTipBySlug(params);
+
+  if (!post) {
+    return null;
+  }
+
   const defaultOpenGraph = await getDefaultOpenGraph(params.lang);
 
   return {
@@ -26,6 +32,10 @@ export async function generateMetadata({ params }: { params: PageParams }) {
 
 export default function Tip({ params }: { params: PageParams }) {
   const post = getTipBySlug(params);
+
+  if (!post) {
+    notFound();
+  }
 
   const jsonLd = {
     '@context': 'https://schema.org',

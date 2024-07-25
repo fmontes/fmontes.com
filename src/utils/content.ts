@@ -46,21 +46,25 @@ export function getPosts(lang: PageParams['lang'] = 'en'): BlogData[] {
     .sort((postA, postB) => (new Date(postA.date) < new Date(postB.date) ? 1 : -1));
 }
 
-export function getPostBySlug({lang, slug}: PageParams): Blog {
-  const FOLDER = path.resolve(process.cwd(), 'src/data/posts');
-  const fullPath = path.join(FOLDER, `${lang}/${slug}.mdx`);
-  const markdown = fs.readFileSync(fullPath, 'utf-8');
-  const { data, content } = matter(markdown);
-
-  return {
-    title: data.title,
-    date: data.date,
-    slug,
-    description: data.description,
-    category: data.category,
-    cover: data.cover,
-    content: content,
-  };
+export function getPostBySlug({lang, slug}: PageParams): Blog | null {
+  try {
+    const FOLDER = path.resolve(process.cwd(), 'src/data/posts');
+    const fullPath = path.join(FOLDER, `${lang}/${slug}.mdx`);
+    const markdown = fs.readFileSync(fullPath, 'utf-8');
+    const { data, content } = matter(markdown);
+  
+    return {
+      title: data.title,
+      date: data.date,
+      slug,
+      description: data.description,
+      category: data.category,
+      cover: data.cover,
+      content: content,
+    };
+  } catch (error) {
+    return null;
+  }
 }
 
 export function getTips(lang: PageParams['lang'] = 'en'): TipData[] {
@@ -80,19 +84,23 @@ export function getTips(lang: PageParams['lang'] = 'en'): TipData[] {
     .sort((postA, postB) => (new Date(postA.date) < new Date(postB.date) ? 1 : -1));
 }
 
-export function getTipBySlug({lang, slug}: PageParams): Tip {
-  const FOLDER = path.resolve(process.cwd(), 'src/data/tips');
-  const fullPath = path.join(FOLDER, `${lang}/${slug}.mdx`);
-  const markdown = fs.readFileSync(fullPath, 'utf-8');
-  const { data, content } = matter(markdown);
-
-  return {
-    title: data.title,
-    date: data.date,
-    slug,
-    description: data.description,
-    content: content,
-  };
+export function getTipBySlug({lang, slug}: PageParams): Tip | null {
+  try {
+    const FOLDER = path.resolve(process.cwd(), 'src/data/tips');
+    const fullPath = path.join(FOLDER, `${lang}/${slug}.mdx`);
+    const markdown = fs.readFileSync(fullPath, 'utf-8');
+    const { data, content } = matter(markdown);
+  
+    return {
+      title: data.title,
+      date: data.date,
+      slug,
+      description: data.description,
+      content: content,
+    };
+  } catch (error) {
+    return null;
+  }
 }
 
 export async function getDefaultOpenGraph(lang: PageParams['lang']) {
