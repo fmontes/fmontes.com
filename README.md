@@ -1,6 +1,6 @@
 # 🚀 fmontes.com
 
-Welcome to my personal website. I build it using [Next.js 10](https://nextjs.org/) and is fully multilanguage (English and Spanish) using [Internationalized Routing](https://nextjs.org/docs/advanced-features/i18n-routing).
+Welcome to my personal website. I build it using [Next.js 15](https://nextjs.org/) and is fully multilanguage (English and Spanish) using [Internationalized Routing](https://nextjs.org/docs/advanced-features/i18n-routing).
 
 ## Built using
 - [Next.js](https://nextjs.org/)
