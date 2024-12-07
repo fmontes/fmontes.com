@@ -36,8 +36,14 @@ export async function generateMetadata({
   };
 }
 
-export default function Tip({ params }: { params: PageParams }) {
-  const post = getTipBySlug(params);
+export default async function Tip({
+  params,
+}: {
+  params: Promise<PageParams>
+}) {
+  const pageParams = await params;
+
+  const post = getTipBySlug(pageParams);
 
   if (!post) {
     notFound();
@@ -62,7 +68,7 @@ export default function Tip({ params }: { params: PageParams }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <main className="mx-auto mt-12 prose dark:prose-invert lg:prose-xl dark:prose-h1:text-yellow">
         <p className="not-prose dark:text-blue-500">
-          <DateText date={post.date} locale={params.lang} />
+          <DateText date={post.date} locale={pageParams.lang} />
         </p>
         <h1>{post.title}</h1>
         <MDXRemote
