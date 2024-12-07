@@ -22,9 +22,15 @@ function getPage(params: PageParams) {
   }
 }
 
-export async function generateMetadata({ params }: { params: PageParams }) {
-  const dictionary = await getDictionary(params.lang);
-  const page = getPage(params);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<PageParams>
+}) {
+  const pageParams = await params;
+
+  const dictionary = await getDictionary(pageParams.lang);
+  const page = await getPage(pageParams);
 
   if (!page) {
     return;
@@ -32,17 +38,17 @@ export async function generateMetadata({ params }: { params: PageParams }) {
 
   const { data } = page;
 
-  const defaultOpenGraph = await getDefaultOpenGraph(params.lang);
+  const defaultOpenGraph = await getDefaultOpenGraph(pageParams.lang);
 
   return {
     title: `Freddy Montes - ${data.title}`,
     openGraph: {
       ...defaultOpenGraph,
       title: `Freddy Montes - ${data.title}`,
-      url: `${SITE}/${params.lang}/${params.slug}`,
+      url: `${SITE}/${pageParams.lang}/${pageParams.slug}`,
       images: [
         {
-          url: `${SITE}/static/images/banner_${params.lang}.png`,
+          url: `${SITE}/static/images/banner_${pageParams.lang}.png`,
           alt: `${dictionary.title} - ${dictionary.description}`,
           width: 1200,
           height: 630,
