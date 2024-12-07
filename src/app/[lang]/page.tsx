@@ -4,11 +4,17 @@ import { getDictionary } from './dictionaries';
 import Ebooks from '@/components/Ebooks';
 import { i18n } from '@/utils/i18n/config';
 
-export default async function Home({ params }: { params: PageParams }) {
-  if (!i18n.locales.includes(params.lang as any)) return null;
+export default async function Home({
+  params,
+}: {
+  params: Promise<PageParams>
+}) {
+  const pageParams = await params;
 
-  const dict = await getDictionary(params.lang);
-  const posts = getPosts(params.lang);
+  if (!i18n.locales.includes(pageParams.lang as any)) return null;
+
+  const dict = await getDictionary(pageParams.lang);
+  const posts = getPosts(pageParams.lang);
 
   return (
     <main className="mx-auto mt-5">
