@@ -14,9 +14,14 @@ export const size = {
 export const contentType = 'image/png';
 
 // Image generation
-export default async function Image({ params }: { params: PageParams }) {
+export default async function Image({
+  params,
+}: {
+  params: Promise<PageParams>
+}) {
+  const pageParams = await params;
 
-  const title = await fetch(`${SITE}/api/blog/${params.slug}`)
+  const title = await fetch(`${SITE}/api/blog/${pageParams.slug}`)
     .then((res) => res.json())
     .then((data) => data.message);
 

@@ -1,4 +1,4 @@
-import { MDXRemote } from 'next-mdx-remote/rsc';
+import { MDXRemote } from 'next-mdx-remote';
 import rehypeHighlight from 'rehype-highlight';
 import Image from 'next/image';
 
@@ -8,15 +8,22 @@ import { SITE } from '@/utils/const';
 
 import '../../github-dark.min.css';
 import { notFound } from 'next/navigation';
+import { serialize } from 'next-mdx-remote/serialize';
 
-export async function generateMetadata({ params }: { params: PageParams }) {
-  const post = getTipBySlug(params);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<PageParams>
+}) {
+  const pageParams = await params;
+
+  const post = getTipBySlug(pageParams);
 
   if (!post) {
     return null;
   }
 
-  const defaultOpenGraph = await getDefaultOpenGraph(params.lang);
+  const defaultOpenGraph = await getDefaultOpenGraph(pageParams.lang);
 
   return {
     title: post.title,
@@ -25,13 +32,19 @@ export async function generateMetadata({ params }: { params: PageParams }) {
       ...defaultOpenGraph,
       title: post.title,
       description: post.description,
-      url: `${SITE}/${params.lang}/tips/${params.slug}`,
+      url: `${SITE}/${pageParams.lang}/tips/${pageParams.slug}`,
     },
   };
 }
 
-export default function Tip({ params }: { params: PageParams }) {
-  const post = getTipBySlug(params);
+export default async function Tip({
+  params,
+}: {
+  params: Promise<PageParams>
+}) {
+  const pageParams = await params;
+
+  const post = getTipBySlug(pageParams);
 
   if (!post) {
     notFound();
@@ -51,22 +64,23 @@ export default function Tip({ params }: { params: PageParams }) {
     },
   };
 
+  const source = await serialize(post.content, {
+    mdxOptions: {
+      remarkPlugins: [],
+      rehypePlugins: [[rehypeHighlight as any]],
+    },
+  });
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <main className="mx-auto mt-12 prose dark:prose-invert lg:prose-xl dark:prose-h1:text-yellow">
         <p className="not-prose dark:text-blue-500">
-          <DateText date={post.date} locale={params.lang} />
+          <DateText date={post.date} locale={pageParams.lang} />
         </p>
         <h1>{post.title}</h1>
         <MDXRemote
-          options={{
-            mdxOptions: {
-              remarkPlugins: [],
-              rehypePlugins: [[rehypeHighlight as any]],
-            },
-          }}
-          source={post.content}
+          {...source}
           components={{
             Image: (props) => <Image {...props} />,
           }}

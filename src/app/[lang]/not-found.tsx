@@ -1,5 +1,6 @@
 import { getDictionary } from './dictionaries';
 import React from 'react';
+import Link from 'next/link';
 
 async function NotFoundPage() {
   const dict = await getDictionary('en');
@@ -9,9 +10,9 @@ async function NotFoundPage() {
       <h1>{dict.error.not_found}</h1>
       <p>{dict.error.not_found_desc}</p>
       <p>
-        <a href="/">
+        <Link href="/">
           {dict.error.back_home}
-        </a>
+        </Link>
       </p>
     </div>
   );

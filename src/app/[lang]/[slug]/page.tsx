@@ -1,13 +1,15 @@
 import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
-import { MDXRemote } from 'next-mdx-remote/rsc';
+import { MDXRemote } from 'next-mdx-remote';
 import { notFound } from 'next/navigation'
 
 import { DateText } from '@/components/Date';
 import { PageParams, getDefaultOpenGraph } from '@/utils/content';
 import { SITE } from '@/utils/const';
 import { getDictionary } from '../dictionaries';
+import { serialize } from 'next-mdx-remote/serialize';
+
 
 function getPage(params: PageParams) {
   try {
@@ -21,9 +23,15 @@ function getPage(params: PageParams) {
   }
 }
 
-export async function generateMetadata({ params }: { params: PageParams }) {
-  const dictionary = await getDictionary(params.lang);
-  const page = getPage(params);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<PageParams>
+}) {
+  const pageParams = await params;
+
+  const dictionary = await getDictionary(pageParams.lang);
+  const page = await getPage(pageParams);
 
   if (!page) {
     return;
@@ -31,17 +39,17 @@ export async function generateMetadata({ params }: { params: PageParams }) {
 
   const { data } = page;
 
-  const defaultOpenGraph = await getDefaultOpenGraph(params.lang);
+  const defaultOpenGraph = await getDefaultOpenGraph(pageParams.lang);
 
   return {
     title: `Freddy Montes - ${data.title}`,
     openGraph: {
       ...defaultOpenGraph,
       title: `Freddy Montes - ${data.title}`,
-      url: `${SITE}/${params.lang}/${params.slug}`,
+      url: `${SITE}/${pageParams.lang}/${pageParams.slug}`,
       images: [
         {
-          url: `${SITE}/static/images/banner_${params.lang}.png`,
+          url: `${SITE}/static/images/banner_${pageParams.lang}.png`,
           alt: `${dictionary.title} - ${dictionary.description}`,
           width: 1200,
           height: 630,
@@ -51,14 +59,24 @@ export async function generateMetadata({ params }: { params: PageParams }) {
   };
 }
 
-export default async function Page({ params }: { params: PageParams }) {
-  const page = getPage(params);
+
+
+export default async function Page({
+  params,
+}: {
+  params: Promise<PageParams>
+}) {
+  const pageParams = await params;
+
+  const page = getPage(pageParams);
 
   if (!page) {
     return notFound();
   }
 
   const { data, content } = page;
+
+  const source = await serialize(content);
 
   return (
     <main className="max-w-4xl mx-auto mt-12 prose dark:prose-invert lg:prose-md xl:prose-lg">
@@ -67,7 +85,7 @@ export default async function Page({ params }: { params: PageParams }) {
         components={{
           Date: DateText,
         }}
-        source={content}
+        {...source}
       />
     </main>
   );
