@@ -1,4 +1,4 @@
-import { MDXRemote } from 'next-mdx-remote/rsc';
+import { MDXRemote } from 'next-mdx-remote';
 import rehypeHighlight from 'rehype-highlight';
 import Image from 'next/image';
 
@@ -8,6 +8,7 @@ import { SITE } from '@/utils/const';
 
 import '../../github-dark.min.css';
 import { notFound } from 'next/navigation';
+import { serialize } from 'next-mdx-remote/serialize';
 
 export async function generateMetadata({
   params,
@@ -63,6 +64,13 @@ export default async function Tip({
     },
   };
 
+  const source = await serialize(post.content, {
+    mdxOptions: {
+      remarkPlugins: [],
+      rehypePlugins: [[rehypeHighlight as any]],
+    },
+  });
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -72,13 +80,7 @@ export default async function Tip({
         </p>
         <h1>{post.title}</h1>
         <MDXRemote
-          options={{
-            mdxOptions: {
-              remarkPlugins: [],
-              rehypePlugins: [[rehypeHighlight as any]],
-            },
-          }}
-          source={post.content}
+          {...source}
           components={{
             Image: (props) => <Image {...props} />,
           }}
