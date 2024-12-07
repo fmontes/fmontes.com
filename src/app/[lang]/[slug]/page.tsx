@@ -9,6 +9,7 @@ import { PageParams, getDefaultOpenGraph } from '@/utils/content';
 import { SITE } from '@/utils/const';
 import { getDictionary } from '../dictionaries';
 
+
 function getPage(params: PageParams) {
   try {
     const FOLDER = path.resolve(process.cwd(), 'src/data/pages');
@@ -51,12 +52,13 @@ export async function generateMetadata({ params }: { params: PageParams }) {
   };
 }
 
-interface PageProps {
-  params: PageParams;
-  searchParams: { [key: string]: string | string[] | undefined };
-}
 
-export default async function Page({ params }: PageProps) {
+
+export default async function Page({
+  params,
+}: {
+  params: Promise<PageParams>
+}) {
   const pageParams = await params;
 
   const page = getPage(pageParams);
