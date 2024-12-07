@@ -10,14 +10,20 @@ import { SITE } from '@/utils/const';
 
 import '../../github-dark.min.css';
 
-export async function generateMetadata({ params }: { params: PageParams }) {
-  const post = getPostBySlug(params);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<PageParams>
+}) {
+  const pageParams = await params;
+
+  const post = getPostBySlug(pageParams);
 
   if (!post) {
     return null;
   }
 
-  const defaultOpenGraph = await getDefaultOpenGraph(params.lang);
+  const defaultOpenGraph = await getDefaultOpenGraph(pageParams.lang);
 
   return {
     title: post.title,
@@ -26,13 +32,19 @@ export async function generateMetadata({ params }: { params: PageParams }) {
       ...defaultOpenGraph,
       title: post.title,
       description: post.description,
-      url: `${SITE}/${params.lang}/blog/${params.slug}`,
+      url: `${SITE}/${pageParams.lang}/blog/${pageParams.slug}`,
     },
   };
 }
 
-export default function Blog({ params }: { params: PageParams }) {
-  const post = getPostBySlug(params);
+export default async function Blog({
+  params,
+}: {
+  params: Promise<PageParams>
+}) {
+  const pageParams = await params;
+  
+  const post = getPostBySlug(pageParams);
 
   if (!post) {
     notFound();
