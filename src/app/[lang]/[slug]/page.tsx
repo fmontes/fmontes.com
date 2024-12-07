@@ -1,13 +1,14 @@
 import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
-import { MDXRemote } from 'next-mdx-remote/rsc';
+import { MDXRemote } from 'next-mdx-remote';
 import { notFound } from 'next/navigation'
 
 import { DateText } from '@/components/Date';
 import { PageParams, getDefaultOpenGraph } from '@/utils/content';
 import { SITE } from '@/utils/const';
 import { getDictionary } from '../dictionaries';
+import { serialize } from 'next-mdx-remote/serialize';
 
 
 function getPage(params: PageParams) {
@@ -75,6 +76,8 @@ export default async function Page({
 
   const { data, content } = page;
 
+  const source = await serialize(content);
+
   return (
     <main className="max-w-4xl mx-auto mt-12 prose dark:prose-invert lg:prose-md xl:prose-lg">
       <h1>{data.title}</h1>
@@ -82,7 +85,7 @@ export default async function Page({
         components={{
           Date: DateText,
         }}
-        source={content}
+        {...source}
       />
     </main>
   );
