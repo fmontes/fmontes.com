@@ -56,8 +56,10 @@ interface PageProps {
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
-export default function Page({ params }: PageProps) {
-  const page = getPage(params);
+export default async function Page({ params }: PageProps) {
+  const pageParams = await params;
+
+  const page = getPage(pageParams);
 
   if (!page) {
     return notFound();
