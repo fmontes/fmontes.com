@@ -51,12 +51,12 @@ export async function generateMetadata({ params }: { params: PageParams }) {
   };
 }
 
-type Props = {
+interface PageProps {
   params: PageParams;
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
-export default async function Page({ params }: Props) {
+export default function Page({ params }: PageProps) {
   const page = getPage(params);
 
   if (!page) {
