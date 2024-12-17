@@ -6,7 +6,7 @@ export function DateText({
   date: string;
   locale?: string;
   className?: string;
-}): JSX.Element | null {
+}): React.ReactElement | null {
   if (!date) {
     return null;
   }

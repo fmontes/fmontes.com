@@ -31,7 +31,7 @@ const networks = [
 
 
 
-export function Header(): JSX.Element {
+export function Header(): React.ReactElement {
   return (
     <>
       <header>

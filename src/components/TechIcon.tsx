@@ -4,7 +4,7 @@ type Props = {
     type: string;
     size?: number;
     white?: boolean;
-    fallback?: (type: string) => JSX.Element;
+    fallback?: (type: string) => React.ReactElement;
 };
 
 const map = {
@@ -19,7 +19,7 @@ const map = {
     ui: 'ui'
 };
 
-function TechIcon({ type, size, white, fallback }: Props): JSX.Element {
+function TechIcon({ type, size, white, fallback }: Props): React.ReactElement {
     const item = map[type?.toLowerCase() as keyof typeof map];
 
     if (!item) {

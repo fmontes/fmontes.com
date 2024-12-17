@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-function Badge({ children }: { children: ReactNode }): JSX.Element {
+function Badge({ children }: { children: ReactNode }): React.ReactElement {
   return (
     <small className="text-white bg-pink-500 rounded-sm py-0.5 px-1 uppercase">
       {children}
@@ -18,7 +18,7 @@ function Book({
   price: string;
   title: string;
   image: string;
-}): JSX.Element {
+}): React.ReactElement {
   return (
     <article className="flex gap-x-6">
       <div className="flex-shrink-0 -ml-4">
@@ -32,7 +32,7 @@ function Book({
   );
 }
 
-function Ebooks(): JSX.Element {
+function Ebooks(): React.ReactElement {
   return (
     <section className="bg-yellow text-blue-900 rounded-xl p-10">
       <h2 className="text-lg leading-tight mb-8 font-bold">Get my eBooks</h2>

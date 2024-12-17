@@ -245,7 +245,7 @@ index 9249d5b..d9205af 100644
 
  const notion = new Client({
      auth: process.env.NOTION_SECRET
-@@ -151.11 +158.8 @@ export const renderBlock = (block): JSX.Element => {
+@@ -151.11 +158.8 @@ export const renderBlock = (block): React.ReactElement => {
                  </figure>
              );
          case 'code':

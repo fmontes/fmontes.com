@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { Thumbnail } from "./Thumbnail";
 import { NavLink } from './NavLink';
 
@@ -9,7 +9,7 @@ type Props = {
   href: string;
 };
 
-function CardItem({ href, children, imageUrl, category }: Props): JSX.Element {
+function CardItem({ href, children, imageUrl, category }: Props): React.ReactElement {
 
   return <article
     className="border-b-2 border-solid border-blue-100 dark:border-blue-800 pb-6"

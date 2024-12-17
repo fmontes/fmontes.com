@@ -13,7 +13,7 @@ export function Thumbnail({
     imageUrl: string | null;
     width: string;
     height?: string;
-}): JSX.Element {
+}): React.ReactElement {
 
     const image = ['relative', 'rounded-sm', 'overflow-hidden', 'flex-shrink-0'];
     const fallback = [

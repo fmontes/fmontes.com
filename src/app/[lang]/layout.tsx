@@ -12,9 +12,14 @@ import { SITE } from "@/utils/const";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export async function generateMetadata({ params }: { params: PageParams }) {
-  const dictionary = await getDictionary(params.lang)
-  const defaultOpenGraph = await getDefaultOpenGraph(params.lang)
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<PageParams>
+}) {
+  const pageParams = await params;
+  const dictionary = await getDictionary(pageParams.lang)
+  const defaultOpenGraph = await getDefaultOpenGraph(pageParams.lang)
 
   return {
     metadataBase: new URL(SITE),
@@ -33,14 +38,15 @@ export default async function RootLayout({
   params,
   children
 }: Readonly<{
-  params: PageParams;
+  params: Promise<PageParams>;
   children: React.ReactNode;
 }>) {
+  const pageParams = await params;
 
-  const dictionary = await getDictionary(params.lang)
+  const dictionary = await getDictionary(pageParams.lang)
 
   return (
-    <html lang={params.lang}>
+    <html lang={pageParams.lang}>
       <head>
         <Script
           strategy="lazyOnload"

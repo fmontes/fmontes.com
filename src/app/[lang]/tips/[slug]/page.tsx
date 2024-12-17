@@ -1,13 +1,12 @@
-import { MDXRemote } from 'next-mdx-remote';
+import { notFound } from 'next/navigation';
 import rehypeHighlight from 'rehype-highlight';
-import Image from 'next/image';
 
 import { PageParams, getDefaultOpenGraph, getTipBySlug } from '@/utils/content';
 import { DateText } from '@/components/Date';
 import { SITE } from '@/utils/const';
+import { MDXContent } from '@/components/MDXContent';
 
 import '../../github-dark.min.css';
-import { notFound } from 'next/navigation';
 import { serialize } from 'next-mdx-remote/serialize';
 
 export async function generateMetadata({
@@ -79,12 +78,7 @@ export default async function Tip({
           <DateText date={post.date} locale={pageParams.lang} />
         </p>
         <h1>{post.title}</h1>
-        <MDXRemote
-          {...source}
-          components={{
-            Image: (props) => <Image {...props} />,
-          }}
-        />
+        <MDXContent source={source} />
       </main>
     </>
   );

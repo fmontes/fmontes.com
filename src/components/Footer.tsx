@@ -1,4 +1,4 @@
-export function Footer(): JSX.Element {
+export function Footer(): React.ReactElement {
   return (
       <div className="prose dark:prose-invert mx-auto mt-24">
           <p>

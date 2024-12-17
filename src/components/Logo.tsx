@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const AVATAR_SIZE = 60;
 
-export function Logo(): JSX.Element {
+export function Logo(): React.ReactElement {
     return (
         <Link href="/" className="inline-flex items-center no-underline">
             <div className="flex-shrink-0 mr-4" style={{ height: `${AVATAR_SIZE}px` }}>
