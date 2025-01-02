@@ -2,6 +2,7 @@
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import Image from 'next/image';
 import rehypeHighlight from 'rehype-highlight';
+import { DateText } from './Date';
 
 interface MDXContentProps {
   source: string;
@@ -18,7 +19,8 @@ export function MDXContent({ source, }: MDXContentProps) {
           rehypePlugins: [[rehypeHighlight as any]],
         },
       }}
-      components={{ 
+      components={{
+        Date: DateText,
         Image: (props) => <Image {...props} />,
       }}
     />
