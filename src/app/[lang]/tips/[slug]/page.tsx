@@ -1,5 +1,4 @@
 import { notFound } from 'next/navigation';
-import rehypeHighlight from 'rehype-highlight';
 
 import { PageParams, getDefaultOpenGraph, getTipBySlug } from '@/utils/content';
 import { DateText } from '@/components/Date';
@@ -7,7 +6,6 @@ import { SITE } from '@/utils/const';
 import { MDXContent } from '@/components/MDXContent';
 
 import '../../github-dark.min.css';
-import { serialize } from 'next-mdx-remote/serialize';
 
 export async function generateMetadata({
   params,
@@ -63,13 +61,6 @@ export default async function Tip({
     },
   };
 
-  const source = await serialize(post.content, {
-    mdxOptions: {
-      remarkPlugins: [],
-      rehypePlugins: [[rehypeHighlight as any]],
-    },
-  });
-
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -78,7 +69,7 @@ export default async function Tip({
           <DateText date={post.date} locale={pageParams.lang} />
         </p>
         <h1>{post.title}</h1>
-        <MDXContent source={source} />
+        <MDXContent source={post.content} />
       </main>
     </>
   );
