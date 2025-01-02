@@ -1,20 +1,24 @@
-'use client';
 
-import { MDXRemote } from 'next-mdx-remote';
+import { MDXRemote } from 'next-mdx-remote/rsc';
 import Image from 'next/image';
-import { MDXRemoteSerializeResult } from 'next-mdx-remote';
-import { serialize } from 'next-mdx-remote/serialize';
 import rehypeHighlight from 'rehype-highlight';
 
 interface MDXContentProps {
-  source: MDXRemoteSerializeResult;
+  source: string;
+  options?: any;
 }
 
-export async function MDXContent({ source }: MDXContentProps) {
+export function MDXContent({ source, }: MDXContentProps) {
   return (
     <MDXRemote
-      {...source}
-      components={{
+      source={source}
+      options={{
+        mdxOptions: {
+          remarkPlugins: [],
+          rehypePlugins: [[rehypeHighlight as any]],
+        },
+      }}
+      components={{ 
         Image: (props) => <Image {...props} />,
       }}
     />
