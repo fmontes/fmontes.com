@@ -5,6 +5,7 @@ import { Footer } from '@/components/Footer';
 
 import './globals.css';
 import './github-dark.min.css';
+import { defaultOpenGraph } from '@/utils/content';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -16,12 +17,10 @@ export const metadata: Metadata = {
   description: 'Software Engineer, Frontend Developer, and UI Designer',
   metadataBase: new URL('https://fmontes.com'),
   openGraph: {
+    ...defaultOpenGraph,
     title: 'Freddy Montes',
     description: 'Software Engineer, Frontend Developer, and UI Designer',
     url: 'https://fmontes.com',
-    siteName: 'Freddy Montes',
-    locale: 'en',
-    type: 'website',
   },
 };
 

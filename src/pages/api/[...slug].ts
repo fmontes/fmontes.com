@@ -5,12 +5,15 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { slug } = req.query;
 
-  if (!slug || !Array.isArray(slug) || slug.length < 2) {
+  if (!slug || !Array.isArray(slug) || slug.length < 1) {
     return res.status(400).json({ error: 'Invalid slug' });
   }
 
-  const type = slug[0];
-  const postSlug = slug[1];
+  const [type, postSlug] = slug;
+
+  if (!postSlug) {
+    return res.status(400).json({ error: 'Missing slug' });
+  }
 
   if (type !== 'blog' && type !== 'tips') {
     return res.status(400).json({ error: 'Invalid type' });
@@ -27,5 +30,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   return res.status(200).json({
     title: post.title,
     description: post.description,
+    image: post.cover,
   });
 }

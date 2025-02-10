@@ -2,7 +2,8 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getPostBySlug } from '@/utils/content';
 import { MDXContent } from '@/components/MDXContent';
-
+import { SITE } from '@/utils/const';
+import { defaultOpenGraph } from '@/utils/content';
 interface Props {
   params: Promise<{
     slug: string;
@@ -21,9 +22,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: post.title,
     description: post.description,
     openGraph: {
+      ...defaultOpenGraph,
       title: post.title,
       description: post.description,
       type: 'article',
+      url: `${SITE}/blog/${post.slug}`,
     },
   };
 }
