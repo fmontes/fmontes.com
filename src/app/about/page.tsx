@@ -39,7 +39,7 @@ export default function About() {
 
       <h3>Want to build something?</h3>
       <p>
-        If you want to work with me just shoot me an email and I'll be ready to make it happen.
+        If you want to work with me just shoot me an email and I&apos;ll be ready to make it happen.
       </p>
 
       <h3>Skills</h3>

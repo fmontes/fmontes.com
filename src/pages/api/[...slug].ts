@@ -2,24 +2,30 @@
 import { getPostBySlug, getTipBySlug } from '@/utils/content';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-type ResponseData = {
-  message: string;
-};
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const { slug } = req.query;
 
-export default function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
-  const [type, slug] = req.query.slug as string[];
+  if (!slug || !Array.isArray(slug) || slug.length < 2) {
+    return res.status(400).json({ error: 'Invalid slug' });
+  }
+
+  const type = slug[0];
+  const postSlug = slug[1];
+
+  if (type !== 'blog' && type !== 'tips') {
+    return res.status(400).json({ error: 'Invalid type' });
+  }
 
   const callback = type === 'blog' ? getPostBySlug : getTipBySlug;
 
-  const post = callback({
-    slug: slug,
-    lang: 'en',
-  });
+  const post = await callback(postSlug);
 
   if (!post) {
-    res.status(404).json({ message: 'Not found' });
-    return 
+    return res.status(404).json({ error: 'Not found' });
   }
 
-  res.status(200).json({ message: post.title });
+  return res.status(200).json({
+    title: post.title,
+    description: post.description,
+  });
 }
