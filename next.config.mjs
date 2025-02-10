@@ -1,3 +1,20 @@
+import createMDX from '@next/mdx'
+import remarkCodeTitles from 'remark-code-titles'
+import remarkFrontmatter from 'remark-frontmatter'
+import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
+import rehypeHighlight from 'rehype-highlight'
+
+const withMDX = createMDX({
+  options: {
+    remarkPlugins: [
+      remarkCodeTitles,
+      remarkFrontmatter,
+      remarkMdxFrontmatter,
+    ],
+    rehypePlugins: [rehypeHighlight],
+  },
+})
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -8,8 +25,9 @@ const nextConfig = {
         port: ''
       },
     ]
-  }
-};
+  },
+  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
+}
 
-export default nextConfig;
+export default withMDX(nextConfig)
 
