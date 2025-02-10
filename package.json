@@ -9,11 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@formatjs/intl-localematcher": "^0.5.9",
     "@next/mdx": "^15.1.0",
     "@types/mdx": "^2.0.13",
     "gray-matter": "^4.0.3",
-    "negotiator": "^1.0.0",
     "next": "^15.1.0",
     "next-mdx-remote": "^5.0.0",
     "react": "^19.0.0",
@@ -25,7 +23,6 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.15",
-    "@types/negotiator": "^0.6.3",
     "@types/node": "^22.10.2",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.2",
