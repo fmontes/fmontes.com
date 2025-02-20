@@ -1,10 +1,8 @@
 export function DateText({
   date,
-  locale,
   className,
 }: {
   date: string;
-  locale?: string;
   className?: string;
 }): React.ReactElement | null {
   if (!date) {
@@ -12,9 +10,10 @@ export function DateText({
   }
 
   const options: Intl.DateTimeFormatOptions = { month: "long", day: "numeric", year: "numeric" };
-
-
-  const finalDate = new Intl.DateTimeFormat(`${locale || 'en'}-US`, options).format(new Date(date));
+  
+  // Add timezone handling to ensure consistent date display
+  const [year, month, day] = date.split('-').map(Number);
+  const finalDate = new Intl.DateTimeFormat('en-US', options).format(new Date(year, month - 1, day));
 
   return <time className={className}>{finalDate}</time>;
 }

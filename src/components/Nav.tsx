@@ -2,46 +2,37 @@
 
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
-
 import Image from 'next/image';
-import { NavLink } from './NavLink';
-import { useDictionary } from '@/providers/dictionary-provider';
-import { getFirstFolderLevel } from '@/utils/i18n/config';
+import Link from 'next/link';
 
 export function Nav() {
-    const pathname = usePathname();
-    const dictionary = useDictionary()
-
+    const pathname = usePathname() || '';
     const [show, setShow] = useState(false);
 
     const items = [
-        { label: dictionary.nav.home, href: '/' },
-        { label: dictionary.nav.blog, href: '/blog' },
-        { label: dictionary.nav.tips, href: '/tips' },
-        { label: dictionary.nav.about, href: '/about' },
-        { label: dictionary.nav.uses, href: '/uses' },
-        { label: dictionary.nav.talks, href: '/talks' },
-        { label: dictionary.nav.contact, href: 'mailto:me@fmontes.com?subject=Hello from your website' },
-    ]
+        { label: 'Home', href: '/' },
+        { label: 'Blog', href: '/blog' },
+        { label: 'Tips', href: '/tips' },
+        { label: 'About', href: '/about' },
+        { label: 'Uses', href: '/uses' },
+        { label: 'Contact', href: 'mailto:me@fmontes.com?subject=Hello from your website' },
+    ];
 
     return (
         <>
             <nav
-                className={`${show ? 'block' : 'hidden'
-                    } fixed top-0 right-0 z-10 flex flex-col lg:flex-row lg:flex lg:static bg-blue-800 lg:bg-transparent`}
+                className={`${show ? 'block' : 'hidden'} fixed top-0 right-0 z-10 flex flex-col lg:flex-row lg:flex lg:static bg-blue-800 lg:bg-transparent`}
                 onClick={() => {
                     setShow(false);
                 }}>
                 {items.map((item, i) => {
-                    const folder = getFirstFolderLevel(pathname);
-
-                    const active = folder === item.href;
+                    const active = pathname === item.href || pathname.startsWith(item.href + '/');
                     const className = `${active ? 'dark:text-yellow text-yellow lg:text-blue-900 underline' : 'dark:text-blue-50 text-blue-50 lg:text-blue-700'} block py-2 pl-5 pr-16 lg:p-2 hover:underline`;
 
                     return (
-                        <NavLink className={className} key={i} href={item.href}>
+                        <Link className={className} key={i} href={item.href}>
                             {item.label}
-                        </NavLink>
+                        </Link>
                     );
                 })}
             </nav>
