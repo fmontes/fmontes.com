@@ -4,6 +4,7 @@ import { getPostBySlug } from '@/utils/content';
 import { MDXContent } from '@/components/MDXContent';
 import { SITE } from '@/utils/const';
 import { defaultOpenGraph } from '@/utils/content';
+import { DateText } from '@/components/Date';
 interface Props {
   params: Promise<{
     slug: string;
@@ -40,7 +41,11 @@ export default async function BlogPost({ params }: Props) {
   }
 
   return (
-    <article className="prose dark:prose-invert mx-auto mt-12">
+    <article className="mx-auto mt-12 prose dark:prose-invert lg:prose-xl dark:prose-h1:text-yellow">
+        <p className="not-prose dark:text-blue-500">
+          <DateText date={post.date} />
+        </p>
+        
       <h1>{post.title}</h1>
       <MDXContent source={post.content} />
     </article>

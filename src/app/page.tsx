@@ -8,7 +8,7 @@ export default async function Home() {
   return (
     <main className="mx-auto mt-5">
       <h1 className="my-16 text-xl font-normal leading-tight tracking-tight text-blue-700 dark:text-cyan lg:text-2xl sm:my-20 md:text-center">
-        Bridging design and code for impactful product solutions
+        Bridging <b>design and code</b> for impactful product solutions
       </h1>
 
       <div className="block max-w-full prose dark:prose-invert">
