@@ -1,5 +1,4 @@
-// import { getPostBySlug } from '@/utils/content';
-import { getPostBySlug, getTipBySlug } from '@/utils/content';
+import { getPostBySlug, getTipBySlug, Blog } from '@/utils/content';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -30,6 +29,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   return res.status(200).json({
     title: post.title,
     description: post.description,
-    image: post.cover,
+    ...(type === 'blog' && { image: (post as Blog).cover }),
   });
 }
