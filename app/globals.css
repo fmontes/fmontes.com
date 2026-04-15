@@ -2,8 +2,10 @@
 
 :root {
   --background: #f7f4ee;
-  --foreground: #1a1a1a;
-  --muted: #6b665d;
+  --surface: #f1ece1;
+  --ink-strong: #0f0f0e;
+  --ink: #2a2824;
+  --muted: #7a756a;
   --rule: #d9d3c6;
   --accent: #1f3a5f;
   --accent-hover: #2d4f7f;
@@ -11,7 +13,9 @@
 
 @theme inline {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-ink-strong: var(--ink-strong);
+  --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-rule: var(--rule);
   --color-accent: var(--accent);
@@ -23,7 +27,9 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #16140f;
-    --foreground: #ede8de;
+    --surface: #1e1b15;
+    --ink-strong: #f7f2e6;
+    --ink: #d8d2c3;
     --muted: #8a8478;
     --rule: #2e2a22;
     --accent: #9fb8d9;
@@ -33,7 +39,7 @@
 
 body {
   background: var(--background);
-  color: var(--foreground);
+  color: var(--ink);
   font-family: var(--font-sans), system-ui, sans-serif;
   font-feature-settings: "ss01", "cv11";
 }
