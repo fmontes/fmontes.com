@@ -1,9 +1,22 @@
 export default function Home() {
   return (
     <main className="mx-auto w-full max-w-[660px] px-6 pt-20 pb-32 sm:pt-28 text-[17px] leading-[1.7] text-ink">
-      {/* ── Eyebrow ────────────────────────────────────────────── */}
-      <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-muted mb-10">
-        Freddy Montes — VP of Product, dotCMS
+      {/* ── Header: name + socials ─────────────────────────────── */}
+      <header className="flex items-baseline justify-between gap-6 mb-4 sm:mb-6">
+        <p className="font-serif text-[28px] sm:text-[32px] leading-none tracking-[-0.01em] text-ink-strong">
+          Freddy Montes
+        </p>
+        <nav className="flex items-center gap-x-3 sm:gap-x-4 text-[13px] sm:text-[14px]">
+          <Link href="https://linkedin.com/in/fmontes">LinkedIn</Link>
+          <Dot />
+          <Link href="https://x.com/fmontes">Twitter</Link>
+          <Dot />
+          <Link href="https://github.com/fmontes">GitHub</Link>
+        </nav>
+      </header>
+
+      <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-muted mb-14">
+        VP of Product, dotCMS
       </p>
 
       {/* ── Hero thesis ────────────────────────────────────────── */}
@@ -26,8 +39,8 @@ export default function Home() {
         <p>
           Currently VP of Product at{" "}
           <strong className="font-medium text-ink-strong">dotCMS</strong>, used
-          by organizations including Vodafone, Royal Bank of Canada, and
-          BlueCross BlueShield.
+          by organizations including Vodafone, Royal Bank of Canada, BlueCross
+          BlueShield, Telus, White Castle, City Furniture, and Caliber.
         </p>
       </div>
 
@@ -153,9 +166,9 @@ export default function Home() {
         <nav className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[15px]">
           <Link href="https://linkedin.com/in/fmontes">LinkedIn</Link>
           <Dot />
-          <Link href="https://twitter.com/faborules">Twitter / X</Link>
+          <Link href="https://x.com/fmontes">Twitter / X</Link>
           <Dot />
-          <Link href="mailto:hello@fmontes.com">Email</Link>
+          <Link href="https://github.com/fmontes">GitHub</Link>
         </nav>
       </section>
     </main>
