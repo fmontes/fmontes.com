@@ -20,7 +20,7 @@ export default function Home() {
       </p>
 
       {/* ── Hero thesis ────────────────────────────────────────── */}
-      <h1 className="font-serif text-[44px] sm:text-[60px] leading-[1.05] tracking-[-0.015em] text-ink-strong mb-8">
+      <h1 className="font-serif text-[44px] sm:text-[60px] leading-[1.05] tracking-[-0.015em] text-ink-strong mb-8 text-balance">
         I build the <em className="text-accent">AI systems</em> I lead teams to
         ship.
       </h1>
@@ -208,7 +208,7 @@ function Link({
   return (
     <a
       href={href}
-      className="text-accent underline decoration-rule underline-offset-[5px] hover:decoration-accent transition-colors"
+      className="text-accent underline decoration-rule underline-offset-[5px] hover:decoration-accent transition-[color,transform] active:scale-[0.96]"
     >
       {children}
     </a>
@@ -230,7 +230,7 @@ function Entry({
         {num}
       </span>
       <div>
-        <h3 className="font-serif text-[26px] sm:text-[30px] leading-[1.2] tracking-[-0.01em] text-ink-strong mb-5">
+        <h3 className="font-serif text-[26px] sm:text-[30px] leading-[1.2] tracking-[-0.01em] text-ink-strong mb-5 text-balance">
           {title}
         </h3>
         <div className="text-ink">{children}</div>
