@@ -7,11 +7,17 @@ export default function Home() {
           Freddy Montes
         </p>
         <nav className="flex items-center gap-x-3 sm:gap-x-4 text-[13px] sm:text-[14px]">
-          <Link href="https://linkedin.com/in/fmontes">LinkedIn</Link>
+          <Link href="https://linkedin.com/in/fmontes" pad>
+            LinkedIn
+          </Link>
           <Dot />
-          <Link href="https://x.com/fmontes">Twitter</Link>
+          <Link href="https://x.com/fmontes" pad>
+            Twitter
+          </Link>
           <Dot />
-          <Link href="https://github.com/fmontes">GitHub</Link>
+          <Link href="https://github.com/fmontes" pad>
+            GitHub
+          </Link>
         </nav>
       </header>
 
@@ -164,11 +170,17 @@ export default function Home() {
           interested.
         </p>
         <nav className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[15px]">
-          <Link href="https://linkedin.com/in/fmontes">LinkedIn</Link>
+          <Link href="https://linkedin.com/in/fmontes" pad>
+            LinkedIn
+          </Link>
           <Dot />
-          <Link href="https://x.com/fmontes">Twitter / X</Link>
+          <Link href="https://x.com/fmontes" pad>
+            Twitter / X
+          </Link>
           <Dot />
-          <Link href="https://github.com/fmontes">GitHub</Link>
+          <Link href="https://github.com/fmontes" pad>
+            GitHub
+          </Link>
         </nav>
       </section>
     </main>
@@ -201,14 +213,22 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
 function Link({
   href,
   children,
+  pad = false,
 }: {
   href: string;
   children: React.ReactNode;
+  pad?: boolean;
 }) {
   return (
     <a
       href={href}
-      className="text-accent underline decoration-rule underline-offset-[5px] hover:decoration-accent transition-[color,transform] active:scale-[0.96]"
+      className={
+        "text-accent underline decoration-rule underline-offset-[5px] hover:decoration-accent transition-[scale,text-decoration-color] duration-150 ease-out active:scale-[0.96]" +
+        // Expand the vertical hit area to ~44px on standalone nav links without
+        // shifting layout. Only vertical — horizontal padding would overlap the
+        // adjacent · separators (never overlap two interactive hit areas).
+        (pad ? " inline-block py-[13px] -my-[13px]" : "")
+      }
     >
       {children}
     </a>
