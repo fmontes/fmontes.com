@@ -170,6 +170,7 @@ export default function FX() {
       const threadFill = document.querySelector<HTMLElement>(
         "[data-thread-fill]",
       );
+      const thread = threadFill?.closest<HTMLElement>(".scroll-thread") ?? null;
       const parallaxEls = Array.from(
         document.querySelectorAll<HTMLElement>("[data-parallax]"),
       );
@@ -298,6 +299,12 @@ export default function FX() {
           const vw = window.innerWidth;
           const max = Math.max(0, hTrack.scrollWidth - vw);
           hTrack.style.transform = `translate3d(${(-p * max).toFixed(1)}px, 0, 0)`;
+
+          /* The thread yields while panels sweep the viewport */
+          if (thread) {
+            const pinned = r.top <= 0 && r.bottom >= vh;
+            thread.classList.toggle("thread-dim", pinned);
+          }
 
           let nearest = 0;
           let best = Infinity;
