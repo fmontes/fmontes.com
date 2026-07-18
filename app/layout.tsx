@@ -1,31 +1,27 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Instrument_Serif, Inter, JetBrains_Mono } from "next/font/google";
+import { Barlow_Condensed, Public_Sans } from "next/font/google";
 import "./globals.css";
 
 const GA_ID = "G-44WBKT7YY5";
 
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-serif",
+const barlowCondensed = Barlow_Condensed({
+  variable: "--font-display",
   subsets: ["latin"],
-  weight: ["400"],
-  style: ["normal", "italic"],
+  weight: ["600", "700", "800"],
+  display: "swap",
 });
 
-const inter = Inter({
-  variable: "--font-sans",
+const publicSans = Public_Sans({
+  variable: "--font-body",
   subsets: ["latin"],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-mono",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Freddy Montes — VP of Product",
+  title: "Freddy Montes | Product Executive & AI Systems Builder",
   description:
-    "I build the AI systems I lead teams to ship. VP of Product at dotCMS.",
+    "Product executive who turns AI strategy into working systems. VP of Product at dotCMS.",
 };
 
 export default function RootLayout({
@@ -36,7 +32,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${instrumentSerif.variable} ${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${barlowCondensed.variable} ${publicSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
       <Script
