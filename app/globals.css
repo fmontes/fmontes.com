@@ -1,14 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f7f4ee;
-  --surface: #f1ece1;
-  --ink-strong: #0f0f0e;
-  --ink: #2a2824;
-  --muted: #7a756a;
-  --rule: #d9d3c6;
-  --accent: #1f3a5f;
-  --accent-hover: #2d4f7f;
+  --background: oklch(0.968 0.009 84.6);
+  --surface: oklch(0.944 0.016 86.4);
+  --ink-strong: oklch(0.168 0.002 106.6);
+  --ink: oklch(0.278 0.008 84.6);
+  --muted: oklch(0.515 0.018 86.5);
+  --rule: oklch(0.868 0.019 86.2);
+  --accent: oklch(0.347 0.073 256.7);
+  --accent-hover: oklch(0.426 0.09 257.2);
+
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-quart: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --grain-opacity: 0.032;
+  --z-grain: 40;
 }
 
 @theme inline {
@@ -19,6 +25,7 @@
   --color-muted: var(--muted);
   --color-rule: var(--rule);
   --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
   --font-serif: var(--font-serif);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
@@ -26,14 +33,26 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #16140f;
-    --surface: #1e1b15;
-    --ink-strong: #f7f2e6;
-    --ink: #d8d2c3;
-    --muted: #8a8478;
-    --rule: #2e2a22;
-    --accent: #9fb8d9;
-    --accent-hover: #c2d3e8;
+    --background: oklch(0.192 0.01 88.8);
+    --surface: oklch(0.223 0.012 84.5);
+    --ink-strong: oklch(0.962 0.017 88);
+    --ink: oklch(0.864 0.021 88.7);
+    --muted: oklch(0.615 0.019 84.6);
+    --rule: oklch(0.287 0.015 84.6);
+    --accent: oklch(0.775 0.055 255.5);
+    --accent-hover: oklch(0.861 0.035 253.7);
+
+    --grain-opacity: 0.05;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
@@ -42,5 +61,530 @@ body {
   color: var(--ink);
   font-family: var(--font-sans), system-ui, sans-serif;
   font-feature-settings: "ss01", "cv11";
+  font-synthesis: none;
   text-wrap: pretty;
+}
+
+/* ── Paper grain ─────────────────────────────────────────────── */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-grain);
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* ── Selection & focus ───────────────────────────────────────── */
+::selection {
+  background: var(--accent);
+  color: var(--background);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+/* ── Hero choreography (staged sequence: keyframes, plays once) ─ */
+.hero-word {
+  display: inline-block;
+  overflow: clip;
+  vertical-align: bottom;
+  /* keep serif descenders inside the mask */
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.hero-word > span {
+  display: inline-block;
+}
+
+@keyframes hero-word-in {
+  from {
+    transform: translateY(115%);
+    opacity: 0;
+    filter: blur(6px);
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes hero-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes line-draw-in {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Accent underline that draws itself. Default state is drawn (no-JS safe);
+   the animation only re-runs the draw when JS is present. */
+.u-line {
+  position: relative;
+  white-space: nowrap;
+}
+
+.u-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.04em;
+  height: 0.045em;
+  min-height: 1.5px;
+  background: var(--accent);
+  transform-origin: left;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.js .hero-word > span {
+    animation: hero-word-in 0.95s var(--ease-expo) backwards;
+    animation-delay: var(--d, 0ms);
+  }
+
+  html.js .hero-fade {
+    animation: hero-fade-in 1s var(--ease-expo) backwards;
+    animation-delay: var(--d, 0ms);
+  }
+
+  html.js .u-line.hero-line::after {
+    animation: line-draw-in 0.7s var(--ease-expo) backwards;
+    animation-delay: var(--d, 0ms);
+  }
+
+  html.js .u-line.reveal-line::after {
+    transform: scaleX(0);
+    transition: transform 0.8s var(--ease-expo) 0.25s;
+  }
+
+  html.js .is-in .u-line.reveal-line::after,
+  html.js .u-line.reveal-line.is-in::after,
+  html.js .line-drawn .u-line.reveal-line::after {
+    transform: scaleX(1);
+  }
+}
+
+/* ── Scroll reveals (transitions: interruptible, JS-gated) ────── */
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-reveal] {
+    opacity: 0;
+    transform: translateY(26px);
+    transition:
+      opacity 0.9s var(--ease-expo),
+      transform 0.9s var(--ease-expo);
+    transition-delay: var(--d, 0ms);
+  }
+
+  html.js [data-reveal].is-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  html.js [data-reveal="draw"] {
+    opacity: 1;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1s var(--ease-expo);
+    transition-delay: var(--d, 0ms);
+  }
+
+  html.js [data-reveal="draw"].is-in {
+    transform: scaleX(1);
+  }
+
+  html.js [data-reveal="settle"] {
+    filter: blur(5px);
+    transform: translateY(16px);
+    transition:
+      opacity 1s var(--ease-expo),
+      transform 1s var(--ease-expo),
+      filter 1s var(--ease-expo);
+  }
+
+  html.js [data-reveal="settle"].is-in {
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+/* ── Links: underline sweep ──────────────────────────────────── */
+.link {
+  position: relative;
+  color: var(--accent);
+  text-decoration: none;
+  padding-bottom: 3px;
+  background-image: linear-gradient(var(--rule), var(--rule));
+  background-size: 100% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: scale 0.25s var(--ease-quart);
+}
+
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s var(--ease-expo);
+}
+
+.link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link::after {
+    transition: none;
+  }
+}
+
+/* ── Magnetic elements ───────────────────────────────────────── */
+[data-magnetic]:active {
+  scale: 0.96;
+  transition: scale 0.2s var(--ease-quart);
+}
+
+.link-arrow {
+  display: inline-block;
+  transition: translate 0.3s var(--ease-quart);
+}
+
+.link:hover .link-arrow {
+  translate: 3px 0;
+}
+
+/* ── Scroll thread: journey progress in the margin ─────────── */
+.scroll-thread {
+  display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: max(20px, calc(50vw - 420px));
+  width: 1px;
+  background: var(--rule);
+  z-index: 30;
+  pointer-events: none;
+}
+
+.scroll-thread-fill {
+  width: 100%;
+  height: 0;
+  background: var(--accent);
+}
+
+@media (min-width: 1100px) and (prefers-reduced-motion: no-preference) {
+  html.js .scroll-thread {
+    display: block;
+  }
+}
+
+/* ── Focus lines: ignite at the reading zone ───────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-focus] {
+    color: color-mix(
+      in oklab,
+      var(--ink-strong) calc(var(--f, 0) * 100%),
+      var(--muted)
+    );
+    translate: var(--dx, 0px) calc((1 - var(--f, 0)) * 5px);
+  }
+}
+
+/* ── Scroll cue ────────────────────────────────────────────── */
+.cue-line {
+  width: 1px;
+  height: 44px;
+  background: var(--muted);
+  transform-origin: top;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.js .cue-line {
+    animation: cue-grow 2.2s var(--ease-quart) infinite;
+  }
+}
+
+@keyframes cue-grow {
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  40% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  75% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 0;
+  }
+}
+
+/* ── Horizontal gallery ────────────────────────────────────── */
+.hscroll-index,
+.hscroll-progress {
+  visibility: hidden;
+}
+
+.hscroll-panel {
+  border-top: 1px solid var(--rule);
+  padding: 40px 24px 56px;
+  margin: 0 24px;
+}
+
+@media (min-width: 640px) {
+  .hscroll-panel {
+    padding: 48px 48px 64px;
+    margin: 0 48px;
+  }
+}
+
+.hscroll-live {
+  height: 430vh;
+}
+
+.hscroll-live .hscroll-sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hscroll-live .hscroll-head {
+  margin-bottom: 0;
+  position: absolute;
+  top: 32px;
+  left: 0;
+  right: 0;
+}
+
+.hscroll-live .hscroll-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  padding: 0 6vw;
+}
+
+.hscroll-live .hscroll-panel {
+  border-top: none;
+  margin: 0;
+  padding: 0 8vw 0 0;
+  min-width: 82vw;
+}
+
+@media (min-width: 640px) {
+  .hscroll-live .hscroll-panel {
+    min-width: 58vw;
+  }
+}
+
+@media (min-width: 1100px) {
+  .hscroll-live .hscroll-panel {
+    min-width: 46vw;
+  }
+}
+
+.hscroll-live .hscroll-index {
+  visibility: visible;
+}
+
+.hscroll-progress {
+  position: absolute;
+  bottom: 32px;
+  left: 24px;
+  right: 24px;
+  height: 1px;
+  background: var(--rule);
+}
+
+@media (min-width: 640px) {
+  .hscroll-progress {
+    left: 48px;
+    right: 48px;
+  }
+}
+
+.hscroll-progress span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.hscroll-live .hscroll-progress {
+  visibility: visible;
+}
+
+/* ── Elsewhere rows ────────────────────────────────────────── */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .else-row p {
+    transition: translate 0.5s var(--ease-quart);
+  }
+
+  .else-row:hover p {
+    translate: 6px 0;
+  }
+}
+
+/* ── The method: pinned walkthrough ────────────────────────── */
+.method-lines p {
+  font-family: var(--font-serif), serif;
+  font-size: 22px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--ink-strong);
+  margin-bottom: 0.55em;
+}
+
+.method-index,
+.method-dashes {
+  visibility: hidden;
+}
+
+.method-dash {
+  width: 20px;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.method-live {
+  height: 340vh;
+}
+
+.method-live .method-sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+}
+
+.method-panel {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (min-width: 640px) {
+  .method-panel {
+    padding: 0 48px;
+  }
+}
+
+.method-live .method-lines p {
+  line-height: 1.22;
+}
+
+.method-live .method-index,
+.method-live .method-dashes {
+  visibility: visible;
+}
+
+/* ── Kicker: the held beat ─────────────────────────────────── */
+.kicker-live {
+  height: 160vh;
+}
+
+.kicker-live .kicker-sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+}
+
+html.js .kicker-live .u-line.kicker-line::after {
+  transform: scaleX(var(--k, 0));
+}
+
+/* ── Entry hover life ────────────────────────────────────────── */
+.entry {
+  transition: translate 0.5s var(--ease-quart);
+}
+
+.entry .entry-num {
+  transition:
+    translate 0.5s var(--ease-quart),
+    color 0.5s var(--ease-quart);
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .entry:hover .entry-num {
+    translate: 0.35rem 0;
+    color: var(--accent-hover);
+  }
+}
+
+/* ── Availability pulse ──────────────────────────────────────── */
+.pulse-dot {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: var(--accent);
+}
+
+.pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 9999px;
+  border: 1px solid var(--accent);
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pulse-dot::after {
+    animation: pulse-ring 2.6s var(--ease-quart) infinite;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
 }
