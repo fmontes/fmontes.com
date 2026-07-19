@@ -38,7 +38,19 @@ export default function RootLayout({
       lang="en"
       className={`${instrumentSerif.variable} ${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <noscript>
+          {/* Without JS, reveal everything and flatten the pinned scenes. */}
+          <style>{`
+            [data-reveal] { opacity: 1 !important; transform: none !important; }
+            [data-pin] { height: auto !important; }
+            [data-pin-inner] { position: static !important; height: auto !important; }
+            [data-stack] { gap: 2.5rem !important; }
+            [data-stack] > * { grid-area: auto !important; }
+          `}</style>
+        </noscript>
+        {children}
+      </body>
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
         strategy="afterInteractive"

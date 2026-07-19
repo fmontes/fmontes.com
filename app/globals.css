@@ -11,6 +11,24 @@
   --accent-hover: #2d4f7f;
 }
 
+@theme {
+  --animate-cue: cue 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+
+  @keyframes cue {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    30% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(2.25rem);
+      opacity: 0;
+    }
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-surface: var(--surface);
@@ -43,4 +61,13 @@ body {
   font-family: var(--font-sans), system-ui, sans-serif;
   font-feature-settings: "ss01", "cv11";
   text-wrap: pretty;
+  /* Contain oversized ghost numerals without creating a scroll container
+     (overflow: hidden on body would break position: sticky on iOS). */
+  overflow-x: clip;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
