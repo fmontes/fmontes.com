@@ -1,204 +1,135 @@
+import ScrollStory, { type StoryProject } from "./scroll-story";
+import styles from "./page.module.css";
+
+const projects: StoryProject[] = [
+  {
+    title: "A product intelligence system",
+    situation:
+      "Seven teams used six different tools to answer basic product questions. Now they ask an AI chatbot.",
+    detail:
+      "I built a knowledge vault, a live dashboard pulling from GitHub and Asana, and an MCP server that lets any AI client query strategy, roadmap, and customer data. Sales gets messaging. Leadership gets targets. Engineering gets context. One system, company-wide.",
+  },
+  {
+    title: "Cross-team escalation",
+    situation:
+      "Support, customer success, and engineering had no shared view of progress.",
+    detail:
+      "I designed a workflow that updates itself from Git signals. Customer context stays private, progress stays visible, and customer success no longer has to interrupt engineering for status updates. The entire system was agent-readable from day one.",
+  },
+  {
+    title: "Enterprise content APIs for AI",
+    situation:
+      "The first generation turned 147 raw endpoints into focused tools and moved from prototype to an engineering handoff.",
+    detail:
+      "The second generation reduces that architecture to two tools: search and execute. It applies the code-execution patterns behind modern AI systems to a complex enterprise content platform.",
+  },
+  {
+    title: "Native analytics for an enterprise CMS",
+    situation:
+      "Page views, engagement, conversions, and attribution now live inside the CMS instead of beside it.",
+    detail:
+      "I built the product for an enterprise CMS competing with Adobe, Sitecore, and Contentful. It is now in internal rollout, with general availability targeted for Q2 2026.",
+  },
+];
+
 export default function Home() {
   return (
-    <main className="mx-auto w-full max-w-[660px] px-6 pt-20 pb-32 sm:pt-28 text-[17px] leading-[1.7] text-ink">
-      {/* ── Header: name + socials ─────────────────────────────── */}
-      <header className="flex items-baseline justify-between gap-6 mb-4 sm:mb-6">
-        <p className="font-serif text-[28px] sm:text-[32px] leading-none tracking-[-0.01em] text-ink-strong">
-          Freddy Montes
-        </p>
-        <nav className="flex items-center gap-x-3 sm:gap-x-4 text-[13px] sm:text-[14px]">
-          <Link href="https://linkedin.com/in/fmontes">LinkedIn</Link>
-          <Dot />
-          <Link href="https://x.com/fmontes">Twitter</Link>
-          <Dot />
-          <Link href="https://github.com/fmontes">GitHub</Link>
-        </nav>
-      </header>
+    <main className={styles.page}>
+      <section className={styles.cover} aria-labelledby="hero-title">
+        <header className={styles.header}>
+          <div className={styles.identity}>
+            <p className={styles.name}>Freddy Montes</p>
+            <p className={styles.role}>VP of Product, dotCMS</p>
+          </div>
 
-      <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-muted mb-14">
-        VP of Product, dotCMS
-      </p>
+          <nav className={styles.socials} aria-label="Social links">
+            <SocialLink href="https://linkedin.com/in/fmontes">
+              LinkedIn
+            </SocialLink>
+            <SocialLink href="https://x.com/fmontes">X</SocialLink>
+            <SocialLink href="https://github.com/fmontes">GitHub</SocialLink>
+          </nav>
+        </header>
 
-      {/* ── Hero thesis ────────────────────────────────────────── */}
-      <h1 className="font-serif text-[44px] sm:text-[60px] leading-[1.05] tracking-[-0.015em] text-ink-strong mb-8 text-balance">
-        I build the <em className="text-accent">AI systems</em> I lead teams to
-        ship.
-      </h1>
+        <div className={styles.coverContent}>
+          <h1 id="hero-title" className={styles.heroTitle}>
+            I build the <em>AI systems</em>
+            <br /> I lead teams to ship.
+          </h1>
 
-      <p className="font-serif italic text-[22px] sm:text-[26px] leading-[1.35] text-muted mb-14">
-        Strategy without prototypes is speculation.
-      </p>
-
-      {/* ── Intro ──────────────────────────────────────────────── */}
-      <div className="space-y-5 mb-6">
-        <p>
-          VP of Product. 20 years across engineering, design, architecture, and
-          product.
-        </p>
-        <p>I don&apos;t set strategy and wait. I prototype the system first.</p>
-        <p>
-          Currently VP of Product at{" "}
-          <strong className="font-medium text-ink-strong">dotCMS</strong>, used
-          by organizations including Vodafone, Royal Bank of Canada, BlueCross
-          BlueShield, Telus, White Castle, City Furniture, and Caliber.
-        </p>
-      </div>
-
-      {/* ── Beliefs ────────────────────────────────────────────── */}
-      <section className="mt-24 mb-24">
-        <SectionHeading>What I believe</SectionHeading>
-        <div className="space-y-5 font-serif text-[21px] sm:text-[23px] leading-[1.45] text-ink-strong">
-          <p>
-            AI will collapse the distance between product strategy and
-            execution.
+          <p className={styles.heroThesis}>
+            Strategy without prototypes is speculation.
           </p>
-          <p>The future product leader builds systems, not processes.</p>
-          <p>
-            Most people talking about AI-native product orgs are advising from
-            the outside. <em className="text-accent">I run one.</em>
+
+          <div className={styles.introduction}>
+            <p>
+              VP of Product. Twenty years across engineering, design,
+              architecture, and product.
+            </p>
+            <p>I don&apos;t set strategy and wait. I prototype the system first.</p>
+            <p>
+              Currently at <strong>dotCMS</strong>, used by organizations
+              including Vodafone, Royal Bank of Canada, BlueCross BlueShield,
+              Telus, White Castle, City Furniture, and Caliber.
+            </p>
+          </div>
+        </div>
+
+        <div className={styles.scrollPrompt} aria-hidden="true">
+          <span>Scroll to close the gap</span>
+          <span className={styles.scrollPromptLine} />
+        </div>
+      </section>
+
+      <ScrollStory projects={projects} />
+
+      <section className={styles.epilogue} aria-labelledby="epilogue-title">
+        <div className={styles.epilogueInner}>
+          <p className={styles.duration}>Twenty years building.</p>
+          <h2 id="epilogue-title" className={styles.epilogueTitle}>
+            The work extends beyond the product organization.
+          </h2>
+          <p className={styles.epilogueCopy}>
+            I write and speak about product engineering in the AI era to more
+            than 50,000 developers and product leaders. I co-host a
+            Spanish-language technology podcast for Latin American developers,
+            speak at international conferences, and built a ten-chapter course
+            on headless CMS architecture with Next.js.
           </p>
         </div>
       </section>
 
-      <Rule />
-
-      {/* ── Recently built ────────────────────────────────────── */}
-      <section className="mt-16">
-        <SectionHeading>Recently built</SectionHeading>
-        <p className="font-serif italic text-muted mb-14 text-[18px]">
-          Systems designed and shipped inside a real product organization.
-        </p>
-
-        <div className="space-y-16">
-          <Entry num="01" title="A product intelligence system">
-            <p className="mb-5">
-              Seven teams used six different tools to answer basic product
-              questions. Now they ask an AI chatbot.
-            </p>
-            <p>
-              I built a knowledge vault, a live dashboard pulling from GitHub
-              and Asana, and an MCP server that lets any AI client query
-              strategy, roadmap, and customer data. Sales gets messaging.
-              Leadership gets targets. Engineering gets context. One system,
-              company-wide.
-            </p>
-          </Entry>
-
-          <Entry num="02" title="Cross-team escalation process">
-            <p className="mb-5">
-              Support, customer success, engineering. Three teams, zero shared
-              visibility.
-            </p>
-            <p>
-              I designed a workflow where progress updates itself from Git
-              signals. No status meetings. No spreadsheets. Customer context
-              stays private. Built a dashboard so customer success never has to
-              ping an engineer for updates. Designed the whole thing to be
-              agent-readable from day one.
-            </p>
-          </Entry>
-
-          <Entry num="03" title="MCP server for enterprise content APIs">
-            <p className="mb-5">
-              First generation: 147 raw endpoints redesigned into focused tools.
-              Presented at Blockchain Jungle 2025. Handed off to engineering.
-            </p>
-            <p>
-              Second generation in progress: two tools. Search and execute.
-              Inspired by Cloudflare&apos;s Code Mode and Anthropic&apos;s code
-              execution patterns. Simpler architecture, better results.
-            </p>
-          </Entry>
-
-          <Entry num="04" title="Native analytics for an enterprise CMS">
-            <p className="mb-5">
-              Page views. Engagement. Conversions. Attribution.
-            </p>
-            <p>
-              Built natively into an enterprise CMS competing with Adobe,
-              Sitecore, and Contentful. Now in internal rollout, GA target Q2
-              2026.
-            </p>
-          </Entry>
+      <section className={styles.contact} aria-labelledby="contact-title">
+        <div className={styles.contactInner}>
+          <h2 id="contact-title" className={styles.contactTitle}>
+            Closing the distance between strategy and execution?
+          </h2>
+          <p className={styles.contactCopy}>
+            I&apos;m interested in consulting, speaking, and senior product
+            leadership conversations.
+          </p>
+          <a
+            href="https://linkedin.com/in/fmontes"
+            className={styles.primaryLink}
+          >
+            Start a conversation on LinkedIn
+            <span aria-hidden="true">↗</span>
+          </a>
         </div>
-      </section>
 
-      {/* ── Manifesto cadence ─────────────────────────────────── */}
-      <section className="mt-28 mb-28">
-        <div className="space-y-2 text-[18px] text-muted">
-          <p>I build AI systems for my own work first.</p>
-          <p>Then I figure out what scales.</p>
-          <p>Then I put it in front of teams.</p>
-        </div>
-      </section>
-
-      {/* ── Kicker ────────────────────────────────────────────── */}
-      <p className="font-serif text-[30px] sm:text-[36px] leading-[1.2] tracking-[-0.01em] text-ink-strong mb-28">
-        I don&apos;t theorize about AI-native product orgs.
-        <br />
-        <em className="text-accent">I run one.</em>
-      </p>
-
-      <Rule />
-
-      {/* ── Elsewhere ─────────────────────────────────────────── */}
-      <section className="mt-16">
-        <SectionHeading>Elsewhere</SectionHeading>
-        <p className="mb-10">
-          Writing and speaking about product engineering in the AI era to 50K+
-          developers and product leaders. Co-host of a Spanish-language tech
-          podcast for Latin American developers. Speaker at international
-          conferences. Built a 10-chapter developer course on headless CMS
-          architecture with Next.js.
-        </p>
-        <p className="font-mono text-[12px] tracking-[0.18em] uppercase text-muted">
-          20 years building.
-        </p>
-      </section>
-
-      {/* ── Contact ──────────────────────────────────────────── */}
-      <section className="mt-28">
-        <p className="mb-8 text-ink-strong">
-          Operationalizing AI in your product org. Bridging strategy and
-          engineering execution. If that&apos;s your problem, I&apos;m
-          interested.
-        </p>
-        <nav className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[15px]">
-          <Link href="https://linkedin.com/in/fmontes">LinkedIn</Link>
-          <Dot />
-          <Link href="https://x.com/fmontes">Twitter / X</Link>
-          <Dot />
-          <Link href="https://github.com/fmontes">GitHub</Link>
-        </nav>
+        <footer className={styles.footer}>
+          <p>Freddy Montes</p>
+          <nav aria-label="Footer links">
+            <SocialLink href="https://x.com/fmontes">X</SocialLink>
+            <SocialLink href="https://github.com/fmontes">GitHub</SocialLink>
+          </nav>
+        </footer>
       </section>
     </main>
   );
 }
 
-function Rule() {
-  return <hr className="border-0 h-px bg-rule" />;
-}
-
-function Dot() {
-  return (
-    <span className="text-muted/60" aria-hidden>
-      ·
-    </span>
-  );
-}
-
-function SectionHeading({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex items-center gap-4 mb-8">
-      <span className="h-px w-8 bg-accent" />
-      <h2 className="font-mono text-[11px] tracking-[0.22em] uppercase text-accent">
-        {children}
-      </h2>
-    </div>
-  );
-}
-
-function Link({
+function SocialLink({
   href,
   children,
 }: {
@@ -206,35 +137,8 @@ function Link({
   children: React.ReactNode;
 }) {
   return (
-    <a
-      href={href}
-      className="text-accent underline decoration-rule underline-offset-[5px] hover:decoration-accent transition-[color,transform] active:scale-[0.96]"
-    >
+    <a href={href} className={styles.textLink}>
       {children}
     </a>
-  );
-}
-
-function Entry({
-  num,
-  title,
-  children,
-}: {
-  num: string;
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <article className="grid grid-cols-[auto_1fr] gap-x-6 sm:gap-x-8">
-      <span className="font-serif italic text-[40px] sm:text-[48px] leading-none text-accent select-none pt-1">
-        {num}
-      </span>
-      <div>
-        <h3 className="font-serif text-[26px] sm:text-[30px] leading-[1.2] tracking-[-0.01em] text-ink-strong mb-5 text-balance">
-          {title}
-        </h3>
-        <div className="text-ink">{children}</div>
-      </div>
-    </article>
   );
 }
