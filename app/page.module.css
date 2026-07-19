@@ -1,0 +1,727 @@
+.page {
+  --gutter: clamp(1.5rem, 4vw, 4.5rem);
+  --content: 82rem;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.cover {
+  position: relative;
+  display: flex;
+  min-height: 100svh;
+  flex-direction: column;
+  padding: clamp(1.5rem, 4vw, 3.5rem) var(--gutter)
+    clamp(4.5rem, 8vh, 7rem);
+}
+
+.header,
+.footer {
+  display: flex;
+  width: min(100%, var(--content));
+  margin-inline: auto;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.identity {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.name {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(1.65rem, 2.2vw, 2rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.role,
+.projectProgress,
+.duration,
+.scrollPrompt,
+.endpoint,
+.prototype,
+.resultLabel {
+  color: var(--muted);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.socials,
+.footer nav {
+  display: flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 1.75rem);
+}
+
+.textLink {
+  position: relative;
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  color: var(--accent);
+  font-size: 0.9rem;
+  text-decoration-color: var(--rule);
+  transition:
+    color 180ms var(--ease-out-quint),
+    text-decoration-color 180ms var(--ease-out-quint);
+}
+
+.textLink:hover {
+  text-decoration-color: var(--accent);
+}
+
+.textLink:active {
+  transform: translateY(1px);
+}
+
+.coverContent {
+  display: flex;
+  width: min(100%, 72rem);
+  margin: auto;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.75rem, 4vh, 3rem);
+  padding-block: clamp(4rem, 9vh, 7.5rem);
+  text-align: center;
+}
+
+.heroTitle {
+  max-width: 15ch;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(3.15rem, 7vw, 6rem);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.heroTitle em {
+  color: var(--accent);
+  font-weight: 400;
+}
+
+.heroThesis {
+  color: var(--muted);
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(1.35rem, 2.3vw, 1.85rem);
+  font-style: italic;
+  line-height: 1.25;
+}
+
+.introduction {
+  display: flex;
+  max-width: 58ch;
+  flex-direction: column;
+  gap: 0.8rem;
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+.introduction strong {
+  font-weight: 600;
+}
+
+.scrollPrompt {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  color: var(--accent);
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.scrollPromptLine {
+  display: block;
+  width: 2.5rem;
+  height: 1px;
+  overflow: hidden;
+  background: var(--rule);
+}
+
+.scrollPromptLine::after {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--accent);
+  content: "";
+  animation: travel 2.4s var(--ease-out-quint) infinite;
+  transform: translateX(-105%);
+}
+
+@keyframes travel {
+  0%,
+  25% {
+    transform: translateX(-105%);
+  }
+  70%,
+  100% {
+    transform: translateX(105%);
+  }
+}
+
+.story {
+  position: relative;
+  border-block: 1px solid var(--rule);
+}
+
+.storyStage {
+  display: none;
+}
+
+.storyFlow {
+  width: min(100%, 58rem);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.storyStep {
+  position: relative;
+  display: flex;
+  min-height: 92svh;
+  align-items: center;
+  justify-content: center;
+  padding-block: clamp(6rem, 16vh, 11rem);
+}
+
+.storyStep:not(:last-child)::after {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  height: clamp(3rem, 10vh, 6rem);
+  background: var(--accent);
+  content: "";
+  opacity: 0.45;
+}
+
+.sceneCopy {
+  display: flex;
+  width: min(100%, 45rem);
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.sceneStatement,
+.resolutionTitle {
+  max-width: 17ch;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(2.6rem, 5.6vw, 5rem);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.sceneSupport {
+  max-width: 36ch;
+  color: var(--muted);
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(1.25rem, 2.1vw, 1.75rem);
+  line-height: 1.35;
+}
+
+.projectScene {
+  gap: 1.2rem;
+}
+
+.projectProgress {
+  color: var(--accent);
+}
+
+.projectTitle {
+  max-width: 19ch;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(2.4rem, 4.6vw, 4.25rem);
+  font-weight: 400;
+  line-height: 1.03;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.projectSituation {
+  max-width: 49ch;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(1.2rem, 1.8vw, 1.55rem);
+  line-height: 1.4;
+}
+
+.projectDetail,
+.method,
+.resolutionContext {
+  max-width: 64ch;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.resolutionScene {
+  gap: 1.2rem;
+}
+
+.resolutionContext {
+  max-width: 48ch;
+}
+
+.resolutionTitle {
+  color: var(--accent);
+  font-style: italic;
+}
+
+.method {
+  max-width: 49ch;
+}
+
+.story[data-enhanced="true"] .storyStage {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: block;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--background);
+}
+
+.story[data-enhanced="true"] .storyFlow {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin-top: -100svh;
+  padding: 0;
+}
+
+.story[data-enhanced="true"] .storyStep {
+  min-height: 115svh;
+  padding: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.story[data-enhanced="true"] .storyStep::after {
+  display: none;
+}
+
+.storyField {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.endpoint {
+  position: absolute;
+  top: 12%;
+  z-index: 3;
+  color: var(--accent);
+  will-change: transform;
+}
+
+.strategy {
+  left: clamp(2.5rem, 7vw, 8rem);
+}
+
+.execution {
+  right: clamp(2.5rem, 7vw, 8rem);
+}
+
+.axis {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  container-type: inline-size;
+  width: min(78vw, 68rem);
+  height: 2rem;
+  transform: translateX(-50%);
+}
+
+.axisLine {
+  position: absolute;
+  top: 0.95rem;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--accent);
+  transform-origin: center;
+  will-change: transform;
+}
+
+.prototype {
+  position: absolute;
+  top: -1.3rem;
+  left: 50%;
+  color: var(--accent);
+  transform: translateX(-50%);
+}
+
+.evidenceMarks {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  padding-inline: 10%;
+}
+
+.evidenceMark {
+  display: block;
+  width: 0.62rem;
+  height: 0.62rem;
+  margin-inline: auto;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 0 0.25rem var(--background);
+}
+
+.resultMark {
+  position: absolute;
+  top: 0.95rem;
+  left: 50%;
+  z-index: 2;
+  width: clamp(4.5rem, 5.5vw, 6rem);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  will-change: transform, opacity;
+}
+
+.resultDial {
+  position: absolute;
+  inset: 0;
+  display: block;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  background: var(--background);
+  box-shadow: 0 0 0 0.45rem var(--background);
+}
+
+.resultDial::before {
+  position: absolute;
+  inset: 31%;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  content: "";
+  opacity: 0.42;
+}
+
+.resultProof,
+.resultCore {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.resultProof {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.resultProof:nth-child(1) {
+  top: -0.25rem;
+  left: 50%;
+  translate: -50% 0;
+}
+
+.resultProof:nth-child(2) {
+  top: 50%;
+  right: -0.25rem;
+  translate: 0 -50%;
+}
+
+.resultProof:nth-child(3) {
+  bottom: -0.25rem;
+  left: 50%;
+  translate: -50% 0;
+}
+
+.resultProof:nth-child(4) {
+  top: 50%;
+  left: -0.25rem;
+  translate: 0 -50%;
+}
+
+.resultCore {
+  top: 50%;
+  left: 50%;
+  width: 0.85rem;
+  height: 0.85rem;
+  translate: -50% -50%;
+}
+
+.resultLabel {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  left: 50%;
+  color: var(--accent);
+  translate: -50% 0;
+  white-space: nowrap;
+}
+
+.stageScenes {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  width: min(calc(100% - 3rem), 50rem);
+  transform: translateX(-50%);
+}
+
+.stageScene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  will-change: transform, opacity, filter;
+}
+
+.stageScene .sceneStatement {
+  font-size: clamp(2.6rem, 4.7vw, 4.5rem);
+}
+
+.stageScene .projectTitle {
+  font-size: clamp(2.35rem, 4vw, 3.8rem);
+}
+
+.stageScene .resolutionScene {
+  padding-top: clamp(4rem, 7vh, 5.5rem);
+}
+
+.epilogue,
+.contact {
+  display: flex;
+  min-height: 96svh;
+  flex-direction: column;
+  padding: clamp(6rem, 12vh, 10rem) var(--gutter)
+    clamp(2rem, 5vh, 4rem);
+}
+
+.epilogueInner,
+.contactInner {
+  display: flex;
+  width: min(100%, 55rem);
+  margin: auto;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+  text-align: center;
+}
+
+.duration {
+  color: var(--accent);
+}
+
+.epilogueTitle,
+.contactTitle {
+  max-width: 17ch;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(2.8rem, 5.8vw, 5.5rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.epilogueCopy,
+.contactCopy {
+  max-width: 64ch;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.contact {
+  border-top: 1px solid var(--rule);
+}
+
+.contactTitle {
+  max-width: 16ch;
+}
+
+.contactCopy {
+  max-width: 48ch;
+}
+
+.primaryLink {
+  display: inline-flex;
+  min-height: 3.25rem;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--accent);
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(1.35rem, 2.4vw, 1.8rem);
+  line-height: 1.2;
+  text-decoration-color: var(--rule);
+  transition:
+    gap 220ms var(--ease-out-quint),
+    text-decoration-color 220ms var(--ease-out-quint);
+}
+
+.primaryLink:hover {
+  gap: 1rem;
+  text-decoration-color: var(--accent);
+}
+
+.primaryLink:active {
+  transform: translateY(1px);
+}
+
+.footer {
+  margin-top: auto;
+  align-items: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 42rem) {
+  .cover {
+    padding-top: 1.5rem;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+
+  .identity {
+    gap: 0.45rem;
+  }
+
+  .socials {
+    min-height: auto;
+  }
+
+  .heroTitle {
+    font-size: clamp(3rem, 14vw, 4.35rem);
+    line-height: 0.98;
+  }
+
+  .heroTitle br {
+    display: none;
+  }
+
+  .introduction {
+    font-size: 1rem;
+  }
+
+  .scrollPrompt {
+    font-size: 0.65rem;
+  }
+
+  .storyFlow {
+    padding-inline: var(--gutter);
+  }
+
+  .storyStep {
+    min-height: 100svh;
+    padding-block: 7rem;
+  }
+
+  .storyStep::before {
+    position: absolute;
+    top: 1.5rem;
+    left: 50%;
+    width: 0.55rem;
+    height: 0.55rem;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    background: var(--background);
+    box-shadow: 0 0 0 0.25rem var(--background);
+    content: "";
+    transform: translateX(-50%);
+  }
+
+  .sceneStatement,
+  .resolutionTitle {
+    font-size: clamp(2.8rem, 12vw, 4rem);
+  }
+
+  .projectTitle {
+    font-size: clamp(2.5rem, 11vw, 3.65rem);
+  }
+
+  .projectSituation {
+    font-size: 1.22rem;
+  }
+
+  .projectDetail,
+  .method,
+  .resolutionContext {
+    font-size: 1rem;
+  }
+
+  .epilogue,
+  .contact {
+    min-height: 100svh;
+  }
+
+  .footer {
+    align-items: flex-end;
+  }
+}
+
+@media (max-height: 47rem) and (min-width: 56.25rem) {
+  .story[data-enhanced="true"] .storyStep {
+    min-height: 145svh;
+  }
+
+  .endpoint {
+    top: 9%;
+  }
+
+  .axis {
+    top: 16%;
+  }
+
+  .stageScenes {
+    top: 26%;
+  }
+
+  .stageScene .sceneStatement {
+    font-size: clamp(2.2rem, 4vw, 3.6rem);
+  }
+
+  .stageScene .projectTitle {
+    font-size: clamp(2rem, 3.4vw, 3.1rem);
+  }
+
+  .stageScene .sceneCopy {
+    gap: 0.8rem;
+  }
+
+  .stageScene .projectSituation {
+    font-size: 1.15rem;
+  }
+
+  .stageScene .projectDetail {
+    line-height: 1.45;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollPromptLine::after {
+    animation: none;
+    transform: none;
+  }
+}
