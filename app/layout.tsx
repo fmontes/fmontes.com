@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { Instrument_Serif, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-
-const GA_ID = "G-44WBKT7YY5";
 
 const instrumentSerif = Instrument_Serif({
   variable: "--font-serif",
@@ -39,18 +36,6 @@ export default function RootLayout({
       className={`${instrumentSerif.variable} ${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-        strategy="afterInteractive"
-      />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${GA_ID}');
-        `}
-      </Script>
     </html>
   );
 }

@@ -1,5 +1,10 @@
+import Script from "next/script";
+
+const GA_ID = "G-44WBKT7YY5";
+
 export default function Home() {
   return (
+    <>
     <main className="mx-auto w-full max-w-[660px] px-6 pt-20 pb-32 sm:pt-28 text-[17px] leading-[1.7] text-ink">
       {/* ── Header: name + socials ─────────────────────────────── */}
       <header className="flex items-baseline justify-between gap-6 mb-4 sm:mb-6">
@@ -172,6 +177,27 @@ export default function Home() {
         </nav>
       </section>
     </main>
+    <GoogleAnalytics />
+    </>
+  );
+}
+
+function GoogleAnalytics() {
+  return (
+    <>
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${GA_ID}');
+        `}
+      </Script>
+    </>
   );
 }
 
